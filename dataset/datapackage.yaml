@@ -423,10 +423,8 @@ resources:
         - name: objeto_processo
           type: string
         - name: unnamed_15
-          type: astring
-        - name: nome_empresarial_nome_fornecedor
           type: string
-        - name: unnamed_17
+        - name: nome_empresarial_nome_fornecedor
           type: string
         - name: cnpj_cpf_fornecedor_formatado
           type: string
