@@ -1981,35 +1981,35 @@
             <div class="filter-container">
                 <div class="filters-row">
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">calendar_today</i>ANO</label>
+                        <label class="filter-label"><i class="material-icons"></i>ANO</label>
                         <select class="form-select modern-select" id="filtroAnoVG">
                             <option value="">Todos</option>
                             ${opcoes.anos.map(a => `<option value="${a}" ${a == 2026 ? 'selected' : ''}>${a}</option>`).join('')}
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">business</i>ÓRGÃO</label>
+                        <label class="filter-label"><i class="material-icons"></i>ÓRGÃO</label>
                         <select class="form-select modern-select" id="filtroOrgaoVG">
                             <option value="">Todos</option>
                             ${opcoes.orgaos.map(o => `<option value="${o}">${o}</option>`).join('')}
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">gavel</i>MODALIDADE</label>
+                        <label class="filter-label"><i class="material-icons"></i>MODALIDADE</label>
                         <select class="form-select modern-select" id="filtroModalidadeVG">
                             <option value="">Todas</option>
                             ${opcoes.modalidades.map(m => `<option value="${m}">${m}</option>`).join('')}
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">info</i>SITUAÇÃO</label>
+                        <label class="filter-label"><i class="material-icons"></i>SITUAÇÃO</label>
                         <select class="form-select modern-select" id="filtroSituacaoVG">
                             <option value="">Todas</option>
                             ${opcoes.situacoes.map(s => `<option value="${s}">${s}</option>`).join('')}
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">warning</i>EMERGENCIAL</label>
+                        <label class="filter-label"><i class="material-icons"></i>EMERGENCIAL</label>
                         <select class="form-select modern-select" id="filtroEmergencialVG">
                             <option value="">Todos</option>
                             <option value="sim">Sim</option>
@@ -2020,7 +2020,7 @@
                 
                 <div class="filters-row">
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">category</i>TIPO</label>
+                        <label class="filter-label"><i class="material-icons"></i>TIPO</label>
                         <select class="form-select modern-select" id="filtroTipoVG">
                             <option value="">Todos</option>
                             ${opcoes.grupos.map(g => `<option value="${g}">${g}</option>`).join('')}
@@ -2028,7 +2028,7 @@
                     </div>
                     <div class="filter-buttons-group">
                         <button class="btn-pesquisa" onclick="aplicarFiltrosVG()"><i class="material-icons me-2">search</i>Pesquisar</button>
-                        <button class="btn-secondary-custom" onclick="limparFiltrosVG()"><i class="material-icons me-2">clear</i>Limpar</button>
+                        <button class="btn-secondary-custom" onclick="limparFiltrosVG()"><i class="material-icons me-2">clear</i>Limpar Filtros</button>
                     </div>
                 </div>
             </div>
@@ -2314,28 +2314,28 @@
             <div class="filter-container">
                 <div class="filters-row">
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">calendar_today</i>ANO</label>
+                        <label class="filter-label"><i class="material-icons"></i>ANO</label>
                         <select class="form-select modern-select" id="filtroAnoCL">
                             <option value="">Todos</option>
                             ${opcoes.anos.map(a => `<option value="${a}" ${a == 2026 ? 'selected' : ''}>${a}</option>`).join('')}
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">business</i>ÓRGÃO</label>
+                        <label class="filter-label"><i class="material-icons"></i>ÓRGÃO</label>
                         <select class="form-select modern-select" id="filtroOrgaoCL">
                             <option value="">Todos</option>
                             ${opcoes.orgaos.map(o => `<option value="${o}">${o}</option>`).join('')}
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">gavel</i>MODALIDADE</label>
+                        <label class="filter-label"><i class="material-icons"></i>MODALIDADE</label>
                         <select class="form-select modern-select" id="filtroModalidadeCL">
                             <option value="">Todas</option>
                             ${opcoes.modalidades.map(m => `<option value="${m}">${m}</option>`).join('')}
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">info</i>SITUAÇÃO PROCESSO</label>
+                        <label class="filter-label"><i class="material-icons"></i>SITUAÇÃO PROCESSO</label>
                         <select class="form-select modern-select" id="filtroSituacaoCL">
                             <option value="">Todas</option>
                             ${opcoes.situacoes.map(s => `<option value="${s}">${s}</option>`).join('')}
@@ -2345,14 +2345,14 @@
                 
                 <div class="filters-row">
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">assignment</i>SITUAÇÃO ITEM</label>
+                        <label class="filter-label"><i class="material-icons"></i>SITUAÇÃO ITEM</label>
                         <select class="form-select modern-select" id="filtroSituacaoItemCL">
                             <option value="">Todas</option>
                             ${opcoes.situacoesItem ? opcoes.situacoesItem.map(s => `<option value="${s}">${s}</option>`).join('') : ''}
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">warning</i>EMERGENCIAL</label>
+                        <label class="filter-label"><i class="material-icons"></i>EMERGENCIAL</label>
                         <select class="form-select modern-select" id="filtroEmergencialCL">
                             <option value="">Todos</option>
                             <option value="sim">Sim</option>
@@ -2360,14 +2360,14 @@
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">category</i>TIPO</label>
+                        <label class="filter-label"><i class="material-icons"></i>TIPO</label>
                         <select class="form-select modern-select" id="filtroTipoCL">
                             <option value="">Todos</option>
                             ${opcoes.grupos.map(g => `<option value="${g}">${g}</option>`).join('')}
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">receipt</i>Nº PROCESSO</label>
+                        <label class="filter-label"><i class="material-icons"></i>Nº PROCESSO</label>
                         <input type="text" class="form-control" id="filtroProcessoCL" list="processosListCL" placeholder="Digite ou selecione...">
                         <datalist id="processosListCL">
                             ${opcoes.processos.map(p => `<option value="${p}">`).join('')}
@@ -2377,18 +2377,18 @@
                 
                 <div class="filters-row">
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">person</i>FORNECEDOR</label>
+                        <label class="filter-label"><i class="material-icons"></i>FORNECEDOR</label>
                         <input type="text" class="form-control" id="filtroFornecedorCL" list="fornecedoresList" placeholder="Digite ou selecione...">
                         <datalist id="fornecedoresList">
                             ${opcoes.fornecedores.map(f => `<option value="${f}">`).join('')}
                         </datalist>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">badge</i>CNPJ/CPF</label>
+                        <label class="filter-label"><i class="material-icons"></i>CNPJ/CPF</label>
                         <input type="text" class="form-control" id="filtroCnpjCL" placeholder="Digite...">
                     </div>
                     <div class="filter-group" style="flex: 2;">
-                        <label class="filter-label"><i class="material-icons">description</i>OBJETO</label>
+                        <label class="filter-label"><i class="material-icons"></i>OBJETO</label>
                         <input type="text" class="form-control" id="filtroObjetoCL" placeholder="Palavra-chave no objeto...">
                     </div>
                     <div class="filter-buttons-group">
@@ -2787,42 +2787,42 @@
             <div class="filter-container">
                 <div class="filters-row">
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">calendar_today</i>ANO</label>
+                        <label class="filter-label"><i class="material-icons"></i>ANO</label>
                         <select class="form-select modern-select" id="filtroAnoITEM">
                             <option value="">Todos</option>
                             ${opcoes.anos.map(a => `<option value="${a}" ${a == 2026 ? 'selected' : ''}>${a}</option>`).join('')}
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">business</i>ÓRGÃO</label>
+                        <label class="filter-label"><i class="material-icons"></i>ÓRGÃO</label>
                         <input type="text" class="form-control" id="filtroOrgaoITEM" list="orgaosItemList" placeholder="Digite ou selecione...">
                         <datalist id="orgaosItemList">
                             ${opcoes.orgaos.map(o => `<option value="${o}">`).join('')}
                         </datalist>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">sell</i>CÓD. ELEMENTO</label>
+                        <label class="filter-label"><i class="material-icons"></i>CÓD. ELEMENTO</label>
                         <input type="text" class="form-control" id="filtroElementoITEM" list="elementosList" placeholder="Digite ou selecione...">
                         <datalist id="elementosList">
                             ${opcoes.elementos.map(e => `<option value="${e}">`).join('')}
                         </datalist>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">description</i>DESCRIÇÃO ELEMENTO</label>
+                        <label class="filter-label"><i class="material-icons"></i>DESCRIÇÃO ELEMENTO</label>
                         <input type="text" class="form-control" id="filtroDescricaoElementoITEM" placeholder="Digite parte da descrição...">
                     </div>
                 </div>
                 
                 <div class="filters-row">
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">person</i>FORNECEDOR</label>
+                        <label class="filter-label"><i class="material-icons"></i>FORNECEDOR</label>
                         <input type="text" class="form-control" id="filtroFornecedorITEM" list="fornecedoresItemList" placeholder="Digite ou selecione...">
                         <datalist id="fornecedoresItemList">
                             ${opcoes.fornecedores.map(f => `<option value="${f}">`).join('')}
                         </datalist>
                     </div>
                     <div class="filter-group">
-                        <label class="filter-label"><i class="material-icons">receipt</i>Nº PROCESSO</label>
+                        <label class="filter-label"><i class="material-icons"></i>Nº PROCESSO</label>
                         <input type="text" class="form-control" id="filtroProcessoITEM" list="processosItemList" placeholder="Digite ou selecione...">
                         <datalist id="processosItemList">
                             ${opcoes.processos.map(p => `<option value="${p}">`).join('')}
@@ -3830,7 +3830,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <div class="card-stats p-4 bg-white rounded shadow-sm h-100">
-                            <h4 class="fw-bold text-start mb-3"><i class="material-icons me-2">open_in_new</i> Portal de Dados Abertos</h4>
+                            <h4 class="fw-bold text-start mb-3"><i class="material-icons me-2"></i> Portal de Dados Abertos</h4>
                             <p class="text-muted text-justify" style="font-size: 13px; text-align: justify;">
                                 Acesse o conjunto de dados de Licitações no Portal de Dados Abertos de Minas Gerais.
                                 Lá você encontrará os arquivos completos de licitações e itens para todos os anos disponíveis.
@@ -3839,7 +3839,7 @@
                                 <a href="${PORTAL_DADOS_ABERTOS_URL}" 
                                    target="_blank" 
                                    class="btn-export text-decoration-none fw-bold d-inline-block px-4 py-2">
-                                    <i class="material-icons me-2" style="font-size: 16px; vertical-align: middle;">launch</i>Acessar Portal
+                                    <i class="material-icons me-2" style="font-size: 16px; vertical-align: middle;">launch</i>Acessar Portal Dados MG
                                 </a>
                             </div>
                         </div>
@@ -3847,12 +3847,9 @@
                 </div>
 
                 <div class="mt-4">
-                    <h5 class="mb-3" style="color: var(--primary-dark); font-weight: 700;">Metadados - Estrutura de Dados</h5>
+                    <h5 class="mb-3" style="color: var(--primary-dark); font-weight: 700;">METADADOS - Estrutura de Dados</h5>
                     
                     <div class="metadata-container mb-4">
-                        <div class="metadata-header">
-                            <i class="material-icons me-2" style="vertical-align: middle;">gavel</i> Licitações
-                        </div>
                         <div class="table-responsive">
                             <table class="metadata-table">
                                 <thead>
