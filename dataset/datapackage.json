@@ -1,10 +1,9 @@
 {
   "name": "portal_licitacoes_mg",
-  "owner_org": "",
+  "owner_org": "secretaria-de-estado-de-planejamento-e-gestao-seplag",
   "profile": "data-package",
   "resources": [
     {
-      "description": "Insira a descrição/explicação detalhada deste recurso.",
       "dialect": {
         "delimiter": ";"
       },
@@ -50,15 +49,15 @@
           },
           {
             "name": "unnamed_8",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "unnamed_9",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "unnamed_10",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "quantidade_item_pedido",
@@ -75,10 +74,9 @@
         ]
       },
       "scheme": "file",
-      "title": "Insira um título humanamente legível para este recurso."
+      "title": "Item 2022"
     },
     {
-      "description": "Insira a descrição/explicação detalhada deste recurso.",
       "dialect": {
         "delimiter": ";"
       },
@@ -124,15 +122,15 @@
           },
           {
             "name": "unnamed_8",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "unnamed_9",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "unnamed_10",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "quantidade_item_pedido",
@@ -149,10 +147,9 @@
         ]
       },
       "scheme": "file",
-      "title": "Insira um título humanamente legível para este recurso."
+      "title": "Item 2023"
     },
     {
-      "description": "Insira a descrição/explicação detalhada deste recurso.",
       "dialect": {
         "delimiter": ";"
       },
@@ -198,15 +195,15 @@
           },
           {
             "name": "unnamed_8",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "unnamed_9",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "unnamed_10",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "quantidade_item_pedido",
@@ -223,10 +220,9 @@
         ]
       },
       "scheme": "file",
-      "title": "Insira um título humanamente legível para este recurso."
+      "title": "Item 2024"
     },
     {
-      "description": "Insira a descrição/explicação detalhada deste recurso.",
       "dialect": {
         "delimiter": ";"
       },
@@ -272,15 +268,15 @@
           },
           {
             "name": "unnamed_8",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "unnamed_9",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "unnamed_10",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "quantidade_item_pedido",
@@ -297,10 +293,9 @@
         ]
       },
       "scheme": "file",
-      "title": "Insira um título humanamente legível para este recurso."
+      "title": "Item 2025"
     },
     {
-      "description": "Insira a descrição/explicação detalhada deste recurso.",
       "dialect": {
         "delimiter": ";"
       },
@@ -346,15 +341,15 @@
           },
           {
             "name": "unnamed_8",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "unnamed_9",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "unnamed_10",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "quantidade_item_pedido",
@@ -371,10 +366,9 @@
         ]
       },
       "scheme": "file",
-      "title": "Insira um título humanamente legível para este recurso."
+      "title": "Item 2026"
     },
     {
-      "description": "Insira a descrição/explicação detalhada deste recurso.",
       "dialect": {
         "delimiter": ";"
       },
@@ -448,7 +442,7 @@
           },
           {
             "name": "unnamed_15",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "nome_empresarial_nome_fornecedor",
@@ -485,10 +479,9 @@
         ]
       },
       "scheme": "file",
-      "title": "Insira um título humanamente legível para este recurso."
+      "title": "Licitações 2022"
     },
     {
-      "description": "Insira a descrição/explicação detalhada deste recurso.",
       "dialect": {
         "delimiter": ";"
       },
@@ -562,7 +555,7 @@
           },
           {
             "name": "unnamed_15",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "nome_empresarial_nome_fornecedor",
@@ -599,10 +592,9 @@
         ]
       },
       "scheme": "file",
-      "title": "Insira um título humanamente legível para este recurso."
+      "title": "Licitações 2023"
     },
     {
-      "description": "Insira a descrição/explicação detalhada deste recurso.",
       "dialect": {
         "delimiter": ";"
       },
@@ -676,7 +668,7 @@
           },
           {
             "name": "unnamed_15",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "nome_empresarial_nome_fornecedor",
@@ -713,10 +705,9 @@
         ]
       },
       "scheme": "file",
-      "title": "Insira um título humanamente legível para este recurso."
+      "title": "Licitações 2024"
     },
     {
-      "description": "Insira a descrição/explicação detalhada deste recurso.",
       "dialect": {
         "delimiter": ";"
       },
@@ -790,15 +781,11 @@
           },
           {
             "name": "unnamed_15",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "nome_empresarial_nome_fornecedor",
             "type": "string"
-          },
-          {
-            "name": "unnamed_17",
-            "type": "any"
           },
           {
             "name": "cnpj_cpf_fornecedor_formatado",
@@ -831,10 +818,9 @@
         ]
       },
       "scheme": "file",
-      "title": "Insira um título humanamente legível para este recurso."
+      "title": "Licitações 2025"
     },
     {
-      "description": "Insira a descrição/explicação detalhada deste recurso.",
       "dialect": {
         "delimiter": ";"
       },
@@ -908,7 +894,7 @@
           },
           {
             "name": "unnamed_15",
-            "type": "any"
+            "type": "string"
           },
           {
             "name": "nome_empresarial_nome_fornecedor",
@@ -945,8 +931,8 @@
         ]
       },
       "scheme": "file",
-      "title": "Insira um título humanamente legível para este recurso."
+      "title": "Licitações 2026"
     }
   ],
-  "title": "Portal_licitacoes_mg"
+  "title": "Portal Licitações MG"
 }
