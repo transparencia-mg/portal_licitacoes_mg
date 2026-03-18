@@ -1,9 +1,8 @@
 name: portal_licitacoes_mg
-owner_org: ''
+owner_org: secretaria-de-estado-de-planejamento-e-gestao-seplag
 profile: data-package
 resources:
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -30,11 +29,11 @@ resources:
         - name: item_material_servico
           type: string
         - name: unnamed_8
-          type: any
+          type: string
         - name: unnamed_9
-          type: any
+          type: string
         - name: unnamed_10
-          type: any
+          type: string
         - name: quantidade_item_pedido
           type: integer
         - name: valor_unitario_referencia_item_pedido
@@ -42,9 +41,8 @@ resources:
         - name: valor_total_referencia_item_pedido
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Item 2022
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -71,11 +69,11 @@ resources:
         - name: item_material_servico
           type: string
         - name: unnamed_8
-          type: any
+          type: string
         - name: unnamed_9
-          type: any
+          type: string
         - name: unnamed_10
-          type: any
+          type: string
         - name: quantidade_item_pedido
           type: integer
         - name: valor_unitario_referencia_item_pedido
@@ -83,9 +81,8 @@ resources:
         - name: valor_total_referencia_item_pedido
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Item 2023
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -112,11 +109,11 @@ resources:
         - name: item_material_servico
           type: string
         - name: unnamed_8
-          type: any
+          type: string
         - name: unnamed_9
-          type: any
+          type: string
         - name: unnamed_10
-          type: any
+          type: string
         - name: quantidade_item_pedido
           type: integer
         - name: valor_unitario_referencia_item_pedido
@@ -124,9 +121,8 @@ resources:
         - name: valor_total_referencia_item_pedido
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Item 2024
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -153,11 +149,11 @@ resources:
         - name: item_material_servico
           type: string
         - name: unnamed_8
-          type: any
+          type: string
         - name: unnamed_9
-          type: any
+          type: string
         - name: unnamed_10
-          type: any
+          type: string
         - name: quantidade_item_pedido
           type: integer
         - name: valor_unitario_referencia_item_pedido
@@ -165,9 +161,8 @@ resources:
         - name: valor_total_referencia_item_pedido
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Item 2025
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -194,11 +189,11 @@ resources:
         - name: item_material_servico
           type: string
         - name: unnamed_8
-          type: any
+          type: string
         - name: unnamed_9
-          type: any
+          type: string
         - name: unnamed_10
-          type: any
+          type: string
         - name: quantidade_item_pedido
           type: integer
         - name: valor_unitario_referencia_item_pedido
@@ -206,9 +201,8 @@ resources:
         - name: valor_total_referencia_item_pedido
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Item 2026
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -249,7 +243,7 @@ resources:
         - name: objeto_processo
           type: string
         - name: unnamed_15
-          type: any
+          type: string
         - name: nome_empresarial_nome_fornecedor
           type: string
         - name: cnpj_cpf_fornecedor_formatado
@@ -267,9 +261,8 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Licitações 2022
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -310,7 +303,7 @@ resources:
         - name: objeto_processo
           type: string
         - name: unnamed_15
-          type: any
+          type: string
         - name: nome_empresarial_nome_fornecedor
           type: string
         - name: cnpj_cpf_fornecedor_formatado
@@ -328,9 +321,8 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Licitações 2023
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -371,7 +363,7 @@ resources:
         - name: objeto_processo
           type: string
         - name: unnamed_15
-          type: any
+          type: string
         - name: nome_empresarial_nome_fornecedor
           type: string
         - name: cnpj_cpf_fornecedor_formatado
@@ -389,9 +381,8 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Licitações 2024
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -432,11 +423,11 @@ resources:
         - name: objeto_processo
           type: string
         - name: unnamed_15
-          type: any
+          type: astring
         - name: nome_empresarial_nome_fornecedor
           type: string
         - name: unnamed_17
-          type: any
+          type: string
         - name: cnpj_cpf_fornecedor_formatado
           type: string
         - name: numero_parecer_juridico
@@ -452,9 +443,8 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Licitações 2025
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -495,7 +485,7 @@ resources:
         - name: objeto_processo
           type: string
         - name: unnamed_15
-          type: any
+          type: string
         - name: nome_empresarial_nome_fornecedor
           type: string
         - name: cnpj_cpf_fornecedor_formatado
@@ -513,5 +503,5 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-title: Portal_licitacoes_mg
+    title: Licitações 2026
+title: Portal Licitações MG
