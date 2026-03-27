@@ -1335,7 +1335,8 @@
         objeto_processo: true,
         nome_empresarial_nome_fornecedor: true,
         edital: true,
-        situacao_compra_item_processo: true
+        situacao_compra_item_processo: true,
+	valor_estimado: true
     };
 
     // Ordem original das colunas
@@ -1349,6 +1350,7 @@
         'nome_empresarial_nome_fornecedor',
         'situacao_processo',
         'situacao_compra_item_processo',
+	'valor_estimado',
         'valor_total_homologado',
         'edital',
         'acoes'
@@ -1810,6 +1812,7 @@
             const orgao = item['nome_orgao_entidade_compra'] || 'Não informado';
             const modalidade = item['procedimento_contratacao_detalhamento_1'] || 'Não informado';
             const tipo = item['procedimento_contratacao_grupo'] || 'Não informado';
+	    const valorEstimado = parseFloat(item['valor_total_referencia_item_processo']?.toString().replace(',', '.')) || 0;
             const valor = parseFloat(item['valor_total_homologado']?.toString().replace(',', '.')) || 0;
             
             const chave = `${codigo}|${modalidade}|${tipo}`;
@@ -1820,6 +1823,7 @@
                     orgao,
                     modalidade,
                     tipo,
+		    valor_estimado_total: 0,
                     valor_total: 0,
                     processos: new Set()
                 });
@@ -1827,6 +1831,7 @@
             
             const registro = mapa.get(chave);
             registro.valor_total += valor;
+	    registro.valor_estimado_total += valorEstimado;
             if (item['numero_processo_formatado']) {
                 registro.processos.add(item['numero_processo_formatado']);
             }
@@ -2101,6 +2106,7 @@
                                 <th class="sortable-header" onclick="toggleSortVG('modalidade')">Modalidade <i class="material-icons">unfold_more</i></th>
                                 <th class="sortable-header" onclick="toggleSortVG('tipo')">Tipo <i class="material-icons">unfold_more</i></th>
                                 <th class="sortable-header text-center" onclick="toggleSortVG('total_processos')">Processos <i class="material-icons">unfold_more</i></th>
+				<th class="sortable-header text-right" onclick="toggleSortVG('valor_estimado_total')">Valor Estimado <i class="material-icons">unfold_more</i></th>
                                 <th class="sortable-header text-right" onclick="toggleSortVG('valor_total')">Valor Total <i class="material-icons">unfold_more</i></th>
                             </tr>
                         </thead>
@@ -2134,6 +2140,7 @@
                 <td>${item.modalidade}</td>
                 <td>${item.tipo}</td>
                 <td class="text-center">${item.total_processos}</td>
+		<td class="text-right">${formatarMoeda(item.valor_estimado_total)}</td>
                 <td class="text-right">${formatarMoeda(item.valor_total)}</td>
             </tr>
         `).join('');
@@ -2142,6 +2149,16 @@
     }
 
     function toggleSortVG(coluna) {
+    	const colunaReal = {
+        	'codigo': 'codigo',
+        	'orgao': 'orgao',
+        	'modalidade': 'modalidade',
+        	'tipo': 'tipo',
+        	'total_processos': 'total_processos',
+        	'valor_total': 'valor_total',
+        	'valor_estimado_total': 'valor_estimado_total'  // NOVO
+    	}[coluna] || coluna;
+	
         if (sortConfig.visaoGeral.column === coluna) {
             sortConfig.visaoGeral.direction = sortConfig.visaoGeral.direction === 'asc' ? 'desc' : 'asc';
         } else {
@@ -2461,6 +2478,8 @@
                 cabecalhos.push('<th class="sortable-header" onclick="toggleSortCL(\'situacao_processo\')">Situação Processo <i class="material-icons">unfold_more</i></th>');
             } else if (coluna === 'situacao_compra_item_processo' && colunasVisiveis.situacao_compra_item_processo) {
                 cabecalhos.push('<th class="sortable-header" onclick="toggleSortCL(\'situacao_compra_item_processo\')">Situação Item <i class="material-icons">unfold_more</i></th>');
+	    } else if (coluna === 'valor_estimado') {
+		cabecalhos.push('<th class="sortable-header text-right" onclick="toggleSortCL(\'valor_total_referencia_item_processo\')">Valor Estimado <i class="material-icons">unfold_more</i></th>');
             } else if (coluna === 'valor_total_homologado') {
                 cabecalhos.push('<th class="sortable-header text-right" onclick="toggleSortCL(\'valor_total_homologado\')">Valor Total <i class="material-icons">unfold_more</i></th>');
             } else if (coluna === 'edital' && colunasVisiveis.edital) {
@@ -2503,6 +2522,7 @@
             for (const coluna of ordemColunas) {
                 if (coluna === 'numero_processo_formatado' ||
                     coluna === 'situacao_processo' ||
+		    coluna === 'valor_estimado' ||
                     coluna === 'valor_total_homologado' ||
                     coluna === 'acoes') {
                     colspan++;
@@ -2554,7 +2574,9 @@
                     linha += `<td><span class="badge-situacao ${badgeClass}">${situacao}</span></td>`;
                 } else if (coluna === 'situacao_compra_item_processo' && colunasVisiveis.situacao_compra_item_processo) {
                     linha += `<td><span class="badge-situacao ${badgeClassItem}">${situacaoItem}</span></td>`;
-                } else if (coluna === 'valor_total_homologado') {
+		} else if (coluna === 'valor_estimado') {
+		    linha += `<td class="text-right">${formatarMoeda(l['valor_total_referencia_item_processo'])}</td>`;
+		} else if (coluna === 'valor_total_homologado') {
                     linha += `<td class="text-right">${formatarMoeda(l['valor_total_homologado'])}</td>`;
                 } else if (coluna === 'edital' && colunasVisiveis.edital) {
                     linha += `<td>${editalDisplay}</td>`;
@@ -3266,6 +3288,10 @@
                             <input type="checkbox" id="colSituacaoItem" ${colunasVisiveis.situacao_compra_item_processo ? 'checked' : ''} onchange="atualizarColunasVisiveis('situacao_compra_item_processo', this.checked)">
                             <label for="colSituacaoItem">Situação Item</label>
                         </div>
+			<div class="column-selector-item">
+			    <input type="checkbox" id="colValorEstimado" ${colunasVisiveis.valor_estimado ? 'checked' : ''} onchange="atualizarColunasVisiveis('valor_estimado', this.checked)">
+			    <label for="colValorEstimado">Valor Estimado</label>
+			</div>
                         <div class="column-selector-item">
                             <span class="fixed-column-badge">Fixa</span>
                             <label style="margin-left: 10px;">Valor Total</label>
@@ -3571,10 +3597,11 @@
             item.modalidade,
             item.tipo,
             item.total_processos,
+	    item.valor_estimado_total,
             item.valor_total
         ]);
         
-        const cabecalhos = ['Código', 'Órgão', 'Modalidade', 'Tipo', 'Processos', 'Valor Total'];
+        const cabecalhos = ['Código', 'Órgão', 'Modalidade', 'Tipo', 'Processos', 'Valor Estimado', 'Valor Total'];
         const linhas = dados.map(linha => linha.map(celula => `"${celula}"`).join(';'));
         return [cabecalhos.join(';'), ...linhas].join('\n');
     }
@@ -3590,11 +3617,12 @@
             item.modalidade || '-',
             item.tipo || '-',
             item.total_processos || 0,
+	    formatarMoeda(item.valor_estimado_total),
             formatarMoeda(item.valor_total)
         ]);
         
         doc.autoTable({
-            head: [['Código', 'Órgão', 'Modalidade', 'Tipo', 'Processos', 'Valor Total']],
+            head: [['Código', 'Órgão', 'Modalidade', 'Tipo', 'Processos', 'Valor Estimado', 'Valor Total']],
             body: dados,
             didDrawPage: (data) => {
                 doc.setFontSize(10);
