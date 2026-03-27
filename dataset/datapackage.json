@@ -469,6 +469,10 @@
             "type": "string"
           },
           {
+            "name": "valor_total_referencia_item_processo",
+            "type": "string"
+          },
+          {
             "name": "valor_total_homologado",
             "type": "string"
           },
@@ -582,6 +586,10 @@
             "type": "any"
           },
           {
+            "name": "valor_total_referencia_item_processo",
+            "type": "string"
+          },
+          {
             "name": "valor_total_homologado",
             "type": "string"
           },
@@ -692,6 +700,10 @@
           },
           {
             "name": "contrato_termoaditivo_arquivos",
+            "type": "string"
+          },
+          {
+            "name": "valor_total_referencia_item_processo",
             "type": "string"
           },
           {
@@ -808,6 +820,10 @@
             "type": "string"
           },
           {
+            "name": "valor_total_referencia_item_processo",
+            "type": "string"
+          },
+          {
             "name": "valor_total_homologado",
             "type": "string"
           },
@@ -919,6 +935,10 @@
           {
             "name": "contrato_termoaditivo_arquivos",
             "type": "any"
+          },
+          {
+            "name": "valor_total_referencia_item_processo",
+            "type": "string"
           },
           {
             "name": "valor_total_homologado",
