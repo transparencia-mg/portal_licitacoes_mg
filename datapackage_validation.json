@@ -1,6 +1,6 @@
 {
   "version": "4.16.6",
-  "time": 15.513,
+  "time": 15.339,
   "errors": [],
   "tasks": [
     {
@@ -77,13 +77,13 @@
         "scheme": "file",
         "title": "Item 2022",
         "stats": {
-          "hash": "3fb505aefa4e449b8e611a619b0321bd",
-          "bytes": 29262973,
+          "hash": "ae3073a8c89e37333a52c69b56420544",
+          "bytes": 29263044,
           "fields": 14,
           "rows": 109016
         }
       },
-      "time": 2.801,
+      "time": 2.769,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -185,13 +185,13 @@
         "scheme": "file",
         "title": "Item 2023",
         "stats": {
-          "hash": "9a93d2f4efaa33c6a1d08907930c4d40",
-          "bytes": 28455384,
+          "hash": "22776a5448df8256de25f54a9fd12efa",
+          "bytes": 28455430,
           "fields": 14,
           "rows": 106901
         }
       },
-      "time": 2.738,
+      "time": 2.71,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -293,13 +293,13 @@
         "scheme": "file",
         "title": "Item 2024",
         "stats": {
-          "hash": "0733c64671531eb47163794e1429a900",
-          "bytes": 24151002,
+          "hash": "a42e75804a0742b8580d99712c45268a",
+          "bytes": 24152480,
           "fields": 14,
-          "rows": 89755
+          "rows": 89763
         }
       },
-      "time": 2.302,
+      "time": 2.285,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -407,7 +407,7 @@
           "rows": 0
         }
       },
-      "time": 0.081,
+      "time": 0.078,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -34512,13 +34512,13 @@
         "scheme": "file",
         "title": "Item 2026",
         "stats": {
-          "hash": "6b92bc7e027c784f8965380b79ac1950",
-          "bytes": 3722343,
+          "hash": "593125bacbd64c810c6855c868a10e65",
+          "bytes": 3946298,
           "fields": 14,
-          "rows": 14057
+          "rows": 14859
         }
       },
-      "time": 0.378,
+      "time": 0.4,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -34664,13 +34664,13 @@
         "scheme": "file",
         "title": "Licitações 2022",
         "stats": {
-          "hash": "e32e36bde08a081eba8be451a83a09f7",
-          "bytes": 19618026,
+          "hash": "d8f43f059595bcb994e7c71fa4c6a2ae",
+          "bytes": 19617925,
           "fields": 25,
           "rows": 43934
         }
       },
-      "time": 2.317,
+      "time": 2.265,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -34816,13 +34816,13 @@
         "scheme": "file",
         "title": "Licitações 2023",
         "stats": {
-          "hash": "6e61dee094ca9976464a5c824024b8d3",
-          "bytes": 18871763,
+          "hash": "25e1d1bef832dce93baff48742291118",
+          "bytes": 18871727,
           "fields": 25,
           "rows": 42066
         }
       },
-      "time": 2.221,
+      "time": 2.191,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -34968,13 +34968,13 @@
         "scheme": "file",
         "title": "Licitações 2024",
         "stats": {
-          "hash": "72b13f96c4d583486fab787886104f66",
-          "bytes": 17166726,
+          "hash": "e83db5a0681d1e35a6bd74f7b91036ba",
+          "bytes": 17171355,
           "fields": 25,
-          "rows": 38380
+          "rows": 38389
         }
       },
-      "time": 2.045,
+      "time": 2.002,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -35126,7 +35126,7 @@
           "rows": 0
         }
       },
-      "time": 0.097,
+      "time": 0.092,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -36875,7 +36875,7 @@
             "1511189 000304/2025",
             "2025-11-03",
             "2026-01-20",
-            "0",
+            "9498629",
             "SIM",
             "Concluído",
             "Com Fornecedor Vencedor",
@@ -36888,7 +36888,7 @@
             "864,0",
             "2025-11-28",
             "https://www1.compras.mg.gov.br/processocompra/processo/consultaEditalRetificaoProcesso.html?metodo=visualizarEditalRetificao&id=641324",
-            "",
+            "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=213689",
             "620655,0",
             "584995,0",
             "584995,0"
@@ -36921,7 +36921,7 @@
             "1511189 000304/2025",
             "2025-11-03",
             "2026-01-20",
-            "0",
+            "9498629",
             "SIM",
             "Concluído",
             "Com Fornecedor Vencedor",
@@ -36934,7 +36934,7 @@
             "864,0",
             "2025-11-28",
             "https://www1.compras.mg.gov.br/processocompra/processo/consultaEditalRetificaoProcesso.html?metodo=visualizarEditalRetificao&id=641324",
-            "",
+            "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=213689",
             "620655,0",
             "584995,0",
             "584995,0"
@@ -48943,7 +48943,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "653525542,0",
             "652997098,22",
-            "675772855,99"
+            "674722374,74"
           ],
           "rowNumber": 158,
           "rowPosition": 159,
@@ -48959,7 +48959,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "675772855,99",
+          "cell": "674722374,74",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -48989,7 +48989,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "653525542,0",
             "652997098,22",
-            "675772855,99"
+            "674722374,74"
           ],
           "rowNumber": 158,
           "rowPosition": 159,
@@ -49035,7 +49035,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "1429133449,81",
             "1427628585,34",
-            "1442986106,48"
+            "1441605915,99"
           ],
           "rowNumber": 159,
           "rowPosition": 160,
@@ -49051,7 +49051,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "1442986106,48",
+          "cell": "1441605915,99",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -49081,7 +49081,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "1429133449,81",
             "1427628585,34",
-            "1442986106,48"
+            "1441605915,99"
           ],
           "rowNumber": 159,
           "rowPosition": 160,
@@ -49219,7 +49219,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "97826045,93",
             "97703234,23",
-            "96899782,27"
+            "97730257,27"
           ],
           "rowNumber": 161,
           "rowPosition": 162,
@@ -49235,7 +49235,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "96899782,27",
+          "cell": "97730257,27",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -49265,7 +49265,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "97826045,93",
             "97703234,23",
-            "96899782,27"
+            "97730257,27"
           ],
           "rowNumber": 161,
           "rowPosition": 162,
@@ -49311,7 +49311,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "917941089,03",
             "916852341,34",
-            "924851990,9"
+            "922308132,99"
           ],
           "rowNumber": 162,
           "rowPosition": 163,
@@ -49327,7 +49327,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "924851990,9",
+          "cell": "922308132,99",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -49357,7 +49357,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "917941089,03",
             "916852341,34",
-            "924851990,9"
+            "922308132,99"
           ],
           "rowNumber": 162,
           "rowPosition": 163,
@@ -49403,7 +49403,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "485681031,58",
             "484370431,44",
-            "486143887,89"
+            "486138887,89"
           ],
           "rowNumber": 163,
           "rowPosition": 164,
@@ -49419,7 +49419,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "486143887,89",
+          "cell": "486138887,89",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -49449,7 +49449,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "485681031,58",
             "484370431,44",
-            "486143887,89"
+            "486138887,89"
           ],
           "rowNumber": 163,
           "rowPosition": 164,
@@ -49495,7 +49495,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "323495383,72",
             "320453907,13",
-            "300711806,69"
+            "300330953,78"
           ],
           "rowNumber": 164,
           "rowPosition": 165,
@@ -49511,7 +49511,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "300711806,69",
+          "cell": "300330953,78",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -49541,7 +49541,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "323495383,72",
             "320453907,13",
-            "300711806,69"
+            "300330953,78"
           ],
           "rowNumber": 164,
           "rowPosition": 165,
@@ -49955,7 +49955,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "53721578,07",
             "53693236,61",
-            "53769056,21"
+            "53885431,05"
           ],
           "rowNumber": 169,
           "rowPosition": 170,
@@ -49971,7 +49971,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "53769056,21",
+          "cell": "53885431,05",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -50001,7 +50001,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "53721578,07",
             "53693236,61",
-            "53769056,21"
+            "53885431,05"
           ],
           "rowNumber": 169,
           "rowPosition": 170,
@@ -50323,7 +50323,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "796004825,91",
             "794612596,8",
-            "802519773,96"
+            "802339992,34"
           ],
           "rowNumber": 173,
           "rowPosition": 174,
@@ -50339,7 +50339,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "802519773,96",
+          "cell": "802339992,34",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -50369,7 +50369,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "796004825,91",
             "794612596,8",
-            "802519773,96"
+            "802339992,34"
           ],
           "rowNumber": 173,
           "rowPosition": 174,
@@ -50415,7 +50415,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "3898450171,04",
             "3896087448,31",
-            "3643673905,38"
+            "3577124993,91"
           ],
           "rowNumber": 174,
           "rowPosition": 175,
@@ -50431,7 +50431,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "3643673905,38",
+          "cell": "3577124993,91",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -50461,7 +50461,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "3898450171,04",
             "3896087448,31",
-            "3643673905,38"
+            "3577124993,91"
           ],
           "rowNumber": 174,
           "rowPosition": 175,
@@ -50507,7 +50507,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "282697955,97",
             "282299993,4",
-            "286551989,6"
+            "286039213,1"
           ],
           "rowNumber": 175,
           "rowPosition": 176,
@@ -50523,7 +50523,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "286551989,6",
+          "cell": "286039213,1",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -50553,7 +50553,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "282697955,97",
             "282299993,4",
-            "286551989,6"
+            "286039213,1"
           ],
           "rowNumber": 175,
           "rowPosition": 176,
@@ -50783,7 +50783,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "20716396,0",
             "20568811,2",
-            "954922,29"
+            "1075269,65"
           ],
           "rowNumber": 178,
           "rowPosition": 179,
@@ -50799,7 +50799,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "954922,29",
+          "cell": "1075269,65",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -50829,7 +50829,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "20716396,0",
             "20568811,2",
-            "954922,29"
+            "1075269,65"
           ],
           "rowNumber": 178,
           "rowPosition": 179,
@@ -52117,7 +52117,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=199759",
             "23047,2",
             "23047,2",
-            "23047,2"
+            "37855,8"
           ],
           "rowNumber": 193,
           "rowPosition": 194,
@@ -52133,7 +52133,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "23047,2",
+          "cell": "37855,8",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -52163,7 +52163,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=199759",
             "23047,2",
             "23047,2",
-            "23047,2"
+            "37855,8"
           ],
           "rowNumber": 193,
           "rowPosition": 194,
@@ -54831,7 +54831,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=193651",
             "68541775,12",
             "68541775,12",
-            "60008027,82"
+            "59998027,82"
           ],
           "rowNumber": 226,
           "rowPosition": 227,
@@ -54847,7 +54847,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "60008027,82",
+          "cell": "59998027,82",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -54877,7 +54877,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=193651",
             "68541775,12",
             "68541775,12",
-            "60008027,82"
+            "59998027,82"
           ],
           "rowNumber": 226,
           "rowPosition": 227,
@@ -57499,7 +57499,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=196575",
             "65349,0",
             "65349,0",
-            "65349,0"
+            "103139,28"
           ],
           "rowNumber": 256,
           "rowPosition": 257,
@@ -57515,7 +57515,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "65349,0",
+          "cell": "103139,28",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -57545,7 +57545,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=196575",
             "65349,0",
             "65349,0",
-            "65349,0"
+            "103139,28"
           ],
           "rowNumber": 256,
           "rowPosition": 257,
@@ -59790,7 +59790,7 @@
             "Por item",
             "50 (cinquenta) licenças do software Autodesk AutoCAD LT, em regime de assinatura (subscrição anual)",
             "",
-            "MAPDATA-TECNOLOGIA,INFORMATICA E COMERCIO LTDA",
+            "NTI BRASIL SOLUCOES DIGITAIS LTDA",
             "",
             "66.582.784/0001-11",
             "565,0",
@@ -59836,7 +59836,7 @@
             "Por item",
             "50 (cinquenta) licenças do software Autodesk AutoCAD LT, em regime de assinatura (subscrição anual)",
             "",
-            "MAPDATA-TECNOLOGIA,INFORMATICA E COMERCIO LTDA",
+            "NTI BRASIL SOLUCOES DIGITAIS LTDA",
             "",
             "66.582.784/0001-11",
             "565,0",
@@ -75485,7 +75485,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=198539",
             "457920,0",
             "457920,0",
-            "457920,0"
+            "474679,87"
           ],
           "rowNumber": 459,
           "rowPosition": 460,
@@ -75501,7 +75501,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "457920,0",
+          "cell": "474679,87",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -75531,7 +75531,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=198539",
             "457920,0",
             "457920,0",
-            "457920,0"
+            "474679,87"
           ],
           "rowNumber": 459,
           "rowPosition": 460,
@@ -81282,13 +81282,13 @@
         "scheme": "file",
         "title": "Licitações 2026",
         "stats": {
-          "hash": "9bf63d64ba5982d654b6f2297ec90734",
-          "bytes": 2721290,
+          "hash": "adb0c7a93284b64c4b14b231006d4e30",
+          "bytes": 3102513,
           "fields": 25,
-          "rows": 6522
+          "rows": 7400
         }
       },
-      "time": 0.367,
+      "time": 0.401,
       "scope": [
         "hash-count-error",
         "byte-count-error",
