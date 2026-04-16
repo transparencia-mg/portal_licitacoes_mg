@@ -1012,10 +1012,49 @@ async function carregarTodosDados() {
     }
 }
 
-function setupAtualizacaoData() {
-    const now = new Date();
+// ==================== DATA DE ATUALIZAÇÃO ====================
+async function setupAtualizacaoData() {
     const el = document.getElementById('data-atualizacao-header');
-    if (el) el.textContent = now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR');
+    try {
+        // Tenta via GitHub API para achar o arquivo execucao mais recente
+        const resp = await fetch(GITHUB_API_DATA);
+        if (!resp.ok) throw new Error('api erro');
+        const arquivos = await resp.json();
+        const execFiles = arquivos
+            .filter(f => f.name && f.name.match(/^execucao\d{4}\.csv$/))
+            .sort((a,b) => b.name.localeCompare(a.name));
+        if (execFiles.length > 0) {
+            const arqRecente = execFiles[0].name;
+            const commitResp = await fetch(`https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/commits?path=dataset/data/${arqRecente}&per_page=1`);
+            if (commitResp.ok) {
+                const commits = await commitResp.json();
+                if (commits && commits.length > 0) {
+                    el.textContent = new Date(commits[0].commit.committer.date).toLocaleDateString('pt-BR');
+                    return;
+                }
+            }
+            // Fallback: extrai ano do nome
+            const match = arqRecente.match(/licitacao(\d{4})\.csv/);
+            if (match) { el.textContent = match[1]; return; }
+        }
+        // Fallback: tenta pegar data do commit do licitacao2026.csv diretamente
+        const fb = await fetch('https://api.github.com/repos/transparencia-mg/portal_convenios_entrada/commits?path=dataset/data/licitacao2026.csv&per_page=1');
+        if (fb.ok) {
+            const cs = await fb.json();
+            if (cs && cs.length > 0) { el.textContent = new Date(cs[0].commit.committer.date).toLocaleDateString('pt-BR'); return; }
+        }
+        el.textContent = '2026';
+    } catch(e) {
+        // Último fallback: data do commit do licitacao2026.csv
+        try {
+            const fb = await fetch('https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/commits?path=dataset/data/licitacoes2026.csv&per_page=1');
+            if (fb.ok) {
+                const cs = await fb.json();
+                if (cs && cs.length > 0) { document.getElementById('data-atualizacao-header').textContent = new Date(cs[0].commit.committer.date).toLocaleDateString('pt-BR'); return; }
+            }
+        } catch(e2) {}
+        document.getElementById('data-atualizacao-header').textContent = 'Não disponível';
+    }
 }
 
 // ============================================================
