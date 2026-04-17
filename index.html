@@ -660,18 +660,9 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="modalContent"></div>
-            <div class="modal-footer" style="gap:8px;flex-wrap:wrap;">
+            <div class="modal-footer" style="gap:8px;">
                 <button type="button" class="btn-secondary-custom" data-bs-dismiss="modal">
                     <i class="material-icons">close</i> Fechar
-                </button>
-                <button type="button" class="btn-export" onclick="exportarModalPDF()">
-                    <i class="material-icons">print</i> PDF
-                </button>
-                <button type="button" class="btn-export" onclick="exportarModalCSV()">
-                    <i class="material-icons">description</i> CSV
-                </button>
-                <button type="button" class="btn-export" onclick="copiarLinkDireto()">
-                    <i class="material-icons">link</i> Copiar Link
                 </button>
             </div>
         </div>
@@ -710,7 +701,7 @@
 // ============================================================
 // 1. CONFIGURAÇÕES E VARIÁVEIS GLOBAIS
 // ============================================================
-const GITHUB_BASE = 'https://raw.githubusercontent.com/transparencia-mg/portal_licitacoes_mg/main/dataset/data/';
+const GITHUB_BASE = 'https://raw.githubusercontent.com/transparencia-mg/portal_licitacoes_mg/refs/heads/main/dataset/data/';
 const PORTAL_COMPRAS_URL = 'https://www1.compras.mg.gov.br/processocompra/processo/consultaProcessoCompra.html';
 const PORTAL_REGISTRO_PRECOS_URL = 'https://www.registrodeprecos.mg.gov.br/aasi/do/filtrarRPs';
 const PORTAL_DADOS_ABERTOS_URL = 'https://dados.mg.gov.br/dataset/portal_licitacoes_mg';
@@ -886,16 +877,13 @@ function getLinkEdital(processo) {
 }
 
 function getBadgeClassPorSituacao(situacao) {
-    if (!situacao || situacao === '-' || situacao === '') return '';
-    const s = situacao.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+    const s = (situacao||'').toLowerCase();
     if (s.includes('homologado')||s.includes('adjudicado')) return 'badge-homologado';
     if (s.includes('fracassado')) return 'badge-fracassado';
     if (s.includes('deserto'))    return 'badge-deserto';
-    if (s.includes('cancelado')||s.includes('anulado')||s.includes('revogado')) return 'badge-cancelado';
-    if (s.includes('concluido')||s.includes('encerrado')||s.includes('contratado')) return 'badge-concluido';
-    if (s.includes('andamento')||s.includes('aberto')||s.includes('publicado')||s.includes('ativo')) return 'badge-ativo';
-    if (s.includes('suspenso')||s.includes('aguardando')||s.includes('analise')||s.includes('exame')) return 'badge-emergencial';
-    return 'badge-adjudicado';
+    if (s.includes('cancelado')||s.includes('anulado')) return 'badge-cancelado';
+    if (s.includes('concluído')||s.includes('concluido')) return 'badge-concluido';
+    return 'badge-concluido';
 }
 
 function calcularMetricas(dados) {
@@ -965,7 +953,7 @@ function ordenarDados(dados, coluna, direcao) {
 function parseCSV(texto, tipo) {
     try {
         const linhas = texto.trim().split('\n');
-        if (linhas.length < 2) { console.warn('CSV sem dados suficientes (menos de 2 linhas)'); return []; }
+        if (linhas.length < 2) return [];
         let cabecalhos = linhas[0].split(';').map(h => h.trim().replace(/^\uFEFF/,'').replace(/"/g,''));
         const dados = [];
         for (let i = 1; i < linhas.length; i++) {
@@ -995,97 +983,20 @@ function parseCSV(texto, tipo) {
 async function carregarTodosDados() {
     mostrarLoading(true, 'Carregando dados de licitações...');
     showLoading(true, 'Carregando dados...');
-    let errosCarregamento = [];
     try {
         dadosConsolidados = { licitacoes: [], itens: [] };
         const promises = [];
         for (const ano of anosDisponiveis) {
             const arquivos = ARQUIVOS_POR_ANO[ano];
-
-            // Licitações
-            promises.push(
-                fetch(GITHUB_BASE + arquivos.licitacoes)
-                    .then(async resp => {
-                        if (!resp.ok) {
-                            const msg = `Arquivo licitacoes${ano}.csv não encontrado (HTTP ${resp.status})`;
-                            console.warn(msg);
-                            errosCarregamento.push(msg);
-                            return;
-                        }
-                        const texto = await resp.text();
-                        if (!texto || texto.trim().length === 0) {
-                            console.warn(`Arquivo licitacoes${ano}.csv está vazio`);
-                            return;
-                        }
-                        const dados = parseCSV(texto);
-                        dados.forEach(d => { if (d) d.ano_referencia = ano; });
-                        dadosConsolidados.licitacoes = [...dadosConsolidados.licitacoes, ...dados];
-                        console.log(`✔ licitacoes${ano}: ${dados.length} registros`);
-                    })
-                    .catch(err => {
-                        const msg = `Falha ao buscar licitacoes${ano}.csv: ${err.message}`;
-                        console.error(msg, err);
-                        errosCarregamento.push(msg);
-                    })
-            );
-
-            // Itens
-            promises.push(
-                fetch(GITHUB_BASE + arquivos.itens)
-                    .then(async resp => {
-                        if (!resp.ok) {
-                            const msg = `Arquivo itens${ano}.csv não encontrado (HTTP ${resp.status})`;
-                            console.warn(msg);
-                            errosCarregamento.push(msg);
-                            return;
-                        }
-                        const texto = await resp.text();
-                        if (!texto || texto.trim().length === 0) {
-                            console.warn(`Arquivo itens${ano}.csv está vazio`);
-                            return;
-                        }
-                        const dados = parseCSV(texto);
-                        dados.forEach(d => { if (d) d.ano_referencia = ano; });
-                        dadosConsolidados.itens = [...dadosConsolidados.itens, ...dados];
-                        console.log(`✔ itens${ano}: ${dados.length} registros`);
-                    })
-                    .catch(err => {
-                        const msg = `Falha ao buscar itens${ano}.csv: ${err.message}`;
-                        console.error(msg, err);
-                        errosCarregamento.push(msg);
-                    })
-            );
+            promises.push(fetch(GITHUB_BASE + arquivos.licitacoes).then(async resp => { if (resp.ok) { const texto = await resp.text(); const dados = parseCSV(texto, `licitacoes_${ano}`); dados.forEach(d => { if(d) d.ano_referencia = ano; }); dadosConsolidados.licitacoes = [...dadosConsolidados.licitacoes, ...dados]; } }).catch(err => console.error(`Erro licitações ${ano}:`, err)));
+            promises.push(fetch(GITHUB_BASE + arquivos.itens).then(async resp => { if (resp.ok) { const texto = await resp.text(); const dados = parseCSV(texto, `itens_${ano}`); dados.forEach(d => { if(d) d.ano_referencia = ano; }); dadosConsolidados.itens = [...dadosConsolidados.itens, ...dados]; } }).catch(err => console.error(`Erro itens ${ano}:`, err)));
         }
         await Promise.all(promises);
-
-        console.log(`Total licitações carregadas: ${dadosConsolidados.licitacoes.length}`);
-        console.log(`Total itens carregados: ${dadosConsolidados.itens.length}`);
-
-        if (dadosConsolidados.licitacoes.length === 0 && dadosConsolidados.itens.length === 0) {
-            mostrarErroCritico(errosCarregamento);
-            return;
-        }
-
-        if (errosCarregamento.length > 0) {
-            console.warn('Alguns arquivos não foram carregados:', errosCarregamento);
-        }
-
         dadosFiltrados = {
             visaoGeral: dadosConsolidados.licitacoes.filter(l => l && (l['ano_criacao_pedido'] == 2026 || l.ano_referencia == 2026)),
             licitacoes: dadosConsolidados.licitacoes.filter(l => l && (l['ano_criacao_pedido'] == 2026 || l.ano_referencia == 2026)),
             itens: dadosConsolidados.itens.filter(i => i && (i['ano_criacao_processo'] == 2026 || i.ano_referencia == 2026))
         };
-
-        // Se 2026 não tem dados ainda, usa o ano mais recente disponível
-        if (dadosFiltrados.licitacoes.length === 0 && dadosConsolidados.licitacoes.length > 0) {
-            const anosComDados = [...new Set(dadosConsolidados.licitacoes.map(l => l['ano_criacao_pedido'] || l.ano_referencia))].filter(Boolean).sort((a,b)=>b-a);
-            const anoMaisRecente = anosComDados[0];
-            console.warn(`Nenhum dado para 2026. Usando ano ${anoMaisRecente} como padrão.`);
-            dadosFiltrados.visaoGeral = dadosConsolidados.licitacoes.filter(l => l && (l['ano_criacao_pedido'] == anoMaisRecente || l.ano_referencia == anoMaisRecente));
-            dadosFiltrados.licitacoes = dadosFiltrados.visaoGeral;
-            dadosFiltrados.itens      = dadosConsolidados.itens.filter(i => i && (i['ano_criacao_processo'] == anoMaisRecente || i.ano_referencia == anoMaisRecente));
-        }
-
         metricaGeral = calcularMetricas(dadosFiltrados.visaoGeral);
         renderizarVisaoGeral();
         renderizarConsultaLicitacao();
@@ -1095,54 +1006,26 @@ async function carregarTodosDados() {
         setTimeout(iframeUpdateHeight, 500);
     } catch(erro) {
         console.error('Erro fatal:', erro);
-        mostrarErroCritico([erro.message || 'Erro desconhecido']);
     } finally {
         mostrarLoading(false);
         showLoading(false);
     }
 }
 
-function mostrarErroCritico(erros) {
-    const conteudos = ['visao-geral-content', 'licitacoes-content', 'itens-content'];
-    const html = `
-        <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:20px;margin:20px 0;font-size:13px;color:#856404;">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;font-weight:700;font-size:14px;">
-                <i class="material-icons" style="color:#e67e22;">warning</i>
-                Não foi possível carregar os dados
-            </div>
-            <p style="margin-bottom:8px;">Verifique sua conexão com a internet. Os dados são carregados diretamente do GitHub.</p>
-            ${erros.length > 0 ? `<ul style="margin:0;padding-left:18px;">${erros.map(e=>`<li>${e}</li>`).join('')}</ul>` : ''}
-            <div style="margin-top:12px;">
-                <button onclick="carregarTodosDados()" style="background:#20445d;color:white;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;">
-                    <i class="material-icons" style="vertical-align:middle;font-size:14px;">refresh</i> Tentar novamente
-                </button>
-            </div>
-        </div>`;
-    conteudos.forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = html; });
-}
-
 // ==================== DATA DE ATUALIZAÇÃO ====================
-const GITHUB_API_DATA = 'https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/contents/dataset/data';
-
 async function setupAtualizacaoData() {
     const el = document.getElementById('data-atualizacao-header');
     try {
+        // Tenta via GitHub API para achar o arquivo execucao mais recente
         const resp = await fetch(GITHUB_API_DATA);
         if (!resp.ok) throw new Error('api erro');
-
         const arquivos = await resp.json();
-
         const execFiles = arquivos
             .filter(f => f.name && f.name.match(/^execucao\d{4}\.csv$/))
             .sort((a,b) => b.name.localeCompare(a.name));
-
         if (execFiles.length > 0) {
             const arqRecente = execFiles[0].name;
-
-            const commitResp = await fetch(
-                `https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/commits?path=dataset/data/${arqRecente}&per_page=1`
-            );
-
+            const commitResp = await fetch(`https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/commits?path=dataset/data/${arqRecente}&per_page=1`);
             if (commitResp.ok) {
                 const commits = await commitResp.json();
                 if (commits && commits.length > 0) {
@@ -1150,29 +1033,26 @@ async function setupAtualizacaoData() {
                     return;
                 }
             }
-
-            const match = arqRecente.match(/execucao(\d{4})\.csv/);
-            if (match) {
-                el.textContent = match[1];
-                return;
-            }
+            // Fallback: extrai ano do nome
+            const match = arqRecente.match(/licitacao(\d{4})\.csv/);
+            if (match) { el.textContent = match[1]; return; }
         }
-
-        const fb = await fetch(
-            'https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/commits?path=dataset/data/licitacoes2026.csv&per_page=1'
-        );
-
+        // Fallback: tenta pegar data do commit do licitacao2026.csv diretamente
+        const fb = await fetch('https://api.github.com/repos/transparencia-mg/portal_convenios_entrada/commits?path=dataset/data/licitacao2026.csv&per_page=1');
         if (fb.ok) {
             const cs = await fb.json();
-            if (cs && cs.length > 0) {
-                el.textContent = new Date(cs[0].commit.committer.date).toLocaleDateString('pt-BR');
-                return;
-            }
+            if (cs && cs.length > 0) { el.textContent = new Date(cs[0].commit.committer.date).toLocaleDateString('pt-BR'); return; }
         }
-
         el.textContent = '2026';
-
-    } catch (e) {
+    } catch(e) {
+        // Último fallback: data do commit do licitacao2026.csv
+        try {
+            const fb = await fetch('https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/commits?path=dataset/data/licitacoes2026.csv&per_page=1');
+            if (fb.ok) {
+                const cs = await fb.json();
+                if (cs && cs.length > 0) { document.getElementById('data-atualizacao-header').textContent = new Date(cs[0].commit.committer.date).toLocaleDateString('pt-BR'); return; }
+            }
+        } catch(e2) {}
         document.getElementById('data-atualizacao-header').textContent = 'Não disponível';
     }
 }
@@ -1237,7 +1117,7 @@ function renderizarVisaoGeral() {
         </div>
         <div class="botoes-abaixo">
             <button class="btn-pesquisa" onclick="aplicarFiltrosVG()"><i class="material-icons">search</i> Pesquisar</button>
-            <button class="btn-secondary-custom" onclick="limparFiltrosVG()"><i class="material-icons">clear</i> Limpar Filtros</button>
+            <button class="btn-secondary-custom" onclick="limparFiltrosVG()"><i class="material-icons">clear</i> Limpar</button>
         </div>
     </div>
 
@@ -1289,9 +1169,8 @@ function renderizarVisaoGeral() {
             <button class="btn-export" onclick="exportarTabelaVisaoGeralPDF()"><i class="material-icons">print</i> PDF</button>
             <button class="btn-export" onclick="copiarLinkDireto()"><i class="material-icons">link</i> Copiar Link</button>
         </div>
-        <div class="toolbar-right" style="display:flex;align-items:center;gap:8px;">
-            <input type="text" id="buscaVG" class="form-control" style="height:32px;font-size:12px;width:180px;border:1px solid #d6dee6;border-radius:6px;padding:0 10px;" placeholder="Buscar registros..." oninput="buscarRegistrosVG(this.value)">
-            <span class="table-badge" id="totalVGBadge">${dadosAgrupados.length} grupos</span>
+        <div class="toolbar-right">
+            <span class="table-badge">${dadosAgrupados.length} grupos</span>
         </div>
     </div>
 
@@ -1455,7 +1334,7 @@ function renderizarConsultaLicitacao() {
                 </select>
             </div>
             <div class="filter-group">
-                <label class="filter-label">Situação</label>
+                <label class="filter-label">Situação Processo</label>
                 <select class="form-select modern-select" id="filtroSituacaoCL">
                     <option value="">Todas</option>
                     ${opcoes.situacoes.map(s=>`<option value="${s}">${s}</option>`).join('')}
@@ -1504,7 +1383,7 @@ function renderizarConsultaLicitacao() {
         </div>
         <div class="botoes-abaixo">
             <button class="btn-pesquisa" onclick="aplicarFiltrosCL()"><i class="material-icons">search</i> Pesquisar</button>
-            <button class="btn-secondary-custom" onclick="limparFiltrosCL()"><i class="material-icons">clear</i> Limpar Filtros</button>
+            <button class="btn-secondary-custom" onclick="limparFiltrosCL()"><i class="material-icons">clear</i> Limpar</button>
         </div>
     </div>
 
@@ -1515,8 +1394,7 @@ function renderizarConsultaLicitacao() {
             <button class="btn-export" onclick="copiarLinkDireto()"><i class="material-icons">link</i> Copiar Link</button>
             ${renderizarSeletorColunas()}
         </div>
-        <div class="toolbar-right" style="display:flex;align-items:center;gap:8px;">
-            <input type="text" id="buscaCL" class="form-control" style="height:32px;font-size:12px;width:180px;border:1px solid #d6dee6;border-radius:6px;padding:0 10px;" placeholder="Buscar registros..." oninput="buscarRegistrosCL(this.value)">
+        <div class="toolbar-right">
             <span class="table-badge" id="totalLicitacoesBadge">${dadosFiltrados.licitacoes.length} licitações</span>
         </div>
     </div>
@@ -1743,11 +1621,7 @@ window.verDetalhesLicitacao = function(processo) {
             </table>
         </div>` : ''}`;
 
-    const modalEl = document.getElementById('detailModal');
-    if (!modalEl) return;
-    let bsModal = bootstrap.Modal.getInstance(modalEl);
-    if (!bsModal) bsModal = new bootstrap.Modal(modalEl, {backdrop:true, keyboard:true});
-    bsModal.show();
+    new bootstrap.Modal(document.getElementById('detailModal')).show();
 };
 
 // ============================================================
@@ -1779,7 +1653,7 @@ function renderizarConsultaItem() {
                 <datalist id="elementosList">${opcoes.elementos.map(e=>`<option value="${e}">`).join('')}</datalist>
             </div>
             <div class="filter-group">
-                <label class="filter-label">DESCR. ELEMENTO</label>
+                <label class="filter-label">Descrição Elemento</label>
                 <input type="text" class="form-control" id="filtroDescricaoElementoITEM" placeholder="Parte da descrição...">
             </div>
             <div class="filter-group">
@@ -1792,18 +1666,10 @@ function renderizarConsultaItem() {
                 <input type="text" class="form-control" id="filtroProcessoITEM" list="processosItemList" placeholder="Digite...">
                 <datalist id="processosItemList">${opcoes.processos.map(p=>`<option value="${p}">`).join('')}</datalist>
             </div>
-            <div class="filter-group">
-                <label class="filter-label">Cód. Item</label>
-                <input type="text" class="form-control" id="filtroCodigoItemITEM" placeholder="Digite o código...">
-            </div>
-            <div class="filter-group" style="flex:2;min-width:200px;">
-                <label class="filter-label">DESCR. ITEM</label>
-                <input type="text" class="form-control" id="filtroDescricaoItemITEM" placeholder="Parte da descrição...">
-            </div>
         </div>
         <div class="botoes-abaixo">
             <button class="btn-pesquisa" onclick="aplicarFiltrosITEM()"><i class="material-icons">search</i> Pesquisar</button>
-            <button class="btn-secondary-custom" onclick="limparFiltrosITEM()"><i class="material-icons">clear</i> Limpar Filtros</button>
+            <button class="btn-secondary-custom" onclick="limparFiltrosITEM()"><i class="material-icons">clear</i> Limpar</button>
         </div>
     </div>
 
@@ -1813,8 +1679,7 @@ function renderizarConsultaItem() {
             <button class="btn-export" onclick="exportarTabelaItemPDF()"><i class="material-icons">print</i> PDF</button>
             <button class="btn-export" onclick="copiarLinkDireto()"><i class="material-icons">link</i> Copiar Link</button>
         </div>
-        <div class="toolbar-right" style="display:flex;align-items:center;gap:8px;">
-            <input type="text" id="buscaITEM" class="form-control" style="height:32px;font-size:12px;width:180px;border:1px solid #d6dee6;border-radius:6px;padding:0 10px;" placeholder="Buscar registros..." oninput="buscarRegistrosITEM(this.value)">
+        <div class="toolbar-right">
             <span class="table-badge" id="totalItensBadge">${dadosFiltrados.itens.length} itens</span>
         </div>
     </div>
@@ -1902,8 +1767,6 @@ window.aplicarFiltrosITEM = function() {
     const descElem = (document.getElementById('filtroDescricaoElementoITEM')?.value||'').toLowerCase().trim();
     const fornecedor = (document.getElementById('filtroFornecedorITEM')?.value||'').toLowerCase().trim();
     const processo = (document.getElementById('filtroProcessoITEM')?.value||'').toLowerCase().trim();
-    const codigoItem = (document.getElementById('filtroCodigoItemITEM')?.value||'').toLowerCase().trim();
-    const descricaoItem = (document.getElementById('filtroDescricaoItemITEM')?.value||'').toLowerCase().trim();
     if (!dadosConsolidados.itens || dadosConsolidados.itens.length === 0) { window.itensFiltrados = []; atualizarTabelaItens(); return; }
     const licitacoesMap = {};
     if (dadosConsolidados.licitacoes) dadosConsolidados.licitacoes.forEach(l => { if (l && l['numero_processo_formatado']) licitacoesMap[l['numero_processo_formatado']] = l; });
@@ -1917,8 +1780,6 @@ window.aplicarFiltrosITEM = function() {
             const licRel = item['numero_processo_formatado'] ? licitacoesMap[item['numero_processo_formatado']] : null;
             if (orgao) { if (!licRel) return false; if (!String(licRel['nome_orgao_entidade_compra']||'').toLowerCase().includes(orgao)) return false; }
             if (fornecedor) { if (!licRel) return false; if (!String(licRel['nome_empresarial_nome_fornecedor']||'').toLowerCase().includes(fornecedor)) return false; }
-            if (codigoItem && !String(item['codigo_item_material_servico_numerico']||'').toLowerCase().includes(codigoItem)) return false;
-            if (descricaoItem && !String(item['item_material_servico']||'').toLowerCase().includes(descricaoItem)) return false;
             return true;
         } catch(e) { return false; }
     });
@@ -1929,7 +1790,7 @@ window.aplicarFiltrosITEM = function() {
 };
 
 window.limparFiltrosITEM = function() {
-    ['filtroAnoITEM','filtroOrgaoITEM','filtroElementoITEM','filtroDescricaoElementoITEM','filtroFornecedorITEM','filtroProcessoITEM','filtroCodigoItemITEM','filtroDescricaoItemITEM'].forEach(id => { const el=document.getElementById(id); if(el) el.value=id==='filtroAnoITEM'?'2026':''; });
+    ['filtroAnoITEM','filtroOrgaoITEM','filtroElementoITEM','filtroDescricaoElementoITEM','filtroFornecedorITEM','filtroProcessoITEM'].forEach(id => { const el=document.getElementById(id); if(el) el.value=id==='filtroAnoITEM'?'2026':''; });
     window.itensFiltrados = dadosConsolidados.itens?dadosConsolidados.itens.filter(i=>i&&(i['ano_criacao_processo']==2026||i.ano_referencia==2026)):[];
     window.itensFiltrados = ordenarDados(window.itensFiltrados, sortConfig.itens.column, sortConfig.itens.direction);
     paginacao.itens.paginaAtual = 1;
@@ -2116,116 +1977,6 @@ window.baixarCSV = function(tipo, anoFiltro) {
     const linhas = dados.map(item=>cabecalhos.map(cab=>{ let v=item&&item[cab]!==undefined&&item[cab]!==null?item[cab]:''; return `"${v.toString().replace(/"/g,'""')}"` }).join(';'));
     const csv = [cabecalhos.join(';'), ...linhas].join('\n');
     const blob = new Blob(['\uFEFF'+csv], {type:'text/csv'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=nomeArquivo; a.click();
-};
-
-
-// ============================================================
-// BUSCA RAPIDA DE REGISTROS
-// ============================================================
-window.buscarRegistrosVG = function(termo) {
-    buscaAtiva.visaoGeral = (termo||'').toLowerCase();
-    if (!buscaAtiva.visaoGeral) {
-        window.visaoGeralAgrupados = window._vgBase ? [...window._vgBase] : window.visaoGeralAgrupados;
-    } else {
-        if (!window._vgBase) window._vgBase = [...(window.visaoGeralAgrupados||[])];
-        window.visaoGeralAgrupados = (window._vgBase||[]).filter(item =>
-            Object.values(item).some(v => v!==null&&v!==undefined&&String(v).toLowerCase().includes(buscaAtiva.visaoGeral))
-        );
-    }
-    paginacao.visaoGeral.paginaAtual = 1;
-    paginacao.visaoGeral.totalPaginas = Math.ceil(window.visaoGeralAgrupados.length / paginacao.visaoGeral.itensPorPagina);
-    atualizarTabelaVisaoGeral();
-    const b = document.getElementById('totalVGBadge'); if(b) b.textContent = window.visaoGeralAgrupados.length + ' grupos';
-};
-
-window.buscarRegistrosCL = function(termo) {
-    buscaAtiva.licitacoes = (termo||'').toLowerCase();
-    if (!buscaAtiva.licitacoes) {
-        window.licitacoesFiltradas = window._clBase ? [...window._clBase] : window.licitacoesFiltradas;
-    } else {
-        if (!window._clBase) window._clBase = [...(window.licitacoesFiltradas||[])];
-        window.licitacoesFiltradas = (window._clBase||[]).filter(item =>
-            Object.values(item).some(v => v!==null&&v!==undefined&&String(v).toLowerCase().includes(buscaAtiva.licitacoes))
-        );
-    }
-    paginacao.licitacoes.paginaAtual = 1;
-    paginacao.licitacoes.totalPaginas = Math.ceil(window.licitacoesFiltradas.length / paginacao.licitacoes.itensPorPagina);
-    atualizarTabelaConsultaLicitacao();
-};
-
-window.buscarRegistrosITEM = function(termo) {
-    buscaAtiva.itens = (termo||'').toLowerCase();
-    if (!buscaAtiva.itens) {
-        window.itensFiltrados = window._itemBase ? [...window._itemBase] : window.itensFiltrados;
-    } else {
-        if (!window._itemBase) window._itemBase = [...(window.itensFiltrados||[])];
-        window.itensFiltrados = (window._itemBase||[]).filter(item =>
-            Object.values(item).some(v => v!==null&&v!==undefined&&String(v).toLowerCase().includes(buscaAtiva.itens))
-        );
-    }
-    paginacao.itens.paginaAtual = 1;
-    paginacao.itens.totalPaginas = Math.ceil(window.itensFiltrados.length / paginacao.itens.itensPorPagina);
-    atualizarTabelaItens();
-};
-
-// Wrappers: resetar base ao aplicar/limpar filtros
-const _origApVG2 = window.aplicarFiltrosVG;
-window.aplicarFiltrosVG = function() { window._vgBase=null; const e=document.getElementById('buscaVG');if(e)e.value=''; buscaAtiva.visaoGeral=''; _origApVG2(); };
-const _origLimVG2 = window.limparFiltrosVG;
-window.limparFiltrosVG = function() { window._vgBase=null; const e=document.getElementById('buscaVG');if(e)e.value=''; buscaAtiva.visaoGeral=''; _origLimVG2(); };
-const _origApCL2 = window.aplicarFiltrosCL;
-window.aplicarFiltrosCL = function() { window._clBase=null; const e=document.getElementById('buscaCL');if(e)e.value=''; buscaAtiva.licitacoes=''; _origApCL2(); };
-const _origLimCL2 = window.limparFiltrosCL;
-window.limparFiltrosCL = function() { window._clBase=null; const e=document.getElementById('buscaCL');if(e)e.value=''; buscaAtiva.licitacoes=''; _origLimCL2(); };
-const _origApIT2 = window.aplicarFiltrosITEM;
-window.aplicarFiltrosITEM = function() { window._itemBase=null; const e=document.getElementById('buscaITEM');if(e)e.value=''; buscaAtiva.itens=''; _origApIT2(); };
-const _origLimIT2 = window.limparFiltrosITEM;
-window.limparFiltrosITEM = function() { window._itemBase=null; const e=document.getElementById('buscaITEM');if(e)e.value=''; buscaAtiva.itens=''; _origLimIT2(); };
-
-// ============================================================
-// EXPORTAR MODAL PDF / CSV
-// ============================================================
-window.exportarModalPDF = function() {
-    try {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF({orientation:'portrait'});
-        const mb = document.getElementById('modalContent');
-        if (!mb) return;
-        let y = 20;
-        doc.setFontSize(13); doc.setTextColor(32,68,93);
-        doc.text('Detalhes da Licitacao', 14, y); y += 10;
-        doc.setFontSize(9); doc.setTextColor(50,50,50);
-        const lbls = mb.querySelectorAll('.info-label');
-        const vals = mb.querySelectorAll('.info-value');
-        lbls.forEach((lbl,i) => {
-            if (y > 270) { doc.addPage(); y = 20; }
-            const v = vals[i] ? vals[i].innerText.replace(/
-/g,' ').trim() : '';
-            doc.setFont(undefined,'bold'); doc.text((lbl.innerText||'').trim()+':',14,y);
-            doc.setFont(undefined,'normal');
-            const lines = doc.splitTextToSize(v,155);
-            doc.text(lines,60,y); y += Math.max(7,lines.length*5);
-        });
-        doc.save('detalhes_licitacao.pdf');
-    } catch(e) { mostrarToast('Erro ao gerar PDF.','error'); }
-};
-
-window.exportarModalCSV = function() {
-    try {
-        const mb = document.getElementById('modalContent');
-        if (!mb) return;
-        const rows = ['Campo;Valor'];
-        const lbls = mb.querySelectorAll('.info-label');
-        const vals = mb.querySelectorAll('.info-value');
-        lbls.forEach((lbl,i) => {
-            const v = vals[i] ? vals[i].innerText.replace(/
-/g,' ').trim() : '';
-            rows.push('"'+(lbl.innerText||'').trim()+'";'+'"'+v.replace(/"/g,'""')+'"');
-        });
-        const blob = new Blob(['﻿'+rows.join('
-')],{type:'text/csv'});
-        const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='detalhes_licitacao.csv'; a.click();
-    } catch(e) { mostrarToast('Erro ao gerar CSV.','error'); }
 };
 
 // ============================================================
