@@ -1,6 +1,6 @@
 {
   "version": "4.16.6",
-  "time": 11.585,
+  "time": 15.661,
   "errors": [],
   "tasks": [
     {
@@ -83,7 +83,7 @@
           "rows": 109016
         }
       },
-      "time": 2.203,
+      "time": 2.839,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -185,13 +185,13 @@
         "scheme": "file",
         "title": "Item 2023",
         "stats": {
-          "hash": "b164a73c7886afcf8986c32ebb0a752c",
+          "hash": "3fc1b6f703569fc5feb454ae3ab95e52",
           "bytes": 28460657,
           "fields": 14,
           "rows": 106901
         }
       },
-      "time": 2.164,
+      "time": 2.745,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -293,13 +293,13 @@
         "scheme": "file",
         "title": "Item 2024",
         "stats": {
-          "hash": "3ad01748242185ccad4b8ddaf8f1326a",
-          "bytes": 24157220,
+          "hash": "68556002055e06f221876301103c06ba",
+          "bytes": 24157241,
           "fields": 14,
           "rows": 89765
         }
       },
-      "time": 1.808,
+      "time": 2.301,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -407,7 +407,7 @@
           "rows": 0
         }
       },
-      "time": 0.051,
+      "time": 0.079,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -34512,13 +34512,13 @@
         "scheme": "file",
         "title": "Item 2026",
         "stats": {
-          "hash": "9557b7f30e258d13e09a77c598761566",
-          "bytes": 4279865,
+          "hash": "e9cf785fa59e85698f6d9b5dbd1dd8b0",
+          "bytes": 4337897,
           "fields": 14,
-          "rows": 16054
+          "rows": 16280
         }
       },
-      "time": 0.332,
+      "time": 0.433,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -34664,13 +34664,13 @@
         "scheme": "file",
         "title": "Licitações 2022",
         "stats": {
-          "hash": "709dc276489980333d4cce195f94d428",
+          "hash": "fbf3f33d801247dfb681c4bab18fa455",
           "bytes": 19617887,
           "fields": 25,
           "rows": 43934
         }
       },
-      "time": 1.594,
+      "time": 2.325,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -34816,13 +34816,13 @@
         "scheme": "file",
         "title": "Licitações 2023",
         "stats": {
-          "hash": "f3817c145f0e93bab7bfb4ef760abc0f",
+          "hash": "bcaba7d69758437ce44a22740958e9ed",
           "bytes": 18871598,
           "fields": 25,
           "rows": 42066
         }
       },
-      "time": 1.552,
+      "time": 2.235,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -34968,13 +34968,13 @@
         "scheme": "file",
         "title": "Licitações 2024",
         "stats": {
-          "hash": "b993a10d6fa27bceb767b462c53f793d",
-          "bytes": 17172736,
+          "hash": "06a1ff3e2e8c9796ac89555f187ab186",
+          "bytes": 17173388,
           "fields": 25,
-          "rows": 38391
+          "rows": 38392
         }
       },
-      "time": 1.412,
+      "time": 2.026,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -35126,7 +35126,7 @@
           "rows": 0
         }
       },
-      "time": 0.06,
+      "time": 0.094,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -49127,7 +49127,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "429290920,42",
             "428697762,34",
-            "409784347,65"
+            "411025853,82"
           ],
           "rowNumber": 160,
           "rowPosition": 161,
@@ -49143,7 +49143,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "409784347,65",
+          "cell": "411025853,82",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -49173,7 +49173,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "429290920,42",
             "428697762,34",
-            "409784347,65"
+            "411025853,82"
           ],
           "rowNumber": 160,
           "rowPosition": 161,
@@ -50415,7 +50415,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "3898450171,04",
             "3896087448,31",
-            "3576468146,31"
+            "3575226640,14"
           ],
           "rowNumber": 174,
           "rowPosition": 175,
@@ -50431,7 +50431,7 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "3576468146,31",
+          "cell": "3575226640,14",
           "fieldName": "",
           "fieldNumber": 25,
           "fieldPosition": 26,
@@ -50461,7 +50461,7 @@
             "https://www1.compras.mg.gov.br/contrato/gestaocontratos/arquivosContrato.html?idContrato=201997",
             "3898450171,04",
             "3896087448,31",
-            "3576468146,31"
+            "3575226640,14"
           ],
           "rowNumber": 174,
           "rowPosition": 175,
@@ -81282,13 +81282,13 @@
         "scheme": "file",
         "title": "Licitações 2026",
         "stats": {
-          "hash": "6399793cb041efbbf0faa8e69cd61599",
-          "bytes": 3342230,
+          "hash": "4bbd6c8dc41820cf33547c57229bc543",
+          "bytes": 3383570,
           "fields": 25,
-          "rows": 7942
+          "rows": 8036
         }
       },
-      "time": 0.302,
+      "time": 0.436,
       "scope": [
         "hash-count-error",
         "byte-count-error",
