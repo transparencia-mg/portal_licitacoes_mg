@@ -1636,7 +1636,7 @@ window.verDetalhesLicitacao = function(processo) {
                         <td class="text-right">${formatarMoeda(item['valor_unitario_referencia_item_processo'])}</td>
                         <td class="text-right">${formatarMoeda(item['valor_unitario_homologado_item_processo'])}</td>
                         <td class="text-right">${formatarMoeda(item['valor_total_referencia_item_processo'])}</td>
-                        <td class="text-right">${formatarMoeda(item['valor_total_homlogado'])}</td>
+                        <td class="text-right">${formatarMoeda(item['valor_total_homologado'])}</td>
                     </tr>`).join('')}
                 </tbody>
             </table>
@@ -1738,7 +1738,7 @@ function renderizarConsultaItem() {
                         <th class="sortable-header text-right" onclick="toggleSortITEM('valor_unitario_referencia_item_processo')">V. Unit. Ref. <i class="material-icons">unfold_more</i></th>
                         <th class="sortable-header text-right" onclick="toggleSortITEM('valor_unitario_homologado_item_processo')">V. Unit. Homol. <i class="material-icons">unfold_more</i></th>
                         <th class="sortable-header text-right" onclick="toggleSortITEM('valor_total_referencia_item_processo')">V. Total Ref. <i class="material-icons">unfold_more</i></th>
-                        <th class="sortable-header text-right" onclick="toggleSortITEM('valor_total_homlogado')">V. Total Homol. <i class="material-icons">unfold_more</i></th>
+                        <th class="sortable-header text-right" onclick="toggleSortITEM('valor_total_homologado')">V. Total Homol. <i class="material-icons">unfold_more</i></th>
                         <th class="text-center">Ações</th>
                     </tr>
                 </thead>
@@ -1787,7 +1787,7 @@ function gerarLinhasTabelaItens(itens) {
             <td class="text-right">${formatarMoeda(item['valor_unitario_referencia_item_processo'])}</td>
             <td class="text-right">${formatarMoeda(item['valor_unitario_homologado_item_processo'])}</td>
             <td class="text-right">${formatarMoeda(item['valor_total_referencia_item_processo'])}</td>
-            <td class="text-right">${formatarMoeda(item['valor_total_homlogado'])}</td>
+            <td class="text-right">${formatarMoeda(item['valor_total_homologado'])}</td>
             <td class="text-center"><button class="btn-action" onclick="verDetalhesLicitacao('${proc}')" title="Detalhes"><i class="material-icons" style="font-size:15px">visibility</i></button></td>
         </tr>`;
     }).join('');
@@ -2004,22 +2004,22 @@ window.exportarTabelaLicitacaoPDF = function() {
 };
 
 window.exportarTabelaItem = function() {
-    const dados = (window.itensFiltrados||[]).map(item=>[item['ano_criacao_processo'],item['numero_processo_formatado'],item['numero_item_processo'],item['situacao_item_processo'],item['codigo_elemento_item_despesa'],item['nome_elemento_item_despesa'],item['quantidade_item_pedido'],item['valor_unitario_referencia_item_pedido'],item['valor_total_referencia_item_pedido']]);
-    const csv = [['Ano','Processo','Item','Situação','Cód. Elemento','Elemento','Qtd','Valor Unit.','Valor Total'].join(';'), ...dados.map(l=>l.map(c=>`"${c||''}"`).join(';'))].join('\n');
+    const dados = (window.itensFiltrados||[]).map(item=>[item['ano_criacao_processo'],item['numero_processo_formatado'],item['numero_item_processo'],item['situacao_compra_item_processo'],item['codigo_elemento_item_despesa'],item['nome_elemento_item_despesa'],item['quantidade_item_pedido'],item['valor_unitario_referencia_item_processo'],item['valor_unitario_homologado_item_processo'],item['valor_total_referencia_item_processo'],item['valor_total_homologado']]);
+    const csv = [['Ano','Processo','Item','Situação','Cód. Elemento','Elemento','Qtd','V. Unit. Ref.','V. Unit. Homol.','V. Total Ref.','V. Total Homol.'].join(';'), ...dados.map(l=>l.map(c=>`"${c||''}"`).join(';'))].join('\n');
     const blob = new Blob(['\uFEFF'+csv], {type:'text/csv'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='consulta_itens.csv'; a.click();
 };
 
 window.exportarTabelaItemPDF = function() {
     const { jsPDF } = window.jspdf; const doc = new jsPDF({orientation:'landscape'}); const cab = getCabecalhoPDF('Consulta de Itens');
-    const dados = (window.itensFiltrados||[]).slice(0,100).map(item=>[item['ano_criacao_processo']||'-',item['numero_processo_formatado']||'-',item['numero_item_processo']||'-',item['situacao_item_processo']||'-',item['codigo_elemento_item_despesa']||'-',item['nome_elemento_item_despesa']||'-',item['quantidade_item_pedido']||'-',formatarMoeda(item['valor_unitario_referencia_item_pedido']),formatarMoeda(item['valor_total_referencia_item_pedido'])]);
-    doc.autoTable({ head:[['Ano','Processo','Item','Situação','Cód. Elemento','Elemento','Qtd','Valor Unit.','Valor Total']], body:dados, headStyles:{fillColor:[32,68,93]}, styles:{fontSize:7}, didDrawPage:()=>{ doc.setFontSize(9); doc.text(cab.titulo,14,10); doc.text(`Emitido em: ${cab.dataHora}`,14,doc.internal.pageSize.height-5); } });
+    const dados = (window.itensFiltrados||[]).slice(0,100).map(item=>[item['ano_criacao_processo']||'-',item['numero_processo_formatado']||'-',item['numero_item_processo']||'-',item['situacao_compra_item_processo']||'-',item['codigo_elemento_item_despesa']||'-',item['nome_elemento_item_despesa']||'-',item['quantidade_item_pedido']||'-',formatarMoeda(item['valor_unitario_referencia_item_processo']),formatarMoeda(item['valor_unitario_homologado_item_processo']),formatarMoeda(item['valor_total_referencia_item_processo']),formatarMoeda(item['valor_total_homologado'])]);
+    doc.autoTable({ head:[['Ano','Processo','Item','Situação','Cód. Elemento','Elemento','Qtd','V. Unit. Ref.','V. Unit. Homol.','V. Total Ref.','V. Total Homol.']], body:dados, headStyles:{fillColor:[32,68,93]}, styles:{fontSize:7}, didDrawPage:()=>{ doc.setFontSize(9); doc.text(cab.titulo,14,10); doc.text(`Emitido em: ${cab.dataHora}`,14,doc.internal.pageSize.height-5); } });
     doc.save('consulta_itens.pdf');
 };
 
 window.baixarCSV = function(tipo, anoFiltro) {
     let dados, cabecalhos, nomeArquivo;
     if (tipo==='licitacoes') { dados=anoFiltro?dadosConsolidados.licitacoes.filter(l=>l&&(l['ano_criacao_pedido']==anoFiltro||l.ano_referencia==anoFiltro)):dadosConsolidados.licitacoes; cabecalhos=['ano_criacao_pedido','procedimento_contratacao_grupo','procedimento_contratacao_detalhamento_1','procedimento_contratacao_especializacao','codigo_orgao_entidade_compra','nome_orgao_entidade_compra','numero_processo_formatado','data_criacao_pedido','data_licitacao','numero_contrato','indicador_termo_de_contrato','situacao_processo','situacao_compra_item_processo','criterio_julgamento','objeto_processo','nome_empresarial_nome_fornecedor','cnpj_cpf_fornecedor_formatado','numero_parecer_juridico','data_parecer_juridico','edital_retificacao_arquivos','contrato_termoaditivo_arquivos','valor_total_homologado','valor_total_atualizado']; nomeArquivo=anoFiltro?`licitacoes_${anoFiltro}.csv`:'licitacoes_completas.csv'; }
-    else if (tipo==='itens') { dados=anoFiltro?dadosConsolidados.itens.filter(i=>i&&(i['ano_criacao_processo']==anoFiltro||i.ano_referencia==anoFiltro)):dadosConsolidados.itens; cabecalhos=['ano_criacao_processo','numero_processo_formatado','situacao_item_processo','numero_item_processo','codigo_elemento_item_despesa','nome_elemento_item_despesa','codigo_item_material_servico_numerico','item_material_servico','quantidade_item_pedido','valor_unitario_referencia_item_pedido','valor_total_referencia_item_pedido']; nomeArquivo=anoFiltro?`itens_${anoFiltro}.csv`:'itens_completos.csv'; }
+    else if (tipo==='itens') { dados=anoFiltro?dadosConsolidados.itens.filter(i=>i&&(i['ano_criacao_processo']==anoFiltro||i.ano_referencia==anoFiltro)):dadosConsolidados.itens; cabecalhos=['ano_criacao_processo','numero_processo_formatado','situacao_compra_item_processo','numero_item_processo','codigo_elemento_item_despesa','nome_elemento_item_despesa','codigo_item_material_servico_numerico','item_material_servico','quantidade_item_pedido','valor_unitario_referencia_item_processo','valor_unitario_homologado_item_processo','valor_total_referencia_item_processo','valor_total_homologado']; nomeArquivo=anoFiltro?`itens_${anoFiltro}.csv`:'itens_completos.csv'; }
     else return;
     if (!dados||dados.length===0) { alert('Nenhum dado encontrado.'); return; }
     const linhas = dados.map(item=>cabecalhos.map(cab=>{ let v=item&&item[cab]!==undefined&&item[cab]!==null?item[cab]:''; return `"${v.toString().replace(/"/g,'""')}"` }).join(';'));
@@ -2113,6 +2113,8 @@ function renderizarDownloads() {
                         <tr><td><code>quantidade_item_pedido</code></td><td>Quantidade do item no pedido</td><td>Número</td></tr>
                         <tr><td><code>valor_unitario_referencia_item_pedido</code></td><td>Valor unitário de referência do item</td><td>Moeda</td></tr>
                         <tr><td><code>valor_total_referencia_item_pedido</code></td><td>Valor total de referência do item</td><td>Moeda</td></tr>
+                        <tr><td><code>valor_unitario_homologado_item_processo</code></td><td>Valor unitário homologado do item</td><td>Moeda</td></tr>
+                        <tr><td><code>valor_total_homologado</code></td><td>Valor total homologado do item</td><td>Moeda</td></tr>
                     </tbody>
                 </table>
             </div>
