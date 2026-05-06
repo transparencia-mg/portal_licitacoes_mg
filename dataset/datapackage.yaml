@@ -2,8 +2,7 @@ name: portal_licitacoes_mg
 owner_org: secretaria-de-estado-de-planejamento-e-gestao-seplag
 profile: data-package
 resources:
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -48,9 +47,8 @@ resources:
         - name: valor_total_homologado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Itens 2022
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -95,9 +93,8 @@ resources:
         - name: valor_total_homologado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Itens 2023
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -142,9 +139,8 @@ resources:
         - name: valor_total_homologado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Itens 2024
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -189,9 +185,8 @@ resources:
         - name: valor_total_homologado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Itens 2025
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -236,9 +231,8 @@ resources:
         - name: valor_total_homologado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Itens 2026
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -301,9 +295,8 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Licitações 2022
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -366,9 +359,8 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Licitações 2023
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -431,9 +423,8 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Licitações 2024
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -498,9 +489,8 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-  - description: Insira a descrição/explicação detalhada deste recurso.
-    dialect:
+    title: Licitações 2025
+  - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
@@ -563,5 +553,5 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Insira um título humanamente legível para este recurso.
-title: Portal_licitacoes_mg
+    title: Licitações
+title: Licitações MG
