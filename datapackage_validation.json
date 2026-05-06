@@ -1,11 +1,10 @@
 {
   "version": "4.16.6",
-  "time": 19.283,
+  "time": 21.848,
   "errors": [],
   "tasks": [
     {
       "resource": {
-        "description": "Insira a descrição/explicação detalhada deste recurso.",
         "dialect": {
           "delimiter": ";"
         },
@@ -88,7 +87,7 @@
           ]
         },
         "scheme": "file",
-        "title": "Insira um título humanamente legível para este recurso.",
+        "title": "Itens 2022",
         "stats": {
           "hash": "abcf272a6224cef5baa56a230cdbcb9a",
           "bytes": 30691620,
@@ -96,7 +95,7 @@
           "rows": 109016
         }
       },
-      "time": 2.811,
+      "time": 3.184,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -126,7 +125,6 @@
     },
     {
       "resource": {
-        "description": "Insira a descrição/explicação detalhada deste recurso.",
         "dialect": {
           "delimiter": ";"
         },
@@ -209,7 +207,7 @@
           ]
         },
         "scheme": "file",
-        "title": "Insira um título humanamente legível para este recurso.",
+        "title": "Itens 2023",
         "stats": {
           "hash": "c6de8904caa9c9454f81d9e9ec695a36",
           "bytes": 29870367,
@@ -217,7 +215,7 @@
           "rows": 106901
         }
       },
-      "time": 2.773,
+      "time": 3.119,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -247,7 +245,6 @@
     },
     {
       "resource": {
-        "description": "Insira a descrição/explicação detalhada deste recurso.",
         "dialect": {
           "delimiter": ";"
         },
@@ -330,7 +327,7 @@
           ]
         },
         "scheme": "file",
-        "title": "Insira um título humanamente legível para este recurso.",
+        "title": "Itens 2024",
         "stats": {
           "hash": "a022f12f6eb1a1f7cc207f1e7203f4df",
           "bytes": 25371837,
@@ -338,7 +335,7 @@
           "rows": 89765
         }
       },
-      "time": 2.328,
+      "time": 2.626,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -368,7 +365,6 @@
     },
     {
       "resource": {
-        "description": "Insira a descrição/explicação detalhada deste recurso.",
         "dialect": {
           "delimiter": ";"
         },
@@ -451,7 +447,7 @@
           ]
         },
         "scheme": "file",
-        "title": "Insira um título humanamente legível para este recurso.",
+        "title": "Itens 2025",
         "stats": {
           "hash": "6f54c3021b6053ae68aed27c5daab532",
           "bytes": 26363477,
@@ -459,7 +455,7 @@
           "rows": 93767
         }
       },
-      "time": 2.435,
+      "time": 2.779,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -489,7 +485,6 @@
     },
     {
       "resource": {
-        "description": "Insira a descrição/explicação detalhada deste recurso.",
         "dialect": {
           "delimiter": ";"
         },
@@ -572,7 +567,7 @@
           ]
         },
         "scheme": "file",
-        "title": "Insira um título humanamente legível para este recurso.",
+        "title": "Itens 2026",
         "stats": {
           "hash": "d5d9170652dc5ed65e3b2fa293d4d3dd",
           "bytes": 4570558,
@@ -580,7 +575,7 @@
           "rows": 16280
         }
       },
-      "time": 0.442,
+      "time": 0.501,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -610,7 +605,6 @@
     },
     {
       "resource": {
-        "description": "Insira a descrição/explicação detalhada deste recurso.",
         "dialect": {
           "delimiter": ";"
         },
@@ -729,7 +723,7 @@
           ]
         },
         "scheme": "file",
-        "title": "Insira um título humanamente legível para este recurso.",
+        "title": "Licitações 2022",
         "stats": {
           "hash": "76079c2a45843dc7a7866fd16fab15df",
           "bytes": 19667138,
@@ -737,7 +731,7 @@
           "rows": 43934
         }
       },
-      "time": 2.114,
+      "time": 2.396,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -767,7 +761,6 @@
     },
     {
       "resource": {
-        "description": "Insira a descrição/explicação detalhada deste recurso.",
         "dialect": {
           "delimiter": ";"
         },
@@ -886,7 +879,7 @@
           ]
         },
         "scheme": "file",
-        "title": "Insira um título humanamente legível para este recurso.",
+        "title": "Licitações 2023",
         "stats": {
           "hash": "400ac98f071c4767bd263fe45b63403e",
           "bytes": 18919285,
@@ -894,7 +887,7 @@
           "rows": 42066
         }
       },
-      "time": 2.03,
+      "time": 2.297,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -924,7 +917,6 @@
     },
     {
       "resource": {
-        "description": "Insira a descrição/explicação detalhada deste recurso.",
         "dialect": {
           "delimiter": ";"
         },
@@ -1043,7 +1035,7 @@
           ]
         },
         "scheme": "file",
-        "title": "Insira um título humanamente legível para este recurso.",
+        "title": "Licitações 2024",
         "stats": {
           "hash": "d3ddba3715a104befd1cbb73b2f588da",
           "bytes": 17216717,
@@ -1051,7 +1043,7 @@
           "rows": 38392
         }
       },
-      "time": 1.846,
+      "time": 2.087,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -1081,7 +1073,6 @@
     },
     {
       "resource": {
-        "description": "Insira a descrição/explicação detalhada deste recurso.",
         "dialect": {
           "delimiter": ";"
         },
@@ -1204,7 +1195,7 @@
           ]
         },
         "scheme": "file",
-        "title": "Insira um título humanamente legível para este recurso.",
+        "title": "Licitações 2025",
         "stats": {
           "hash": "954ff1f423fe1e214ff543b0ec11a65f",
           "bytes": 17599072,
@@ -1212,7 +1203,7 @@
           "rows": 39852
         }
       },
-      "time": 1.942,
+      "time": 2.226,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -1242,7 +1233,6 @@
     },
     {
       "resource": {
-        "description": "Insira a descrição/explicação detalhada deste recurso.",
         "dialect": {
           "delimiter": ";"
         },
@@ -1361,7 +1351,7 @@
           ]
         },
         "scheme": "file",
-        "title": "Insira um título humanamente legível para este recurso.",
+        "title": "Licitações",
         "stats": {
           "hash": "d33e3ad18ac09040210430d2fa124158",
           "bytes": 3391945,
@@ -1369,7 +1359,7 @@
           "rows": 8036
         }
       },
-      "time": 0.406,
+      "time": 0.461,
       "scope": [
         "hash-count-error",
         "byte-count-error",
