@@ -753,10 +753,10 @@ let colunasVisiveis = {
 };
 
 const ordemColunas = [
-    'numero_processo_formatado','numero_processo_original_formatado','numero_contrato','nome_orgao_entidade_compra',
+    'numero_processo_formatado','edital','numero_processo_original_formatado','numero_contrato','nome_orgao_entidade_compra',
     'procedimento_contratacao_detalhamento_1','data_licitacao','objeto_processo',
     'nome_empresarial_nome_fornecedor','situacao_processo','situacao_compra_item_processo',
-    'valor_estimado','valor_total_homologado','edital','acoes'
+    'valor_estimado','valor_total_homologado','acoes'
 ];
 const colunasFixas = ['numero_processo_formatado','situacao_processo','valor_total_homologado','acoes'];
 
@@ -873,10 +873,25 @@ function getInfoContrato(processo) {
     return { texto: 'NÃO SE APLICA', display: '<span class="nao-aplica">NÃO SE APLICA</span>', numero: null };
 }
 
+function gerarUrlComprasMG(entrada) {
+    if (!entrada) return null;
+    // Extrai: UNIDADE NUMERO/ANO — ex: "691 004/2024" ou "691 000004/2024"
+    const regex = /(\d+)\D+(\d+)\s*\/\s*(\d{4})/;
+    const match = entrada.match(regex);
+    if (!match) return null;
+    const unidade = match[1];
+    const numero  = match[2].padStart(6, '0');
+    const ano     = match[3];
+    return `https://www1.compras.mg.gov.br/processocompra/processo/consultaProcessoCompra.html?metodo=pesquisar&codigoUnidadeCompra=${unidade}&numero=${numero}&ano=${ano}`;
+}
+
 function getLinkEdital(processo) {
     if (!processo) return { texto: 'NÃO SE APLICA', url: null };
     if (verificarSemEdital(processo)) return { texto: 'NÃO SE APLICA', url: null };
     if (processo['edital_retificacao_arquivos']) return { texto: '📄 Ver Edital', url: processo['edital_retificacao_arquivos'] };
+    // Fallback: gera link pelo número do processo formatado
+    const urlGerada = gerarUrlComprasMG(processo['numero_processo_formatado']);
+    if (urlGerada) return { texto: '🔗 Ver no Portal', url: urlGerada };
     return { texto: 'NÃO SE APLICA', url: null };
 }
 
@@ -1473,7 +1488,14 @@ function gerarLinhasTabelaLicitacoes(licitacoes) {
         const isEmergencial = verificarEmergencial(l);
         let linha = '<tr>';
         for (const col of ordemColunas) {
-            if (col==='numero_processo_formatado') linha+=`<td><a href="#" class="processo-link" onclick="verDetalhesLicitacao('${(l['numero_processo_formatado']||'').replace(/'/g,"\\'")}');return false;">${l['numero_processo_formatado']||'-'}</a></td>`;
+            if (col==='numero_processo_formatado') {
+                const urlPortal = gerarUrlComprasMG(l['numero_processo_formatado']||'');
+                if (urlPortal) {
+                    linha+=`<td><a href="${urlPortal}" target="_blank" class="processo-link">${l['numero_processo_formatado']||'-'}</a></td>`;
+                } else {
+                    linha+=`<td><a href="#" class="processo-link" onclick="verDetalhesLicitacao('${(l['numero_processo_formatado']||'').replace(/'/g,"\\'")}');return false;">${l['numero_processo_formatado']||'-'}</a></td>`;
+                }
+            }
             else if (col==='numero_processo_original_formatado' && colunasVisiveis.numero_processo_original_formatado) { const po = l['numero_processo_original_formatado']; linha+=`<td>${po?po:'<span class="nao-aplica">Não se aplica</span>'}</td>`; }
             else if (col==='numero_contrato' && colunasVisiveis.numero_contrato) linha+=`<td>${contratoInfo.display}</td>`;
             else if (col==='nome_orgao_entidade_compra' && colunasVisiveis.nome_orgao_entidade_compra) linha+=`<td>${l['nome_orgao_entidade_compra']||'-'}</td>`;
@@ -1776,7 +1798,7 @@ function gerarLinhasTabelaItens(itens) {
         const sit = item['situacao_compra_item_processo']||'-';
         return `<tr>
             <td>${item['ano_criacao_processo']||'-'}</td>
-            <td><a href="#" class="processo-link" onclick="verDetalhesLicitacao('${proc}');return false;">${item['numero_processo_formatado']||'-'}</a></td>
+            <td>${(()=>{ const u=gerarUrlComprasMG(item['numero_processo_formatado']||''); return u?`<a href="${u}" target="_blank" class="processo-link">${item['numero_processo_formatado']||'-'}</a>`:`<a href="#" class="processo-link" onclick="verDetalhesLicitacao('${proc}');return false;">${item['numero_processo_formatado']||'-'}</a>`; })()}</td>
             <td>${item['numero_item_processo']||'-'}</td>
             <td><span class="badge-situacao ${getBadgeClassPorSituacao(sit)}">${sit}</span></td>
             <td>${item['codigo_elemento_item_despesa']||'-'}</td>
