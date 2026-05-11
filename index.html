@@ -407,6 +407,43 @@
         /* ============================================================
            11. MODAL
         ============================================================ */
+
+        /* ── Correção iframe: modal fixo no viewport ── */
+        body.modal-open {
+            overflow: hidden !important;
+            position: static !important; /* evita reflow de altura */
+            padding-right: 0 !important; /* Bootstrap injeta padding-right; zera para não deslocar layout */
+        }
+        .modal {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            z-index: 10500 !important;
+        }
+        .modal-backdrop {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            z-index: 10400 !important;
+        }
+        .modal-dialog {
+            margin: 1.75rem auto !important;
+            /* Garante que o diálogo não ultrapasse a tela */
+            max-height: calc(100vh - 3.5rem);
+        }
+        .modal-dialog-scrollable .modal-content {
+            max-height: calc(100vh - 3.5rem) !important;
+            overflow: hidden;
+        }
+        .modal-dialog-scrollable .modal-body {
+            overflow-y: auto !important;
+        }
+        /* ── fim correção iframe ── */
+
         .modal-creative .modal-header {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 100%);
             color: white !important;
@@ -792,6 +829,8 @@ function mostrarToast(mensagem, tipo) {
 }
 
 function iframeUpdateHeight() {
+    // Não redimensiona enquanto o modal estiver aberto
+    if (document.body.classList.contains('modal-open')) return 0;
     const h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,
         document.querySelector('.main-container')?.scrollHeight || 0) + 10;
     try { if (window.parent && window.parent !== window) window.parent.postMessage({ iframeHeight: h, height: h, type: 'resize' }, '*'); } catch(e) {}
@@ -1664,7 +1703,22 @@ window.verDetalhesLicitacao = function(processo) {
             </table>
         </div>` : ''}`;
 
-    new bootstrap.Modal(document.getElementById('detailModal')).show();
+    const modalEl = document.getElementById('detailModal');
+
+    // Garante que o conteúdo do modal começa do topo sempre que é aberto
+    modalEl.addEventListener('shown.bs.modal', function() {
+        const body = modalEl.querySelector('.modal-body');
+        if (body) body.scrollTop = 0;
+    }, { once: true });
+
+    // Quando o modal fechar, limpa estilos que o Bootstrap injeta no body
+    modalEl.addEventListener('hidden.bs.modal', function() {
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+    }, { once: true });
+
+    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    modal.show();
 };
 
 // ============================================================
@@ -2284,10 +2338,24 @@ document.addEventListener('DOMContentLoaded', () => {
 // 14. IFRAME RESIZE OBSERVER
 // ============================================================
 (function() {
+    let modalAberto = false;
+
     function sendHeight() {
+        // Não redimensiona o iframe enquanto um modal estiver aberto —
+        // isso evita que o iframe cresça e empurre o modal para fora da tela.
+        if (modalAberto) return;
         const h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) + 10;
         try { if(window.parent&&window.parent!==window) window.parent.postMessage({iframeHeight:h,iframeResize:true,type:'resize'},'*'); } catch(e) {}
     }
+
+    // Escuta eventos do Bootstrap para pausar/retomar o resize
+    document.addEventListener('show.bs.modal',  function() { modalAberto = true;  });
+    document.addEventListener('hidden.bs.modal', function() {
+        modalAberto = false;
+        // Pequeno delay para o DOM estabilizar antes de reportar altura novamente
+        setTimeout(sendHeight, 150);
+    });
+
     if (window.ResizeObserver) new ResizeObserver(sendHeight).observe(document.body);
     else { window.addEventListener('resize', sendHeight); setInterval(sendHeight, 2000); }
     sendHeight();
