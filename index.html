@@ -567,6 +567,14 @@
         .metadata-table code { background: #e2e8f0; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
 
         /* ============================================================
+           16b. DICIONÁRIO DE DADOS
+        ============================================================ */
+        .dic-search-box { background: white; border-radius: 8px; padding: 15px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+        .dic-tab-btn { background: #f0f4f8; border: none; padding: 7px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; color: #1a3a5c; cursor: pointer; transition: all 0.2s; }
+        .dic-tab-btn.active, .dic-tab-btn:hover { background: #1a3a5c; color: white; }
+        .dic-row-highlight { background: #fff8dc !important; }
+
+        /* ============================================================
            17. RESPONSIVIDADE — MOBILE FIRST
         ============================================================ */
         @media (max-width: 992px) {
@@ -649,6 +657,12 @@
                     </button>
                 </li>
                 <li class="nav-item">
+                    <button class="nav-link" id="dicionario-tab"
+                        data-bs-toggle="tab" data-bs-target="#dicionario">
+                        <i class="material-icons">menu_book</i>Dicionário de Dados
+                    </button>
+                </li>
+                <li class="nav-item">
                     <button class="nav-link" id="downloads-tab"
                         data-bs-toggle="tab" data-bs-target="#downloads">
                         <i class="material-icons">download</i>Downloads
@@ -675,6 +689,9 @@
             </div>
             <div class="tab-pane fade" id="consulta-item" role="tabpanel">
                 <div id="consulta-item-content"></div>
+            </div>
+            <div class="tab-pane fade" id="dicionario" role="tabpanel">
+                <div id="dicionario-content"></div>
             </div>
             <div class="tab-pane fade" id="downloads" role="tabpanel">
                 <div id="downloads-content"></div>
@@ -1066,6 +1083,7 @@ async function carregarTodosDados() {
         renderizarVisaoGeral();
         renderizarConsultaLicitacao();
         renderizarConsultaItem();
+        renderizarDicionario();
         renderizarDownloads();
         setTimeout(carregarFiltrosDaURL, 500);
         setTimeout(iframeUpdateHeight, 500);
@@ -2101,6 +2119,157 @@ window.baixarCSV = function(tipo, anoFiltro) {
     const linhas = dados.map(item=>cabecalhos.map(cab=>{ let v=item&&item[cab]!==undefined&&item[cab]!==null?item[cab]:''; return `"${v.toString().replace(/"/g,'""')}"` }).join(';'));
     const csv = [cabecalhos.join(';'), ...linhas].join('\n');
     const blob = new Blob(['\uFEFF'+csv], {type:'text/csv'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=nomeArquivo; a.click();
+};
+
+// ============================================================
+// 11b. DICIONÁRIO DE DADOS
+// ============================================================
+const DICIONARIO_LICITACOES = {
+    'licitacoes': [
+        { campo: 'ano_criacao_pedido',                        descricao: 'Ano de criação do pedido/licitação',                                                         tipo: 'Número (AAAA)' },
+        { campo: 'procedimento_contratacao_grupo',            descricao: 'Grupo do procedimento de contratação (Licitação, Dispensa, Inexigibilidade, etc.)',          tipo: 'Texto' },
+        { campo: 'procedimento_contratacao_detalhamento_1',   descricao: 'Modalidade da licitação (ex: Pregão, Concorrência, Tomada de Preços)',                       tipo: 'Texto' },
+        { campo: 'procedimento_contratacao_especializacao',   descricao: 'Especialização da contratação (ex: Emergencial, Eletrônico)',                                tipo: 'Texto' },
+        { campo: 'codigo_orgao_entidade_compra',              descricao: 'Código do órgão ou entidade responsável pela compra',                                        tipo: 'Texto/Número' },
+        { campo: 'nome_orgao_entidade_compra',                descricao: 'Nome do órgão ou entidade responsável pela compra',                                          tipo: 'Texto' },
+        { campo: 'numero_processo_formatado',                 descricao: 'Número do processo licitatório formatado. Chave de ligação com o dataset de empenhos.',     tipo: 'Texto' },
+        { campo: 'data_criacao_pedido',                       descricao: 'Data de criação do pedido (DD/MM/AAAA)',                                                      tipo: 'Data' },
+        { campo: 'data_licitacao',                            descricao: 'Data de realização da sessão pública da licitação (DD/MM/AAAA)',                             tipo: 'Data' },
+        { campo: 'numero_contrato',                           descricao: 'Número do contrato gerado após homologação',                                                  tipo: 'Texto' },
+        { campo: 'indicador_termo_de_contrato',               descricao: 'Indica se foi gerado termo de contrato (Sim/Não)',                                            tipo: 'Texto' },
+        { campo: 'situacao_processo',                         descricao: 'Situação atual do processo licitatório',                                                      tipo: 'Texto' },
+        { campo: 'situacao_compra_item_processo',             descricao: 'Situação da compra do item no processo',                                                      tipo: 'Texto' },
+        { campo: 'criterio_julgamento',                       descricao: 'Critério de julgamento utilizado (ex: Menor Preço, Técnica e Preço)',                        tipo: 'Texto' },
+        { campo: 'objeto_processo',                           descricao: 'Descrição do objeto/finalidade da licitação',                                                 tipo: 'Texto' },
+        { campo: 'nome_empresarial_nome_fornecedor',          descricao: 'Razão social ou nome do fornecedor contratado',                                               tipo: 'Texto' },
+        { campo: 'cnpj_cpf_fornecedor_formatado',             descricao: 'CNPJ ou CPF do fornecedor formatado (com pontuação)',                                         tipo: 'Texto' },
+        { campo: 'edital_retificacao_arquivos',               descricao: 'URL para o arquivo do edital ou retificação publicado',                                       tipo: 'Texto (URL)' },
+        { campo: 'contrato_termoaditivo_arquivos',            descricao: 'URL para o arquivo do contrato ou termo aditivo',                                             tipo: 'Texto (URL)' },
+        { campo: 'valor_total_referencia_item_processo',      descricao: 'Valor total de referência dos itens do processo',                                             tipo: 'Moeda (R$)' },
+        { campo: 'valor_total_homologado',                    descricao: 'Valor total homologado ao término da licitação',                                              tipo: 'Moeda (R$)' },
+        { campo: 'valor_total_atualizado',                    descricao: 'Valor total atualizado do contrato (com aditivos)',                                           tipo: 'Moeda (R$)' },
+    ],
+    'itens': [
+        { campo: 'ano_criacao_processo',                          descricao: 'Ano de criação do processo licitatório',                                                  tipo: 'Número (AAAA)' },
+        { campo: 'numero_processo_formatado',                     descricao: 'Número do processo formatado. Chave de ligação com a tabela de licitações.',             tipo: 'Texto' },
+        { campo: 'situacao_item_processo',                        descricao: 'Situação do item no processo (ex: Homologado, Deserto)',                                  tipo: 'Texto' },
+        { campo: 'numero_item_processo',                          descricao: 'Número sequencial do item dentro do processo',                                            tipo: 'Número inteiro' },
+        { campo: 'codigo_elemento_item_despesa',                  descricao: 'Código do elemento de despesa conforme classificação orçamentária',                       tipo: 'Texto/Número' },
+        { campo: 'nome_elemento_item_despesa',                    descricao: 'Descrição do elemento de despesa',                                                        tipo: 'Texto' },
+        { campo: 'codigo_item_material_servico_numerico',         descricao: 'Código numérico do item de material ou serviço no catálogo',                             tipo: 'Texto/Número' },
+        { campo: 'item_material_servico',                         descricao: 'Descrição do item de material ou serviço licitado',                                       tipo: 'Texto' },
+        { campo: 'quantidade_item_pedido',                        descricao: 'Quantidade do item requisitada no pedido',                                                tipo: 'Número' },
+        { campo: 'valor_unitario_referencia_item_pedido',         descricao: 'Valor unitário de referência estimado para o item',                                       tipo: 'Moeda (R$)' },
+        { campo: 'valor_total_referencia_item_pedido',            descricao: 'Valor total de referência (quantidade × valor unitário de referência)',                  tipo: 'Moeda (R$)' },
+        { campo: 'valor_unitario_homologado_item_processo',       descricao: 'Valor unitário efetivamente homologado para o item após a licitação',                    tipo: 'Moeda (R$)' },
+        { campo: 'valor_total_homologado',                        descricao: 'Valor total homologado do item (quantidade × valor unitário homologado)',                 tipo: 'Moeda (R$)' },
+    ],
+};
+
+function renderizarDicionario() {
+    const container = document.getElementById('dicionario-content');
+    if (!container) return;
+
+    const tabelas = Object.keys(DICIONARIO_LICITACOES);
+    const labelsTabela = { licitacoes: 'Licitações', itens: 'Itens' };
+    const coresTabela  = { licitacoes: '#1a3a5c', itens: '#28a745' };
+    const iconesTabela = { licitacoes: 'gavel', itens: 'inventory' };
+
+    container.innerHTML = `
+    <div class="filter-container">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <i class="material-icons" style="font-size:32px;color:#20445d;">menu_book</i>
+            <div>
+                <h5 style="font-size:15px;font-weight:700;color:#20445d;margin:0;">Dicionário de Dados</h5>
+                <p style="color:#6c757d;font-size:12px;margin:0;">Descrição de todas as colunas de cada tabela do dataset de Licitações MG</p>
+            </div>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <input type="text" id="dicBusca" class="form-control"
+                style="height:36px;font-size:12px;max-width:360px;padding:4px 12px;"
+                placeholder="Buscar campo ou descrição em qualquer tabela..."
+                oninput="buscarDicionario(this.value)">
+        </div>
+    </div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;" id="dicTabs">
+        <button class="dic-tab-btn active" onclick="mostrarTabelaDic('todas',this)">Todas as Tabelas</button>
+        ${tabelas.map(t => `<button class="dic-tab-btn" onclick="mostrarTabelaDic('${t}',this)">${labelsTabela[t] || t}</button>`).join('')}
+    </div>
+
+    <div id="dicConteudo">
+        ${tabelas.map(tabela => `
+        <div class="metadata-container dic-section" data-tabela="${tabela}">
+            <div class="metadata-header" style="display:flex;align-items:center;gap:8px;">
+                <i class="material-icons" style="font-size:16px;vertical-align:middle;">${iconesTabela[tabela] || 'table_chart'}</i>
+                ${labelsTabela[tabela] || tabela}
+                <span style="margin-left:8px;background:rgba(255,255,255,0.2);padding:2px 10px;border-radius:10px;font-size:11px;">
+                    ${DICIONARIO_LICITACOES[tabela].length} campos
+                </span>
+            </div>
+            <div class="table-responsive">
+                <table class="metadata-table" id="dicTabela_${tabela}">
+                    <thead><tr>
+                        <th>Campo</th>
+                        <th>Descrição</th>
+                        <th>Tipo</th>
+                        <th>Tabela</th>
+                    </tr></thead>
+                    <tbody>
+                        ${DICIONARIO_LICITACOES[tabela].map(row => `
+                        <tr class="dic-linha">
+                            <td><code>${row.campo}</code></td>
+                            <td>${row.descricao}</td>
+                            <td><span style="background:#e2e8f0;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:600;color:#475569;">${row.tipo}</span></td>
+                            <td><span style="background:${coresTabela[tabela] || '#1a3a5c'};color:white;padding:2px 10px;border-radius:12px;font-size:10px;font-weight:600;">${labelsTabela[tabela] || tabela}</span></td>
+                        </tr>`).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>`).join('')}
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;margin-top:12px;">
+        <button class="btn-topo" onclick="voltarAoTopo()"><i class="material-icons">arrow_upward</i> Voltar ao topo</button>
+    </div>`;
+
+    setTimeout(iframeUpdateHeight, 300);
+}
+
+window.mostrarTabelaDic = function(qual, btnEl) {
+    document.querySelectorAll('.dic-tab-btn').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+    document.querySelectorAll('.dic-section').forEach(s => {
+        s.style.display = (qual === 'todas' || s.dataset.tabela === qual) ? 'block' : 'none';
+    });
+    const busca = document.getElementById('dicBusca');
+    if (busca) busca.value = '';
+    document.querySelectorAll('.dic-linha').forEach(r => { r.style.display = ''; r.classList.remove('dic-row-highlight'); });
+};
+
+window.buscarDicionario = function(termo) {
+    const t = (termo || '').toLowerCase().trim();
+    // Exibe todas as seções durante a busca
+    document.querySelectorAll('.dic-section').forEach(s => s.style.display = 'block');
+    document.querySelectorAll('.dic-tab-btn').forEach(b => b.classList.remove('active'));
+    const btnTodas = document.querySelector('.dic-tab-btn');
+    if (btnTodas) btnTodas.classList.add('active');
+
+    if (!t) {
+        document.querySelectorAll('.dic-linha').forEach(r => { r.style.display = ''; r.classList.remove('dic-row-highlight'); });
+        return;
+    }
+    document.querySelectorAll('.dic-linha').forEach(row => {
+        const texto = row.textContent.toLowerCase();
+        const match = texto.includes(t);
+        row.style.display = match ? '' : 'none';
+        if (match) row.classList.add('dic-row-highlight'); else row.classList.remove('dic-row-highlight');
+    });
+    // Oculta tabelas sem resultados visíveis
+    document.querySelectorAll('.dic-section').forEach(s => {
+        const visiveis = s.querySelectorAll('.dic-linha:not([style*="display: none"])').length;
+        s.style.display = visiveis > 0 ? 'block' : 'none';
+    });
 };
 
 // ============================================================
