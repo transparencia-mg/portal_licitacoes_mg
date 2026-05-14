@@ -802,6 +802,7 @@ let colunasVisiveis = {
     objeto_processo: true,
     nome_empresarial_nome_fornecedor: true,
     edital: true,
+    item_material_servico: true,
     situacao_compra_item_processo: true,
     valor_estimado: true
 };
@@ -809,7 +810,7 @@ let colunasVisiveis = {
 const ordemColunas = [
     'numero_processo_formatado','edital','numero_processo_original_formatado','numero_contrato','nome_orgao_entidade_compra',
     'procedimento_contratacao_detalhamento_1','data_licitacao','objeto_processo',
-    'nome_empresarial_nome_fornecedor','situacao_processo','situacao_compra_item_processo',
+    'nome_empresarial_nome_fornecedor','situacao_processo','item_material_servico','situacao_compra_item_processo',
     'valor_estimado','valor_total_homologado','acoes'
 ];
 const colunasFixas = ['numero_processo_formatado','situacao_processo','valor_total_homologado','acoes'];
@@ -1074,6 +1075,23 @@ async function carregarTodosDados() {
             promises.push(fetch(GITHUB_BASE + arquivos.itens).then(async resp => { if (resp.ok) { const texto = await resp.text(); const dados = parseCSV(texto, `itens_${ano}`); dados.forEach(d => { if(d) d.ano_referencia = ano; }); dadosConsolidados.itens = [...dadosConsolidados.itens, ...dados]; } }).catch(err => console.error(`Erro itens ${ano}:`, err)));
         }
         await Promise.all(promises);
+
+        // Enriquecer licitações com item_material_servico da tabela de itens
+        const itensPorProcesso = {};
+        dadosConsolidados.itens.forEach(item => {
+            if (item && item['numero_processo_formatado']) {
+                const proc = item['numero_processo_formatado'];
+                if (!itensPorProcesso[proc]) itensPorProcesso[proc] = [];
+                if (item['item_material_servico']) itensPorProcesso[proc].push(item['item_material_servico']);
+            }
+        });
+        dadosConsolidados.licitacoes.forEach(l => {
+            if (l && l['numero_processo_formatado']) {
+                const itensProc = itensPorProcesso[l['numero_processo_formatado']];
+                l['item_material_servico'] = itensProc && itensProc.length > 0 ? itensProc[0] : '';
+            }
+        });
+
         dadosFiltrados = {
             visaoGeral: dadosConsolidados.licitacoes.filter(l => l && (l['ano_criacao_pedido'] == 2026 || l.ano_referencia == 2026)),
             licitacoes: dadosConsolidados.licitacoes.filter(l => l && (l['ano_criacao_pedido'] == 2026 || l.ano_referencia == 2026)),
@@ -1432,6 +1450,10 @@ function renderizarConsultaLicitacao() {
                 </select>
             </div>
             <div class="filter-group">
+                <label class="filter-label">Item Material/Serviço</label>
+                <input type="text" class="form-control" id="filtroItemMaterialCL" placeholder="Palavra-chave no item...">
+            </div>
+            <div class="filter-group">
                 <label class="filter-label">Emergencial</label>
                 <select class="form-select modern-select" id="filtroEmergencialCL">
                     <option value="">Todos</option>
@@ -1517,7 +1539,8 @@ function gerarCabecalhosLicitacao() {
         else if (col==='objeto_processo' && colunasVisiveis.objeto_processo) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('objeto_processo')">Objeto <i class="material-icons">unfold_more</i></th>`);
         else if (col==='nome_empresarial_nome_fornecedor' && colunasVisiveis.nome_empresarial_nome_fornecedor) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('nome_empresarial_nome_fornecedor')">Fornecedor <i class="material-icons">unfold_more</i></th>`);
         else if (col==='situacao_processo') cabs.push(`<th class="sortable-header" onclick="toggleSortCL('situacao_processo')">Sit. Processo <i class="material-icons">unfold_more</i></th>`);
-        else if (col==='situacao_compra_item_processo' && colunasVisiveis.situacao_compra_item_processo) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('situacao_compra_item_processo')">Sit. Item <i class="material-icons">unfold_more</i></th>`);
+        else if (col==='item_material_servico' && colunasVisiveis.item_material_servico) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('item_material_servico')">Item Material/Serviço <i class="material-icons">unfold_more</i></th>`);
+        else if (col==='situacao_compra_item_processo' && colunasVisiveis.situacao_compra_item_processo) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('situacao_compra_item_processo')">SITUAÇÃO ITEM <i class="material-icons">unfold_more</i></th>`);
         else if (col==='valor_estimado' && colunasVisiveis.valor_estimado) cabs.push(`<th class="sortable-header text-right" onclick="toggleSortCL('valor_estimado')">Valor Estimado <i class="material-icons">unfold_more</i></th>`);
         else if (col==='valor_total_homologado') cabs.push(`<th class="sortable-header text-right" onclick="toggleSortCL('valor_total_homologado')">Valor Total <i class="material-icons">unfold_more</i></th>`);
         else if (col==='edital' && colunasVisiveis.edital) cabs.push('<th>Edital</th>');
@@ -1561,6 +1584,7 @@ function gerarLinhasTabelaLicitacoes(licitacoes) {
             else if (col==='objeto_processo' && colunasVisiveis.objeto_processo) linha+=`<td title="${l['objeto_processo']||''}">${(l['objeto_processo']||'').substring(0,40)}${(l['objeto_processo']||'').length>40?'...':''}</td>`;
             else if (col==='nome_empresarial_nome_fornecedor' && colunasVisiveis.nome_empresarial_nome_fornecedor) linha+=`<td>${fornecedorDisplay}</td>`;
             else if (col==='situacao_processo') linha+=`<td><span class="badge-situacao ${getBadgeClassPorSituacao(situacao)}">${situacao}</span></td>`;
+            else if (col==='item_material_servico' && colunasVisiveis.item_material_servico) { const ims = l['item_material_servico']||'-'; linha+=`<td title="${ims}">${ims.substring(0,40)}${ims.length>40?'...':''}</td>`; }
             else if (col==='situacao_compra_item_processo' && colunasVisiveis.situacao_compra_item_processo) linha+=`<td><span class="badge-situacao ${getBadgeClassPorSituacao(situacaoItem)}">${situacaoItem}</span></td>`;
             else if (col==='valor_estimado' && colunasVisiveis.valor_estimado) linha+=`<td class="text-right">${formatarMoeda(l['valor_total_referencia_item_processo'])}</td>`;
             else if (col==='valor_total_homologado') linha+=`<td class="text-right">${formatarMoeda(l['valor_total_homologado'])}</td>`;
@@ -1591,6 +1615,7 @@ window.aplicarFiltrosCL = function() {
     const fornecedor = (document.getElementById('filtroFornecedorCL')?.value||'').toLowerCase();
     const cnpj = (document.getElementById('filtroCnpjCL')?.value||'').toLowerCase();
     const objeto = (document.getElementById('filtroObjetoCL')?.value||'').toLowerCase();
+    const itemMaterial = (document.getElementById('filtroItemMaterialCL')?.value||'').toLowerCase();
     window.licitacoesFiltradas = dadosConsolidados.licitacoes.filter(l => {
         if (ano && l['ano_criacao_pedido']!=ano && l.ano_referencia!=ano) return false;
         if (orgao && l['nome_orgao_entidade_compra']!==orgao) return false;
@@ -1602,6 +1627,7 @@ window.aplicarFiltrosCL = function() {
         if (fornecedor && !l['nome_empresarial_nome_fornecedor']?.toLowerCase().includes(fornecedor)) return false;
         if (cnpj && !l['cnpj_cpf_fornecedor_formatado']?.toLowerCase().includes(cnpj)) return false;
         if (objeto && !l['objeto_processo']?.toLowerCase().includes(objeto)) return false;
+        if (itemMaterial && !l['item_material_servico']?.toLowerCase().includes(itemMaterial)) return false;
         if (emergencial) { const e=verificarEmergencial(l); if (emergencial==='sim'&&!e) return false; if (emergencial==='nao'&&e) return false; }
         return true;
     });
@@ -1612,7 +1638,7 @@ window.aplicarFiltrosCL = function() {
 };
 
 window.limparFiltrosCL = function() {
-    ['filtroAnoCL','filtroOrgaoCL','filtroModalidadeCL','filtroSituacaoCL','filtroSituacaoItemCL','filtroEmergencialCL','filtroTipoCL','filtroProcessoCL','filtroFornecedorCL','filtroCnpjCL','filtroObjetoCL'].forEach(id => { const el=document.getElementById(id); if(el) el.value=id==='filtroAnoCL'?'2026':''; });
+    ['filtroAnoCL','filtroOrgaoCL','filtroModalidadeCL','filtroSituacaoCL','filtroSituacaoItemCL','filtroEmergencialCL','filtroTipoCL','filtroProcessoCL','filtroFornecedorCL','filtroCnpjCL','filtroObjetoCL','filtroItemMaterialCL'].forEach(id => { const el=document.getElementById(id); if(el) el.value=id==='filtroAnoCL'?'2026':''; });
     window.licitacoesFiltradas = dadosConsolidados.licitacoes.filter(l => l['ano_criacao_pedido']==2026 || l.ano_referencia==2026);
     window.licitacoesFiltradas = ordenarDados(window.licitacoesFiltradas, sortConfig.licitacoes.column, sortConfig.licitacoes.direction);
     paginacao.licitacoes.paginaAtual = 1;
@@ -2003,7 +2029,8 @@ function renderizarSeletorColunas() {
             <div class="column-selector-item"><input type="checkbox" id="colObjeto" ${colunasVisiveis.objeto_processo?'checked':''} onchange="atualizarColunasVisiveis('objeto_processo',this.checked)"><label for="colObjeto">Objeto</label></div>
             <div class="column-selector-item"><input type="checkbox" id="colFornecedor" ${colunasVisiveis.nome_empresarial_nome_fornecedor?'checked':''} onchange="atualizarColunasVisiveis('nome_empresarial_nome_fornecedor',this.checked)"><label for="colFornecedor">Fornecedor</label></div>
             <div class="column-selector-item"><span class="fixed-column-badge">Fixa</span><label>Situação Processo</label></div>
-            <div class="column-selector-item"><input type="checkbox" id="colSituacaoItem" ${colunasVisiveis.situacao_compra_item_processo?'checked':''} onchange="atualizarColunasVisiveis('situacao_compra_item_processo',this.checked)"><label for="colSituacaoItem">Situação Item</label></div>
+            <div class="column-selector-item"><input type="checkbox" id="colItemMaterial" ${colunasVisiveis.item_material_servico?'checked':''} onchange="atualizarColunasVisiveis('item_material_servico',this.checked)"><label for="colItemMaterial">Item Material/Serviço</label></div>
+            <div class="column-selector-item"><input type="checkbox" id="colSituacaoItem" ${colunasVisiveis.situacao_compra_item_processo?'checked':''} onchange="atualizarColunasVisiveis('situacao_compra_item_processo',this.checked)"><label for="colSituacaoItem">SITUAÇÃO ITEM</label></div>
             <div class="column-selector-item"><input type="checkbox" id="colValorEstimado" ${colunasVisiveis.valor_estimado?'checked':''} onchange="atualizarColunasVisiveis('valor_estimado',this.checked)"><label for="colValorEstimado">Valor Estimado</label></div>
             <div class="column-selector-item"><span class="fixed-column-badge">Fixa</span><label>Valor Total</label></div>
             <div class="column-selector-item"><input type="checkbox" id="colEdital" ${colunasVisiveis.edital?'checked':''} onchange="atualizarColunasVisiveis('edital',this.checked)"><label for="colEdital">Edital</label></div>
@@ -2194,7 +2221,6 @@ function renderizarDicionario() {
 
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;" id="dicTabs">
         <button class="dic-tab-btn active" onclick="mostrarTabelaDic('todas',this)">Todas as Tabelas</button>
-        ${tabelas.map(t => `<button class="dic-tab-btn" onclick="mostrarTabelaDic('${t}',this)">${labelsTabela[t] || t}</button>`).join('')}
     </div>
 
     <div id="dicConteudo">
@@ -2304,66 +2330,6 @@ function renderizarDownloads() {
                 </button>
             </div>`).join('')}
         </div>
-    </div>
-
-    <div class="filter-container">
-        <h5 style="font-size:14px;font-weight:700;color:#20445d;margin-bottom:12px;"><i class="material-icons" style="vertical-align:middle;margin-right:4px;">info</i> Metadados — Dicionário de Variáveis</h5>
-
-        <div class="metadata-container mb-3">
-            <div class="metadata-header"><i class="material-icons me-2" style="vertical-align:middle">gavel</i> Licitações</div>
-            <div class="table-responsive">
-                <table class="metadata-table">
-                    <thead><tr><th>Campo</th><th>Descrição</th><th>Tipo</th></tr></thead>
-                    <tbody>
-                        <tr><td><code>ano_criacao_pedido</code></td><td>Ano de criação do pedido/licitação</td><td>Número</td></tr>
-                        <tr><td><code>procedimento_contratacao_grupo</code></td><td>Grupo do procedimento de contratação (Licitação, Dispensa, etc)</td><td>Texto</td></tr>
-                        <tr><td><code>procedimento_contratacao_detalhamento_1</code></td><td>Modalidade da licitação</td><td>Texto</td></tr>
-                        <tr><td><code>procedimento_contratacao_especializacao</code></td><td>Especialização da contratação (ex: Emergencial)</td><td>Texto</td></tr>
-                        <tr><td><code>codigo_orgao_entidade_compra</code></td><td>Código do órgão/entidade responsável pela compra</td><td>Texto/Número</td></tr>
-                        <tr><td><code>nome_orgao_entidade_compra</code></td><td>Nome do órgão/entidade responsável pela compra</td><td>Texto</td></tr>
-                        <tr><td><code>numero_processo_formatado</code></td><td>Número do processo licitatório formatado</td><td>Texto</td></tr>
-                        <tr><td><code>data_criacao_pedido</code></td><td>Data de criação do pedido</td><td>Data</td></tr>
-                        <tr><td><code>data_licitacao</code></td><td>Data da realização da licitação</td><td>Data</td></tr>
-                        <tr><td><code>numero_contrato</code></td><td>Número do contrato gerado</td><td>Texto</td></tr>
-                        <tr><td><code>indicador_termo_de_contrato</code></td><td>Indica se houve termo de contrato</td><td>Texto</td></tr>
-                        <tr><td><code>situacao_processo</code></td><td>Situação atual do processo</td><td>Texto</td></tr>
-                        <tr><td><code>situacao_compra_item_processo</code></td><td>Situação da compra do item no processo</td><td>Texto</td></tr>
-                        <tr><td><code>criterio_julgamento</code></td><td>Critério de julgamento utilizado</td><td>Texto</td></tr>
-                        <tr><td><code>objeto_processo</code></td><td>Objeto/descrição da licitação</td><td>Texto</td></tr>
-                        <tr><td><code>nome_empresarial_nome_fornecedor</code></td><td>Nome do fornecedor contratado</td><td>Texto</td></tr>
-                        <tr><td><code>cnpj_cpf_fornecedor_formatado</code></td><td>CNPJ ou CPF do fornecedor</td><td>Texto</td></tr>
-                        <tr><td><code>edital_retificacao_arquivos</code></td><td>Link para o arquivo do edital</td><td>Texto (URL)</td></tr>
-                        <tr><td><code>contrato_termoaditivo_arquivos</code></td><td>Link para o arquivo do contrato</td><td>Texto (URL)</td></tr>
-                        <tr><td><code>valor_total_homologado</code></td><td>Valor total homologado da licitação</td><td>Moeda</td></tr>
-                        <tr><td><code>valor_total_atualizado</code></td><td>Valor total atualizado</td><td>Moeda</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="metadata-container">
-            <div class="metadata-header"><i class="material-icons me-2" style="vertical-align:middle">inventory</i> Itens</div>
-            <div class="table-responsive">
-                <table class="metadata-table">
-                    <thead><tr><th>Campo</th><th>Descrição</th><th>Tipo</th></tr></thead>
-                    <tbody>
-                        <tr><td><code>ano_criacao_processo</code></td><td>Ano de criação do processo</td><td>Número</td></tr>
-                        <tr><td><code>numero_processo_formatado</code></td><td>Número do processo formatado</td><td>Texto</td></tr>
-                        <tr><td><code>situacao_item_processo</code></td><td>Situação do item no processo</td><td>Texto</td></tr>
-                        <tr><td><code>numero_item_processo</code></td><td>Número sequencial do item no processo</td><td>Número</td></tr>
-                        <tr><td><code>codigo_elemento_item_despesa</code></td><td>Código do elemento de despesa</td><td>Texto/Número</td></tr>
-                        <tr><td><code>nome_elemento_item_despesa</code></td><td>Nome do elemento de despesa</td><td>Texto</td></tr>
-                        <tr><td><code>codigo_item_material_servico_numerico</code></td><td>Código do item de material ou serviço</td><td>Texto/Número</td></tr>
-                        <tr><td><code>item_material_servico</code></td><td>Descrição do item de material ou serviço</td><td>Texto</td></tr>
-                        <tr><td><code>quantidade_item_pedido</code></td><td>Quantidade do item no pedido</td><td>Número</td></tr>
-                        <tr><td><code>valor_unitario_referencia_item_pedido</code></td><td>Valor unitário de referência do item</td><td>Moeda</td></tr>
-                        <tr><td><code>valor_total_referencia_item_pedido</code></td><td>Valor total de referência do item</td><td>Moeda</td></tr>
-                        <tr><td><code>valor_unitario_homologado_item_processo</code></td><td>Valor unitário homologado do item</td><td>Moeda</td></tr>
-                        <tr><td><code>valor_total_homologado</code></td><td>Valor total homologado do item</td><td>Moeda</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>`;
     setTimeout(iframeUpdateHeight, 300);
 }
@@ -2418,6 +2384,7 @@ window.buscarRegistrosCL = function(termo) {
         String(l['objeto_processo']||'').toLowerCase().includes(t) ||
         String(l['nome_empresarial_nome_fornecedor']||'').toLowerCase().includes(t) ||
         String(l['situacao_processo']||'').toLowerCase().includes(t) ||
+        String(l['item_material_servico']||'').toLowerCase().includes(t) ||
         String(l['procedimento_contratacao_detalhamento_1']||'').toLowerCase().includes(t)
     );
     document.getElementById('licitacoesTableBody').innerHTML = gerarLinhasTabelaLicitacoes(filtrado.slice(0, paginacao.licitacoes.itensPorPagina));

@@ -268,6 +268,8 @@ resources:
           type: string
         - name: situacao_processo
           type: string
+        - name: item_material_servico
+          type: string
         - name: situacao_compra_item_processo
           type: string
         - name: criterio_julgamento
@@ -331,6 +333,8 @@ resources:
         - name: indicador_termo_de_contrato
           type: string
         - name: situacao_processo
+          type: string
+        - name: item_material_servico
           type: string
         - name: situacao_compra_item_processo
           type: string
@@ -396,6 +400,8 @@ resources:
           type: string
         - name: situacao_processo
           type: string
+        - name: item_material_servico
+          type: string
         - name: situacao_compra_item_processo
           type: string
         - name: criterio_julgamento
@@ -459,6 +465,8 @@ resources:
         - name: indicador_termo_de_contrato
           type: string
         - name: situacao_processo
+          type: string
+        - name: item_material_servico
           type: string
         - name: situacao_compra_item_processo
           type: string
@@ -526,6 +534,8 @@ resources:
           type: string
         - name: situacao_processo
           type: string
+        - name: item_material_servico
+          type: string
         - name: situacao_compra_item_processo
           type: string
         - name: criterio_julgamento
@@ -553,5 +563,5 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Licitações
-title: Licitações MG
+    title: Licitações 2026
+title: Consutla de Licitações MG
