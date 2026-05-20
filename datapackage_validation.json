@@ -1,6 +1,6 @@
 {
   "version": "4.16.6",
-  "time": 11.278,
+  "time": 12.702,
   "errors": [],
   "tasks": [
     {
@@ -95,7 +95,7 @@
           "rows": 109016
         }
       },
-      "time": 2.83,
+      "time": 3.181,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -215,7 +215,7 @@
           "rows": 106901
         }
       },
-      "time": 2.746,
+      "time": 3.097,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -335,7 +335,7 @@
           "rows": 89765
         }
       },
-      "time": 2.348,
+      "time": 2.62,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -455,7 +455,7 @@
           "rows": 93767
         }
       },
-      "time": 2.425,
+      "time": 2.728,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -575,7 +575,7 @@
           "rows": 16280
         }
       },
-      "time": 0.441,
+      "time": 0.496,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -735,7 +735,7 @@
           "rows": 0
         }
       },
-      "time": 0.063,
+      "time": 0.075,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -50912,7 +50912,7 @@
           "rows": 0
         }
       },
-      "time": 0.068,
+      "time": 0.081,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -101089,7 +101089,7 @@
           "rows": 0
         }
       },
-      "time": 0.065,
+      "time": 0.077,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -151270,7 +151270,7 @@
           "rows": 0
         }
       },
-      "time": 0.071,
+      "time": 0.084,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -202448,7 +202448,7 @@
           "rows": 0
         }
       },
-      "time": 0.064,
+      "time": 0.076,
       "scope": [
         "hash-count-error",
         "byte-count-error",
