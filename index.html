@@ -763,7 +763,7 @@ const PORTAL_COMPRAS_URL = 'https://www1.compras.mg.gov.br/processocompra/proces
 const PORTAL_REGISTRO_PRECOS_URL = 'https://www.registrodeprecos.mg.gov.br/aasi/do/filtrarRPs';
 const PORTAL_DADOS_ABERTOS_URL = 'https://dados.mg.gov.br/dataset/portal_licitacoes_mg';
 
-const ARQUIVOS_POR_ANO = {
+const GITHUB_API_DATA = 'https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/contents/dataset/data';
     2022: { licitacoes: 'licitacoes2022.csv', itens: 'item2022.csv' },
     2023: { licitacoes: 'licitacoes2023.csv', itens: 'item2023.csv' },
     2024: { licitacoes: 'licitacoes2024.csv', itens: 'item2024.csv' },
@@ -778,7 +778,7 @@ let metricaGeral    = {};
 
 let sortConfig = {
     visaoGeral: { column: 'valor_total', direction: 'desc' },
-    licitacoes: { column: 'data_licitacao', direction: 'desc' },
+    licitacoes: { column: 'numero_processo_formatado', direction: 'asc' },
     itens:      { column: 'ano_criacao_processo', direction: 'desc' }
 };
 
@@ -1174,7 +1174,7 @@ async function setupAtualizacaoData() {
         if (!resp.ok) throw new Error('api erro');
         const arquivos = await resp.json();
         const execFiles = arquivos
-            .filter(f => f.name && f.name.match(/^execucao\d{4}\.csv$/))
+            .filter(f => f.name && f.name.match(/^licitacoes\d{4}\.csv$/))
             .sort((a,b) => b.name.localeCompare(a.name));
         if (execFiles.length > 0) {
             const arqRecente = execFiles[0].name;
@@ -1187,11 +1187,11 @@ async function setupAtualizacaoData() {
                 }
             }
             // Fallback: extrai ano do nome
-            const match = arqRecente.match(/licitacao(\d{4})\.csv/);
+            const match = arqRecente.match(/licitacoes(\d{4})\.csv/);
             if (match) { el.textContent = match[1]; return; }
         }
-        // Fallback: tenta pegar data do commit do licitacao2026.csv diretamente
-        const fb = await fetch('https://api.github.com/repos/transparencia-mg/portal_convenios_entrada/commits?path=dataset/data/licitacao2026.csv&per_page=1');
+        // Fallback: tenta pegar data do commit do licitacoes2026.csv diretamente
+        const fb = await fetch('https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/commits?path=dataset/data/licitacoes2026.csv&per_page=1');
         if (fb.ok) {
             const cs = await fb.json();
             if (cs && cs.length > 0) { el.textContent = new Date(cs[0].commit.committer.date).toLocaleDateString('pt-BR'); return; }
@@ -1278,7 +1278,7 @@ function renderizarVisaoGeral() {
         <div class="col-6 col-md-3">
             <div class="metric-card">
                 <div class="metric-header">Processos</div>
-                <div class="metric-body"><div class="metric-value" id="metricProcessosVG">${metricaGeral.totalProcessos.toLocaleString('pt-BR')}</div><div class="metric-sublabel">processos únicos</div></div>
+                <div class="metric-body"><div class="metric-value" id="metricProcessosVG">${metricaGeral.totalProcessos.toLocaleString('pt-BR')}</div><div class="metric-sublabel" id="metricProcessosSublabelVG">processos licitatórios em 2026</div></div>
             </div>
         </div>
         <div class="col-6 col-md-3">
@@ -1448,12 +1448,17 @@ window.limparFiltrosVG = function() {
     atualizarTabelaVisaoGeral();
 };
 
-function atualizarMetricasVG(dados) {
+function atualizarMetricasVG(dados, anoFiltrado) {
     const m = calcularMetricas(dados);
     document.getElementById('metricProcessosVG').textContent = m.totalProcessos.toLocaleString('pt-BR');
     document.getElementById('metricOrgaosVG').textContent = m.totalOrgaos.toLocaleString('pt-BR');
     document.getElementById('metricFornecedoresVG').textContent = m.totalFornecedores.toLocaleString('pt-BR');
     document.getElementById('metricValorVG').textContent = formatarMoeda(m.totalHomologado);
+    const sublabel = document.getElementById('metricProcessosSublabelVG');
+    if (sublabel) {
+        const ano = anoFiltrado || document.getElementById('filtroAnoVG')?.value || '2026';
+        sublabel.textContent = `processos licitatórios em ${ano}`;
+    }
 }
 
 // ============================================================
