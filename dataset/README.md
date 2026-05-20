@@ -4,7 +4,6 @@ Os dados são organizados em arquivos anuais e seguem um padrão estruturado, fa
 
 Periodicidade de Atualização: Semanal
 
-
 ## Como participar
 
 Fique a vontade para utilizar os canais oficiais de atendimento do Poder Executivo Estadual:
