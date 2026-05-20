@@ -1063,39 +1063,76 @@ function parseCSV(texto, tipo) {
     } catch(e) { console.error('Erro parseCSV:', e); return []; }
 }
 
+// ── Controle de anos carregados ──────────────────────────────
+const anosCarregados = new Set();  // anos cujos CSVs já chegaram
+const anosCarregando = new Set();  // fetches em andamento (evita duplicatas)
+
+// Enriquece licitações de um lote com os itens correspondentes
+function enriquecerLote(licitacoes, itens) {
+    const idx = {};
+    itens.forEach(item => {
+        if (!item || !item['numero_processo_formatado']) return;
+        const k = item['numero_processo_formatado'];
+        if (!idx[k] && item['item_material_servico']) idx[k] = item['item_material_servico'];
+    });
+    licitacoes.forEach(l => {
+        if (l && l['numero_processo_formatado'] && !l['item_material_servico'])
+            l['item_material_servico'] = idx[l['numero_processo_formatado']] || '';
+    });
+}
+
+// Carrega um único ano; aguarda fetch terminar antes de resolver
+async function carregarAno(ano) {
+    if (anosCarregados.has(ano) || anosCarregando.has(ano)) return;
+    anosCarregando.add(ano);
+    const arq = ARQUIVOS_POR_ANO[ano];
+    if (!arq) { anosCarregando.delete(ano); return; }
+    try {
+        const [rLic, rItens] = await Promise.all([
+            fetch(GITHUB_BASE + arq.licitacoes),
+            fetch(GITHUB_BASE + arq.itens)
+        ]);
+        const lics = [], its = [];
+        if (rLic.ok)   { parseCSV(await rLic.text(),  `licitacoes_${ano}`).forEach(d => { if (d) { d.ano_referencia = ano; lics.push(d); } }); }
+        if (rItens.ok) { parseCSV(await rItens.text(), `itens_${ano}`    ).forEach(d => { if (d) { d.ano_referencia = ano; its.push(d);  } }); }
+        enriquecerLote(lics, its);
+        dadosConsolidados.licitacoes.push(...lics);
+        dadosConsolidados.itens.push(...its);
+        anosCarregados.add(ano);
+    } catch(err) {
+        console.error(`Erro ao carregar ${ano}:`, err);
+    } finally {
+        anosCarregando.delete(ano);
+    }
+}
+
+// Atualiza os <select> de ano em todas as abas com os anos já carregados
+function atualizarSelectsAno() {
+    const anos = [...anosCarregados].sort((a, b) => b - a);
+    ['filtroAnoVG', 'filtroAnoCL', 'filtroAnoITEM'].forEach(id => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        const atual = sel.value;
+        sel.innerHTML = '<option value="">Todos</option>' +
+            anos.map(a => `<option value="${a}"${String(a) === String(atual) ? ' selected' : ''}>${a}</option>`).join('');
+        if (!atual && anos.includes(2026)) sel.value = '2026';
+    });
+}
+
+// ── Ponto de entrada principal ────────────────────────────────
 async function carregarTodosDados() {
-    mostrarLoading(true, 'Carregando dados de licitações...');
-    showLoading(true, 'Carregando dados...');
+    mostrarLoading(true, 'Carregando dados de 2026...');
+    showLoading(true, 'Carregando 2026...');
     try {
         dadosConsolidados = { licitacoes: [], itens: [] };
-        const promises = [];
-        for (const ano of anosDisponiveis) {
-            const arquivos = ARQUIVOS_POR_ANO[ano];
-            promises.push(fetch(GITHUB_BASE + arquivos.licitacoes).then(async resp => { if (resp.ok) { const texto = await resp.text(); const dados = parseCSV(texto, `licitacoes_${ano}`); dados.forEach(d => { if(d) d.ano_referencia = ano; }); dadosConsolidados.licitacoes = [...dadosConsolidados.licitacoes, ...dados]; } }).catch(err => console.error(`Erro licitações ${ano}:`, err)));
-            promises.push(fetch(GITHUB_BASE + arquivos.itens).then(async resp => { if (resp.ok) { const texto = await resp.text(); const dados = parseCSV(texto, `itens_${ano}`); dados.forEach(d => { if(d) d.ano_referencia = ano; }); dadosConsolidados.itens = [...dadosConsolidados.itens, ...dados]; } }).catch(err => console.error(`Erro itens ${ano}:`, err)));
-        }
-        await Promise.all(promises);
 
-        // Enriquecer licitações com item_material_servico da tabela de itens
-        const itensPorProcesso = {};
-        dadosConsolidados.itens.forEach(item => {
-            if (item && item['numero_processo_formatado']) {
-                const proc = item['numero_processo_formatado'];
-                if (!itensPorProcesso[proc]) itensPorProcesso[proc] = [];
-                if (item['item_material_servico']) itensPorProcesso[proc].push(item['item_material_servico']);
-            }
-        });
-        dadosConsolidados.licitacoes.forEach(l => {
-            if (l && l['numero_processo_formatado']) {
-                const itensProc = itensPorProcesso[l['numero_processo_formatado']];
-                l['item_material_servico'] = itensProc && itensProc.length > 0 ? itensProc[0] : '';
-            }
-        });
+        // 1. Carrega 2026 e renderiza o dashboard imediatamente
+        await carregarAno(2026);
 
         dadosFiltrados = {
             visaoGeral: dadosConsolidados.licitacoes.filter(l => l && (l['ano_criacao_pedido'] == 2026 || l.ano_referencia == 2026)),
             licitacoes: dadosConsolidados.licitacoes.filter(l => l && (l['ano_criacao_pedido'] == 2026 || l.ano_referencia == 2026)),
-            itens: dadosConsolidados.itens.filter(i => i && (i['ano_criacao_processo'] == 2026 || i.ano_referencia == 2026))
+            itens:      dadosConsolidados.itens.filter(i      => i && (i['ano_criacao_processo'] == 2026 || i.ano_referencia == 2026))
         };
         metricaGeral = calcularMetricas(dadosFiltrados.visaoGeral);
         renderizarVisaoGeral();
@@ -1103,11 +1140,26 @@ async function carregarTodosDados() {
         renderizarConsultaItem();
         renderizarDicionario();
         renderizarDownloads();
-        setTimeout(carregarFiltrosDaURL, 500);
-        setTimeout(iframeUpdateHeight, 500);
+        setTimeout(carregarFiltrosDaURL, 400);
+        setTimeout(iframeUpdateHeight, 400);
+
+        mostrarLoading(false);
+        showLoading(false);
+
+        // 2. Carrega os anos anteriores em background, um de cada vez
+        const anosAnteriores = anosDisponiveis.filter(a => a !== 2026);
+        (async () => {
+            for (const ano of anosAnteriores) {
+                showLoading(true, `Carregando ${ano} em background...`);
+                await carregarAno(ano);
+                atualizarSelectsAno();   // atualiza só os selects — sem re-renderizar tudo
+                await new Promise(r => setTimeout(r, 60)); // respira entre anos
+            }
+            showLoading(false);
+        })();
+
     } catch(erro) {
         console.error('Erro fatal:', erro);
-    } finally {
         mostrarLoading(false);
         showLoading(false);
     }
@@ -1413,19 +1465,37 @@ function renderizarConsultaLicitacao() {
     const opcoes = obterOpcoesFiltro(dadosConsolidados.licitacoes, 'licitacoes');
     container.innerHTML = `
     <div class="filter-container">
-        <div class="filters-row">
-            <div class="filter-group">
-                <label class="filter-label">Ano</label>
+
+        <div class="filters-row" style="margin-bottom:14px;">
+            <div class="filter-group" style="max-width:140px;">
+                <label class="filter-label">Ano Assinatura</label>
                 <select class="form-select modern-select" id="filtroAnoCL">
                     <option value="">Todos</option>
                     ${opcoes.anos.map(a=>`<option value="${a}" ${a==2026?'selected':''}>${a}</option>`).join('')}
                 </select>
             </div>
-            <div class="filter-group">
-                <label class="filter-label">Órgão</label>
-                <select class="form-select modern-select" id="filtroOrgaoCL">
+            <div class="filter-group" style="max-width:150px;">
+                <label class="filter-label">Mês Inicial</label>
+                <select class="form-select modern-select" id="filtroMesInicialCL">
                     <option value="">Todos</option>
-                    ${opcoes.orgaos.map(o=>`<option value="${o}">${o}</option>`).join('')}
+                    <option value="1">Janeiro</option><option value="2">Fevereiro</option>
+                    <option value="3">Março</option><option value="4">Abril</option>
+                    <option value="5">Maio</option><option value="6">Junho</option>
+                    <option value="7">Julho</option><option value="8">Agosto</option>
+                    <option value="9">Setembro</option><option value="10">Outubro</option>
+                    <option value="11">Novembro</option><option value="12">Dezembro</option>
+                </select>
+            </div>
+            <div class="filter-group" style="max-width:150px;">
+                <label class="filter-label">Mês Final</label>
+                <select class="form-select modern-select" id="filtroMesFinalCL">
+                    <option value="">Todos</option>
+                    <option value="1">Janeiro</option><option value="2">Fevereiro</option>
+                    <option value="3">Março</option><option value="4">Abril</option>
+                    <option value="5">Maio</option><option value="6">Junho</option>
+                    <option value="7">Julho</option><option value="8">Agosto</option>
+                    <option value="9">Setembro</option><option value="10">Outubro</option>
+                    <option value="11">Novembro</option><option value="12">Dezembro</option>
                 </select>
             </div>
             <div class="filter-group">
@@ -1436,7 +1506,25 @@ function renderizarConsultaLicitacao() {
                 </select>
             </div>
             <div class="filter-group">
-                <label class="filter-label">Situação</label>
+                <label class="filter-label">Tipo</label>
+                <select class="form-select modern-select" id="filtroTipoCL">
+                    <option value="">Todos</option>
+                    ${opcoes.grupos.map(g=>`<option value="${g}">${g}</option>`).join('')}
+                </select>
+            </div>
+            <div class="filter-group" style="max-width:130px;">
+                <label class="filter-label">Emergencial</label>
+                <select class="form-select modern-select" id="filtroEmergencialCL">
+                    <option value="">Todos</option>
+                    <option value="sim">Sim</option>
+                    <option value="nao">Não</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="filters-row" style="margin-bottom:14px;">
+            <div class="filter-group">
+                <label class="filter-label">Situação Processo</label>
                 <select class="form-select modern-select" id="filtroSituacaoCL">
                     <option value="">Todas</option>
                     ${opcoes.situacoes.map(s=>`<option value="${s}">${s}</option>`).join('')}
@@ -1449,25 +1537,16 @@ function renderizarConsultaLicitacao() {
                     ${(opcoes.situacoesItem||[]).map(s=>`<option value="${s}">${s}</option>`).join('')}
                 </select>
             </div>
-            <div class="filter-group">
-                <label class="filter-label">Item Material/Serviço</label>
-                <input type="text" class="form-control" id="filtroItemMaterialCL" placeholder="Palavra-chave no item...">
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Emergencial</label>
-                <select class="form-select modern-select" id="filtroEmergencialCL">
+            <div class="filter-group" style="flex:2;min-width:220px;">
+                <label class="filter-label">Órgão</label>
+                <select class="form-select modern-select" id="filtroOrgaoCL">
                     <option value="">Todos</option>
-                    <option value="sim">Sim</option>
-                    <option value="nao">Não</option>
+                    ${opcoes.orgaos.map(o=>`<option value="${o}">${o}</option>`).join('')}
                 </select>
             </div>
-            <div class="filter-group">
-                <label class="filter-label">Tipo</label>
-                <select class="form-select modern-select" id="filtroTipoCL">
-                    <option value="">Todos</option>
-                    ${opcoes.grupos.map(g=>`<option value="${g}">${g}</option>`).join('')}
-                </select>
-            </div>
+        </div>
+
+        <div class="filters-row" style="margin-bottom:4px;">
             <div class="filter-group">
                 <label class="filter-label">Nº Processo</label>
                 <input type="text" class="form-control" id="filtroProcessoCL" list="processosListCL" placeholder="Digite...">
@@ -1486,7 +1565,12 @@ function renderizarConsultaLicitacao() {
                 <label class="filter-label">Objeto</label>
                 <input type="text" class="form-control" id="filtroObjetoCL" placeholder="Palavra-chave no objeto...">
             </div>
+            <div class="filter-group" style="flex:2;min-width:200px;">
+                <label class="filter-label">Item Material/Serviço</label>
+                <input type="text" class="form-control" id="filtroItemMaterialCL" placeholder="Palavra-chave no item...">
+            </div>
         </div>
+
         <div class="botoes-abaixo">
             <button class="btn-pesquisa" onclick="aplicarFiltrosCL()"><i class="material-icons">filter_alt</i> Atualizar Filtros</button>
             <button class="btn-secondary-custom" onclick="limparFiltrosCL()"><i class="material-icons">clear</i> Limpar Filtros</button>
@@ -1605,6 +1689,8 @@ function toggleSortCL(coluna) {
 
 window.aplicarFiltrosCL = function() {
     const ano = document.getElementById('filtroAnoCL')?.value;
+    const mesInicial = document.getElementById('filtroMesInicialCL')?.value;
+    const mesFinal = document.getElementById('filtroMesFinalCL')?.value;
     const orgao = document.getElementById('filtroOrgaoCL')?.value;
     const modalidade = document.getElementById('filtroModalidadeCL')?.value;
     const situacao = document.getElementById('filtroSituacaoCL')?.value;
@@ -1618,6 +1704,20 @@ window.aplicarFiltrosCL = function() {
     const itemMaterial = (document.getElementById('filtroItemMaterialCL')?.value||'').toLowerCase();
     window.licitacoesFiltradas = dadosConsolidados.licitacoes.filter(l => {
         if (ano && l['ano_criacao_pedido']!=ano && l.ano_referencia!=ano) return false;
+        if (mesInicial || mesFinal) {
+            const dataCriacao = l['data_criacao_pedido'];
+            if (!dataCriacao || dataCriacao === '0000-00-00 00:00:00') return false;
+            let mes;
+            if (dataCriacao.includes('/')) {
+                const partes = dataCriacao.split('/');
+                mes = parseInt(partes[1], 10);
+            } else {
+                const partes = dataCriacao.split(' ')[0].split('-');
+                mes = parseInt(partes[1], 10);
+            }
+            if (mesInicial && mes < parseInt(mesInicial, 10)) return false;
+            if (mesFinal && mes > parseInt(mesFinal, 10)) return false;
+        }
         if (orgao && l['nome_orgao_entidade_compra']!==orgao) return false;
         if (modalidade && l['procedimento_contratacao_detalhamento_1']!==modalidade) return false;
         if (situacao && l['situacao_processo']!==situacao) return false;
@@ -1638,7 +1738,7 @@ window.aplicarFiltrosCL = function() {
 };
 
 window.limparFiltrosCL = function() {
-    ['filtroAnoCL','filtroOrgaoCL','filtroModalidadeCL','filtroSituacaoCL','filtroSituacaoItemCL','filtroEmergencialCL','filtroTipoCL','filtroProcessoCL','filtroFornecedorCL','filtroCnpjCL','filtroObjetoCL','filtroItemMaterialCL'].forEach(id => { const el=document.getElementById(id); if(el) el.value=id==='filtroAnoCL'?'2026':''; });
+    ['filtroAnoCL','filtroMesInicialCL','filtroMesFinalCL','filtroOrgaoCL','filtroModalidadeCL','filtroSituacaoCL','filtroSituacaoItemCL','filtroEmergencialCL','filtroTipoCL','filtroProcessoCL','filtroFornecedorCL','filtroCnpjCL','filtroObjetoCL','filtroItemMaterialCL'].forEach(id => { const el=document.getElementById(id); if(el) el.value=id==='filtroAnoCL'?'2026':''; });
     window.licitacoesFiltradas = dadosConsolidados.licitacoes.filter(l => l['ano_criacao_pedido']==2026 || l.ano_referencia==2026);
     window.licitacoesFiltradas = ordenarDados(window.licitacoesFiltradas, sortConfig.licitacoes.column, sortConfig.licitacoes.direction);
     paginacao.licitacoes.paginaAtual = 1;
@@ -2153,7 +2253,7 @@ window.baixarCSV = function(tipo, anoFiltro) {
 // ============================================================
 const DICIONARIO_LICITACOES = {
     'licitacoes': [
-        { campo: 'ano_criacao_pedido',                        descricao: 'Ano de criação do pedido/licitação',                                                         tipo: 'Número (AAAA)' },
+        { campo: 'ano_criacao_pedido',                        descricao: 'Ano de assinatura do contrato / criação do pedido',                                          tipo: 'Número (AAAA)' },
         { campo: 'procedimento_contratacao_grupo',            descricao: 'Grupo do procedimento de contratação (Licitação, Dispensa, Inexigibilidade, etc.)',          tipo: 'Texto' },
         { campo: 'procedimento_contratacao_detalhamento_1',   descricao: 'Modalidade da licitação (ex: Pregão, Concorrência, Tomada de Preços)',                       tipo: 'Texto' },
         { campo: 'procedimento_contratacao_especializacao',   descricao: 'Especialização da contratação (ex: Emergencial, Eletrônico)',                                tipo: 'Texto' },
