@@ -801,6 +801,8 @@ let colunasVisiveis = {
     numero_processo_original_formatado: false,
     nome_orgao_entidade_compra: true,
     procedimento_contratacao_detalhamento_1: true,
+    procedimento_contratacao_grupo: false,
+    procedimento_contratacao_especializacao: false,
     data_licitacao: true,
     objeto_processo: true,
     nome_empresarial_nome_fornecedor: true,
@@ -812,7 +814,8 @@ let colunasVisiveis = {
 
 const ordemColunas = [
     'numero_processo_formatado','edital','numero_processo_original_formatado','numero_contrato','nome_orgao_entidade_compra',
-    'procedimento_contratacao_detalhamento_1','data_licitacao','objeto_processo',
+    'procedimento_contratacao_detalhamento_1','procedimento_contratacao_grupo','procedimento_contratacao_especializacao',
+    'data_licitacao','objeto_processo',
     'nome_empresarial_nome_fornecedor','situacao_processo','item_material_servico','situacao_compra_item_processo',
     'valor_estimado','valor_total_homologado','acoes'
 ];
@@ -1627,6 +1630,8 @@ function gerarCabecalhosLicitacao() {
         else if (col==='numero_contrato' && colunasVisiveis.numero_contrato) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('numero_contrato')">Contrato <i class="material-icons">unfold_more</i></th>`);
         else if (col==='nome_orgao_entidade_compra' && colunasVisiveis.nome_orgao_entidade_compra) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('nome_orgao_entidade_compra')">Órgão <i class="material-icons">unfold_more</i></th>`);
         else if (col==='procedimento_contratacao_detalhamento_1' && colunasVisiveis.procedimento_contratacao_detalhamento_1) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('procedimento_contratacao_detalhamento_1')">Modalidade <i class="material-icons">unfold_more</i></th>`);
+        else if (col==='procedimento_contratacao_grupo' && colunasVisiveis.procedimento_contratacao_grupo) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('procedimento_contratacao_grupo')">Tipo <i class="material-icons">unfold_more</i></th>`);
+        else if (col==='procedimento_contratacao_especializacao' && colunasVisiveis.procedimento_contratacao_especializacao) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('procedimento_contratacao_especializacao')">Especialização <i class="material-icons">unfold_more</i></th>`);
         else if (col==='data_licitacao' && colunasVisiveis.data_licitacao) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('data_licitacao')">Data Sessão <i class="material-icons">unfold_more</i></th>`);
         else if (col==='objeto_processo' && colunasVisiveis.objeto_processo) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('objeto_processo')">Objeto <i class="material-icons">unfold_more</i></th>`);
         else if (col==='nome_empresarial_nome_fornecedor' && colunasVisiveis.nome_empresarial_nome_fornecedor) cabs.push(`<th class="sortable-header" onclick="toggleSortCL('nome_empresarial_nome_fornecedor')">Fornecedor <i class="material-icons">unfold_more</i></th>`);
@@ -1672,6 +1677,8 @@ function gerarLinhasTabelaLicitacoes(licitacoes) {
             else if (col==='numero_contrato' && colunasVisiveis.numero_contrato) linha+=`<td>${contratoInfo.display}</td>`;
             else if (col==='nome_orgao_entidade_compra' && colunasVisiveis.nome_orgao_entidade_compra) linha+=`<td>${l['nome_orgao_entidade_compra']||'-'}</td>`;
             else if (col==='procedimento_contratacao_detalhamento_1' && colunasVisiveis.procedimento_contratacao_detalhamento_1) linha+=`<td>${l['procedimento_contratacao_detalhamento_1']||'-'} ${isEmergencial?'<span class="emergencial-badge">Emerg.</span>':''}</td>`;
+            else if (col==='procedimento_contratacao_grupo' && colunasVisiveis.procedimento_contratacao_grupo) linha+=`<td>${l['procedimento_contratacao_grupo']||'-'}</td>`;
+            else if (col==='procedimento_contratacao_especializacao' && colunasVisiveis.procedimento_contratacao_especializacao) { const esp = l['procedimento_contratacao_especializacao']||'-'; linha+=`<td title="${esp}">${esp.substring(0,50)}${esp.length>50?'...':''}</td>`; }
             else if (col==='data_licitacao' && colunasVisiveis.data_licitacao) linha+=`<td>${dataSessao}</td>`;
             else if (col==='objeto_processo' && colunasVisiveis.objeto_processo) linha+=`<td title="${l['objeto_processo']||''}">${(l['objeto_processo']||'').substring(0,40)}${(l['objeto_processo']||'').length>40?'...':''}</td>`;
             else if (col==='nome_empresarial_nome_fornecedor' && colunasVisiveis.nome_empresarial_nome_fornecedor) linha+=`<td>${fornecedorDisplay}</td>`;
@@ -1786,6 +1793,8 @@ window.verDetalhesLicitacao = function(processo) {
             <div class="col-md-6">
                 <div class="info-card">
                     <div class="info-label">Modalidade</div><div class="info-value">${licitacao['procedimento_contratacao_detalhamento_1']||'-'}</div>
+                    <div class="info-label mt-2">Tipo</div><div class="info-value">${licitacao['procedimento_contratacao_grupo']||'-'}</div>
+                    <div class="info-label mt-2">Especialização</div><div class="info-value">${licitacao['procedimento_contratacao_especializacao']||'-'}</div>
                     <div class="info-label mt-2">Critério</div><div class="info-value">${licitacao['criterio_julgamento']||'-'}</div>
                     <div class="info-label mt-2">Situação Processo</div><div class="info-value"><span class="badge-situacao ${getBadgeClassPorSituacao(situacaoProcesso)}">${situacaoProcesso}</span></div>
                     <div class="info-label mt-2">Situação Item</div><div class="info-value"><span class="badge-situacao ${getBadgeClassPorSituacao(situacaoItem)}">${situacaoItem}</span></div>
@@ -2133,6 +2142,8 @@ function renderizarSeletorColunas() {
             <div class="column-selector-item"><input type="checkbox" id="colContrato" ${colunasVisiveis.numero_contrato?'checked':''} onchange="atualizarColunasVisiveis('numero_contrato',this.checked)"><label for="colContrato">Contrato</label></div>
             <div class="column-selector-item"><input type="checkbox" id="colOrgao" ${colunasVisiveis.nome_orgao_entidade_compra?'checked':''} onchange="atualizarColunasVisiveis('nome_orgao_entidade_compra',this.checked)"><label for="colOrgao">Órgão</label></div>
             <div class="column-selector-item"><input type="checkbox" id="colModalidade" ${colunasVisiveis.procedimento_contratacao_detalhamento_1?'checked':''} onchange="atualizarColunasVisiveis('procedimento_contratacao_detalhamento_1',this.checked)"><label for="colModalidade">Modalidade</label></div>
+            <div class="column-selector-item"><input type="checkbox" id="colTipo" ${colunasVisiveis.procedimento_contratacao_grupo?'checked':''} onchange="atualizarColunasVisiveis('procedimento_contratacao_grupo',this.checked)"><label for="colTipo">Tipo (Grupo)</label></div>
+            <div class="column-selector-item"><input type="checkbox" id="colEspecializacao" ${colunasVisiveis.procedimento_contratacao_especializacao?'checked':''} onchange="atualizarColunasVisiveis('procedimento_contratacao_especializacao',this.checked)"><label for="colEspecializacao">Especialização</label></div>
             <div class="column-selector-item"><input type="checkbox" id="colDataSessao" ${colunasVisiveis.data_licitacao?'checked':''} onchange="atualizarColunasVisiveis('data_licitacao',this.checked)"><label for="colDataSessao">Data Sessão</label></div>
             <div class="column-selector-item"><input type="checkbox" id="colObjeto" ${colunasVisiveis.objeto_processo?'checked':''} onchange="atualizarColunasVisiveis('objeto_processo',this.checked)"><label for="colObjeto">Objeto</label></div>
             <div class="column-selector-item"><input type="checkbox" id="colFornecedor" ${colunasVisiveis.nome_empresarial_nome_fornecedor?'checked':''} onchange="atualizarColunasVisiveis('nome_empresarial_nome_fornecedor',this.checked)"><label for="colFornecedor">Fornecedor</label></div>
