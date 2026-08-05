@@ -1892,7 +1892,7 @@ function renderizarConsultaItem() {
     const opcoes = obterOpcoesFiltro(dadosConsolidados.itens, 'itens');
     container.innerHTML = `
     <div class="filter-container">
-        <div class="filters-row">
+        <div class="filters-row" style="margin-bottom:14px;">
             <div class="filter-group">
                 <label class="filter-label">Ano</label>
                 <select class="form-select modern-select" id="filtroAnoITEM">
@@ -1911,9 +1911,11 @@ function renderizarConsultaItem() {
                 <datalist id="elementosList">${opcoes.elementos.map(e=>`<option value="${e}">`).join('')}</datalist>
             </div>
             <div class="filter-group">
-                <label class="filter-label">DESCR. ELEMENTO</label>
+                <label class="filter-label">Descr. Elemento</label>
                 <input type="text" class="form-control" id="filtroDescricaoElementoITEM" placeholder="Parte da descrição...">
             </div>
+        </div>
+        <div class="filters-row">
             <div class="filter-group">
                 <label class="filter-label">Fornecedor</label>
                 <input type="text" class="form-control" id="filtroFornecedorITEM" list="fornecedoresItemList" placeholder="Digite...">
@@ -1936,7 +1938,7 @@ function renderizarConsultaItem() {
                 <input type="text" class="form-control" id="filtroCodItemITEM" placeholder="Digite o código...">
             </div>
             <div class="filter-group" style="flex:2;min-width:200px;">
-                <label class="filter-label">DESCR. ITEM</label>
+                <label class="filter-label">Descrição Item</label>
                 <input type="text" class="form-control" id="filtroDescrItemITEM" placeholder="Palavra-chave no item...">
             </div>
         </div>
@@ -1968,9 +1970,9 @@ function renderizarConsultaItem() {
                         <th class="sortable-header" onclick="toggleSortITEM('numero_item_processo')">Item <i class="material-icons">unfold_more</i></th>
                         <th class="sortable-header" onclick="toggleSortITEM('situacao_compra_item_processo')">Situação <i class="material-icons">unfold_more</i></th>
                         <th class="sortable-header" onclick="toggleSortITEM('codigo_elemento_item_despesa')">Cód. Elemento <i class="material-icons">unfold_more</i></th>
-                        <th class="sortable-header" onclick="toggleSortITEM('nome_elemento_item_despesa')">DESCR. ELEMENTO <i class="material-icons">unfold_more</i></th>
+                        <th class="sortable-header" onclick="toggleSortITEM('nome_elemento_item_despesa')">Descr. Elemento <i class="material-icons">unfold_more</i></th>
                         <th class="sortable-header" onclick="toggleSortITEM('codigo_item_material_servico_numerico')">Cód. Item <i class="material-icons">unfold_more</i></th>
-                        <th class="sortable-header" onclick="toggleSortITEM('item_material_servico')">DESCR. ITEM <i class="material-icons">unfold_more</i></th>
+                        <th class="sortable-header" onclick="toggleSortITEM('item_material_servico')">Descrição Item <i class="material-icons">unfold_more</i></th>
                         <th class="sortable-header text-right" onclick="toggleSortITEM('quantidade_item_pedido')">Qtd <i class="material-icons">unfold_more</i></th>
                         <th class="sortable-header text-right" onclick="toggleSortITEM('valor_unitario_referencia_item_processo')">V. Unit. Ref. <i class="material-icons">unfold_more</i></th>
                         <th class="sortable-header text-right" onclick="toggleSortITEM('valor_unitario_homologado_item_processo')">V. Unit. Homol. <i class="material-icons">unfold_more</i></th>
