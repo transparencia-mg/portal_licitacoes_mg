@@ -7,8 +7,8 @@ resources:
     encoding: utf-8-sig
     format: csv
     hashing: md5
-    name: item2022
-    path: data/item2022.csv
+    name: item2022_1
+    path: data/item2022_1.csv
     profile: tabular-data-resource
     schema:
       fields:
@@ -47,14 +47,14 @@ resources:
         - name: valor_total_homologado
           type: string
     scheme: file
-    title: Itens 2022
+    title: Itens 2022 - Parte 1
   - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
     hashing: md5
-    name: item2023
-    path: data/item2023.csv
+    name: item2022_2
+    path: data/item2022_2.csv
     profile: tabular-data-resource
     schema:
       fields:
@@ -93,14 +93,14 @@ resources:
         - name: valor_total_homologado
           type: string
     scheme: file
-    title: Itens 2023
+    title: Itens 2022 - Parte 2
   - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
     hashing: md5
-    name: item2024
-    path: data/item2024.csv
+    name: item2022_3
+    path: data/item2022_3.csv
     profile: tabular-data-resource
     schema:
       fields:
@@ -139,14 +139,14 @@ resources:
         - name: valor_total_homologado
           type: string
     scheme: file
-    title: Itens 2024
+    title: Itens 2022 - Parte 3
   - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
     hashing: md5
-    name: item2025
-    path: data/item2025.csv
+    name: item2022_4
+    path: data/item2022_4.csv
     profile: tabular-data-resource
     schema:
       fields:
@@ -185,14 +185,474 @@ resources:
         - name: valor_total_homologado
           type: string
     scheme: file
-    title: Itens 2025
+    title: Itens 2022 - Parte 4
   - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
     hashing: md5
-    name: item2026
-    path: data/item2026.csv
+    name: item2023_1
+    path: data/item2023_1.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_processo
+          type: integer
+        - name: numero_processo_original_formatado
+          type: string
+        - name: numero_processo_formatado
+          type: string
+        - name: numero_item_processo
+          type: integer
+        - name: situacao_compra_item_processo
+          type: string
+        - name: codigo_elemento_item_despesa
+          type: integer
+        - name: nome_elemento_item_despesa
+          type: string
+        - name: codigo_item_material_servico_numerico
+          type: integer
+        - name: item_material_servico
+          type: string
+        - name: unnamed_9
+          type: any
+        - name: unnamed_10
+          type: any
+        - name: unnamed_11
+          type: any
+        - name: quantidade_item_pedido
+          type: integer
+        - name: valor_unitario_referencia_item_processo
+          type: string
+        - name: valor_unitario_homologado_item_processo
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+    scheme: file
+    title: Itens 2023 - Parte 1
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: item2023_2
+    path: data/item2023_2.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_processo
+          type: integer
+        - name: numero_processo_original_formatado
+          type: string
+        - name: numero_processo_formatado
+          type: string
+        - name: numero_item_processo
+          type: integer
+        - name: situacao_compra_item_processo
+          type: string
+        - name: codigo_elemento_item_despesa
+          type: integer
+        - name: nome_elemento_item_despesa
+          type: string
+        - name: codigo_item_material_servico_numerico
+          type: integer
+        - name: item_material_servico
+          type: string
+        - name: unnamed_9
+          type: any
+        - name: unnamed_10
+          type: any
+        - name: unnamed_11
+          type: any
+        - name: quantidade_item_pedido
+          type: integer
+        - name: valor_unitario_referencia_item_processo
+          type: string
+        - name: valor_unitario_homologado_item_processo
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+    scheme: file
+    title: Itens 2023 - Parte 2
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: item2023_3
+    path: data/item2023_3.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_processo
+          type: integer
+        - name: numero_processo_original_formatado
+          type: string
+        - name: numero_processo_formatado
+          type: string
+        - name: numero_item_processo
+          type: integer
+        - name: situacao_compra_item_processo
+          type: string
+        - name: codigo_elemento_item_despesa
+          type: integer
+        - name: nome_elemento_item_despesa
+          type: string
+        - name: codigo_item_material_servico_numerico
+          type: integer
+        - name: item_material_servico
+          type: string
+        - name: unnamed_9
+          type: any
+        - name: unnamed_10
+          type: any
+        - name: unnamed_11
+          type: any
+        - name: quantidade_item_pedido
+          type: integer
+        - name: valor_unitario_referencia_item_processo
+          type: string
+        - name: valor_unitario_homologado_item_processo
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+    scheme: file
+    title: Itens 2023 - Parte 3
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: item2023_4
+    path: data/item2023_4.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_processo
+          type: integer
+        - name: numero_processo_original_formatado
+          type: string
+        - name: numero_processo_formatado
+          type: string
+        - name: numero_item_processo
+          type: integer
+        - name: situacao_compra_item_processo
+          type: string
+        - name: codigo_elemento_item_despesa
+          type: integer
+        - name: nome_elemento_item_despesa
+          type: string
+        - name: codigo_item_material_servico_numerico
+          type: integer
+        - name: item_material_servico
+          type: string
+        - name: unnamed_9
+          type: any
+        - name: unnamed_10
+          type: any
+        - name: unnamed_11
+          type: any
+        - name: quantidade_item_pedido
+          type: integer
+        - name: valor_unitario_referencia_item_processo
+          type: string
+        - name: valor_unitario_homologado_item_processo
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+    scheme: file
+    title: Itens 2023 - Parte 4
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: item2024_1
+    path: data/item2024_1.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_processo
+          type: integer
+        - name: numero_processo_original_formatado
+          type: string
+        - name: numero_processo_formatado
+          type: string
+        - name: numero_item_processo
+          type: integer
+        - name: situacao_compra_item_processo
+          type: string
+        - name: codigo_elemento_item_despesa
+          type: integer
+        - name: nome_elemento_item_despesa
+          type: string
+        - name: codigo_item_material_servico_numerico
+          type: integer
+        - name: item_material_servico
+          type: string
+        - name: unnamed_9
+          type: any
+        - name: unnamed_10
+          type: any
+        - name: unnamed_11
+          type: any
+        - name: quantidade_item_pedido
+          type: integer
+        - name: valor_unitario_referencia_item_processo
+          type: string
+        - name: valor_unitario_homologado_item_processo
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+    scheme: file
+    title: Itens 2024 - Parte 1
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: item2024_2
+    path: data/item2024_2.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_processo
+          type: integer
+        - name: numero_processo_original_formatado
+          type: string
+        - name: numero_processo_formatado
+          type: string
+        - name: numero_item_processo
+          type: integer
+        - name: situacao_compra_item_processo
+          type: string
+        - name: codigo_elemento_item_despesa
+          type: integer
+        - name: nome_elemento_item_despesa
+          type: string
+        - name: codigo_item_material_servico_numerico
+          type: integer
+        - name: item_material_servico
+          type: string
+        - name: unnamed_9
+          type: any
+        - name: unnamed_10
+          type: any
+        - name: unnamed_11
+          type: any
+        - name: quantidade_item_pedido
+          type: integer
+        - name: valor_unitario_referencia_item_processo
+          type: string
+        - name: valor_unitario_homologado_item_processo
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+    scheme: file
+    title: Itens 2024 - Parte 2
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: item2024_3
+    path: data/item2024_3.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_processo
+          type: integer
+        - name: numero_processo_original_formatado
+          type: string
+        - name: numero_processo_formatado
+          type: string
+        - name: numero_item_processo
+          type: integer
+        - name: situacao_compra_item_processo
+          type: string
+        - name: codigo_elemento_item_despesa
+          type: integer
+        - name: nome_elemento_item_despesa
+          type: string
+        - name: codigo_item_material_servico_numerico
+          type: integer
+        - name: item_material_servico
+          type: string
+        - name: unnamed_9
+          type: any
+        - name: unnamed_10
+          type: any
+        - name: unnamed_11
+          type: any
+        - name: quantidade_item_pedido
+          type: integer
+        - name: valor_unitario_referencia_item_processo
+          type: string
+        - name: valor_unitario_homologado_item_processo
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+    scheme: file
+    title: Itens 2024 - Parte 3
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: item2025_1
+    path: data/item2025_1.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_processo
+          type: integer
+        - name: numero_processo_original_formatado
+          type: string
+        - name: numero_processo_formatado
+          type: string
+        - name: numero_item_processo
+          type: integer
+        - name: situacao_compra_item_processo
+          type: string
+        - name: codigo_elemento_item_despesa
+          type: integer
+        - name: nome_elemento_item_despesa
+          type: string
+        - name: codigo_item_material_servico_numerico
+          type: integer
+        - name: item_material_servico
+          type: string
+        - name: unnamed_9
+          type: any
+        - name: unnamed_10
+          type: any
+        - name: unnamed_11
+          type: any
+        - name: quantidade_item_pedido
+          type: integer
+        - name: valor_unitario_referencia_item_processo
+          type: string
+        - name: valor_unitario_homologado_item_processo
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+    scheme: file
+    title: Itens 2025 - Parte 1
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: item2025_2
+    path: data/item2025_2.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_processo
+          type: integer
+        - name: numero_processo_original_formatado
+          type: string
+        - name: numero_processo_formatado
+          type: string
+        - name: numero_item_processo
+          type: integer
+        - name: situacao_compra_item_processo
+          type: string
+        - name: codigo_elemento_item_despesa
+          type: integer
+        - name: nome_elemento_item_despesa
+          type: string
+        - name: codigo_item_material_servico_numerico
+          type: integer
+        - name: item_material_servico
+          type: string
+        - name: unnamed_9
+          type: any
+        - name: unnamed_10
+          type: any
+        - name: unnamed_11
+          type: any
+        - name: quantidade_item_pedido
+          type: integer
+        - name: valor_unitario_referencia_item_processo
+          type: string
+        - name: valor_unitario_homologado_item_processo
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+    scheme: file
+    title: Itens 2025 - Parte 2
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: item2025_3
+    path: data/item2025_3.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_processo
+          type: integer
+        - name: numero_processo_original_formatado
+          type: string
+        - name: numero_processo_formatado
+          type: string
+        - name: numero_item_processo
+          type: integer
+        - name: situacao_compra_item_processo
+          type: string
+        - name: codigo_elemento_item_despesa
+          type: integer
+        - name: nome_elemento_item_despesa
+          type: string
+        - name: codigo_item_material_servico_numerico
+          type: integer
+        - name: item_material_servico
+          type: string
+        - name: unnamed_9
+          type: any
+        - name: unnamed_10
+          type: any
+        - name: unnamed_11
+          type: any
+        - name: quantidade_item_pedido
+          type: integer
+        - name: valor_unitario_referencia_item_processo
+          type: string
+        - name: valor_unitario_homologado_item_processo
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+    scheme: file
+    title: Itens 2025 - Parte 3
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: item2026_1
+    path: data/item2026_1.csv
     profile: tabular-data-resource
     schema:
       fields:
@@ -231,14 +691,106 @@ resources:
         - name: valor_total_homologado
           type: string
     scheme: file
-    title: Itens 2026
+    title: Itens 2026 - Parte 1
   - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
     hashing: md5
-    name: licitacoes2022
-    path: data/licitacoes2022.csv
+    name: item2026_2
+    path: data/item2026_2.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_processo
+          type: integer
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: numero_item_processo
+          type: integer
+        - name: situacao_compra_item_processo
+          type: string
+        - name: codigo_elemento_item_despesa
+          type: integer
+        - name: nome_elemento_item_despesa
+          type: string
+        - name: codigo_item_material_servico_numerico
+          type: integer
+        - name: item_material_servico
+          type: string
+        - name: unnamed_9
+          type: any
+        - name: unnamed_10
+          type: any
+        - name: unnamed_11
+          type: any
+        - name: quantidade_item_pedido
+          type: integer
+        - name: valor_unitario_referencia_item_processo
+          type: string
+        - name: valor_unitario_homologado_item_processo
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+    scheme: file
+    title: Itens 2026 - Parte 2
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: item2026_3
+    path: data/item2026_3.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_processo
+          type: integer
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: numero_item_processo
+          type: integer
+        - name: situacao_compra_item_processo
+          type: string
+        - name: codigo_elemento_item_despesa
+          type: integer
+        - name: nome_elemento_item_despesa
+          type: string
+        - name: codigo_item_material_servico_numerico
+          type: integer
+        - name: item_material_servico
+          type: string
+        - name: unnamed_9
+          type: any
+        - name: unnamed_10
+          type: any
+        - name: unnamed_11
+          type: any
+        - name: quantidade_item_pedido
+          type: integer
+        - name: valor_unitario_referencia_item_processo
+          type: string
+        - name: valor_unitario_homologado_item_processo
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+    scheme: file
+    title: Itens 2026 - Parte 3
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2022_1
+    path: data/licitacoes2022_1.csv
     profile: tabular-data-resource
     schema:
       fields:
@@ -297,80 +849,14 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Licitações 2022
+    title: Licitações 2022 - Parte 1
   - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
     hashing: md5
-    name: licitacoes2023
-    path: data/licitacoes2023.csv
-    profile: tabular-data-resource
-    schema:
-      fields:
-        - name: ano_criacao_pedido
-          type: integer
-        - name: procedimento_contratacao_grupo
-          type: string
-        - name: procedimento_contratacao_detalhamento_1
-          type: string
-        - name: procedimento_contratacao_especializacao
-          type: string
-        - name: codigo_orgao_entidade_compra
-          type: integer
-        - name: nome_orgao_entidade_compra
-          type: string
-        - name: numero_processo_original_formatado
-          type: any
-        - name: numero_processo_formatado
-          type: string
-        - name: data_criacao_pedido
-          type: date
-        - name: data_licitacao
-          type: date
-        - name: numero_contrato
-          type: integer
-        - name: indicador_termo_de_contrato
-          type: string
-        - name: situacao_processo
-          type: string
-        - name: item_material_servico
-          type: string
-        - name: situacao_compra_item_processo
-          type: string
-        - name: criterio_julgamento
-          type: string
-        - name: objeto_processo
-          type: string
-        - name: unnamed_16
-          type: any
-        - name: nome_empresarial_nome_fornecedor
-          type: string
-        - name: cnpj_cpf_fornecedor_formatado
-          type: string
-        - name: numero_parecer_juridico
-          type: any
-        - name: data_parecer_juridico
-          type: any
-        - name: edital_retificacao_arquivos
-          type: any
-        - name: contrato_termoaditivo_arquivos
-          type: any
-        - name: valor_total_referencia_item_processo
-          type: string
-        - name: valor_total_homologado
-          type: string
-        - name: valor_total_atualizado
-          type: string
-    scheme: file
-    title: Licitações 2023
-  - dialect:
-      delimiter: ;
-    encoding: utf-8-sig
-    format: csv
-    hashing: md5
-    name: licitacoes2024
-    path: data/licitacoes2024.csv
+    name: licitacoes2022_2
+    path: data/licitacoes2022_2.csv
     profile: tabular-data-resource
     schema:
       fields:
@@ -429,14 +915,1334 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Licitações 2024
+    title: Licitações 2022 - Parte 2
   - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
     hashing: md5
-    name: licitacoes2025
-    path: data/licitacoes2025.csv
+    name: licitacoes2022_3
+    path: data/licitacoes2022_3.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2022 - Parte 3
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2022_4
+    path: data/licitacoes2022_4.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2022 - Parte 4
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2022_5
+    path: data/licitacoes2022_5.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2022 - Parte 5
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2022_6
+    path: data/licitacoes2022_6.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2022 - Parte 6
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2022_7
+    path: data/licitacoes2022_7.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2022 - Parte 7
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2022_8
+    path: data/licitacoes2022_8.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2022 - Parte 8
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2023_1
+    path: data/licitacoes2023_1.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: date
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: any
+        - name: data_parecer_juridico
+          type: any
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: any
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2023 - Parte 1
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2023_2
+    path: data/licitacoes2023_2.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: date
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: any
+        - name: data_parecer_juridico
+          type: any
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: any
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2023 - Parte 2
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2023_3
+    path: data/licitacoes2023_3.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: date
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: any
+        - name: data_parecer_juridico
+          type: any
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: any
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2023 - Parte 3
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2023_4
+    path: data/licitacoes2023_4.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: date
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: any
+        - name: data_parecer_juridico
+          type: any
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: any
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2023 - Parte 4
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2023_5
+    path: data/licitacoes2023_5.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: date
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: any
+        - name: data_parecer_juridico
+          type: any
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: any
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2023 - Parte 5
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2023_6
+    path: data/licitacoes2023_6.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: date
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: any
+        - name: data_parecer_juridico
+          type: any
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: any
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2023 - Parte 6
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2023_7
+    path: data/licitacoes2023_7.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: date
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: any
+        - name: data_parecer_juridico
+          type: any
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: any
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2023 - Parte 7
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2023_8
+    path: data/licitacoes2023_8.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: date
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: any
+        - name: data_parecer_juridico
+          type: any
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: any
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2023 - Parte 8
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2024_1
+    path: data/licitacoes2024_1.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2024 - Parte 1
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2024_2
+    path: data/licitacoes2024_2.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2024 - Parte 2
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2024_3
+    path: data/licitacoes2024_3.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2024 - Parte 3
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2024_4
+    path: data/licitacoes2024_4.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2024 - Parte 4
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2024_5
+    path: data/licitacoes2024_5.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2024 - Parte 5
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2024_6
+    path: data/licitacoes2024_6.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2024 - Parte 6
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2025_1
+    path: data/licitacoes2025_1.csv
     profile: tabular-data-resource
     schema:
       fields:
@@ -497,14 +2303,422 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Licitações 2025
+    title: Licitações 2025 - Parte 1
   - dialect:
       delimiter: ;
     encoding: utf-8-sig
     format: csv
     hashing: md5
-    name: licitacoes2026
-    path: data/licitacoes2026.csv
+    name: licitacoes2025_2
+    path: data/licitacoes2025_2.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: unnamed_18
+          type: any
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2025 - Parte 2
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2025_3
+    path: data/licitacoes2025_3.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: unnamed_18
+          type: any
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2025 - Parte 3
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2025_4
+    path: data/licitacoes2025_4.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: unnamed_18
+          type: any
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2025 - Parte 4
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2025_5
+    path: data/licitacoes2025_5.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: unnamed_18
+          type: any
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2025 - Parte 5
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2025_6
+    path: data/licitacoes2025_6.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: unnamed_18
+          type: any
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2025 - Parte 6
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2025_7
+    path: data/licitacoes2025_7.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: unnamed_18
+          type: any
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2025 - Parte 7
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2026_1
+    path: data/licitacoes2026_1.csv
     profile: tabular-data-resource
     schema:
       fields:
@@ -563,5 +2777,269 @@ resources:
         - name: valor_total_atualizado
           type: string
     scheme: file
-    title: Licitações 2026
+    title: Licitações 2026 - Parte 1
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2026_2
+    path: data/licitacoes2026_2.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2026 - Parte 2
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2026_3
+    path: data/licitacoes2026_3.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2026 - Parte 3
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2026_4
+    path: data/licitacoes2026_4.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2026 - Parte 4
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2026_5
+    path: data/licitacoes2026_5.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2026 - Parte 5
 title: Consulta de Licitações MG
