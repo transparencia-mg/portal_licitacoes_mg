@@ -766,13 +766,18 @@ const PORTAL_DADOS_ABERTOS_URL = 'https://dados.mg.gov.br/dataset/portal_licitac
 
 const GITHUB_API_DATA = 'https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/contents/dataset/data';
 
+// Nomes base (sem .csv). Cada um pode estar num arquivo único (licitacoes2026.csv)
+// ou dividido em partes (licitacoes2026_1.csv, licitacoes2026_2.csv, ...).
 const ARQUIVOS_POR_ANO = {
-    2022: { licitacoes: 'licitacoes2022.csv', itens: 'item2022.csv' },
-    2023: { licitacoes: 'licitacoes2023.csv', itens: 'item2023.csv' },
-    2024: { licitacoes: 'licitacoes2024.csv', itens: 'item2024.csv' },
-    2025: { licitacoes: 'licitacoes2025.csv', itens: 'item2025.csv' },
-    2026: { licitacoes: 'licitacoes2026.csv', itens: 'item2026.csv' }
+    2022: { licitacoes: 'licitacoes2022', itens: 'item2022' },
+    2023: { licitacoes: 'licitacoes2023', itens: 'item2023' },
+    2024: { licitacoes: 'licitacoes2024', itens: 'item2024' },
+    2025: { licitacoes: 'licitacoes2025', itens: 'item2025' },
+    2026: { licitacoes: 'licitacoes2026', itens: 'item2026' }
 };
+const MAX_PARTES = 50;
+// Lista oficial dos arquivos (gerada pelo pipeline): diz exatamente quais partes existem
+const DATAPACKAGE_URL = 'https://raw.githubusercontent.com/transparencia-mg/portal_licitacoes_mg/refs/heads/main/dataset/datapackage.json';
 
 let dadosConsolidados = { licitacoes: [], itens: [] };
 let anosDisponiveis = [2026, 2025, 2024, 2023, 2022];
@@ -1087,6 +1092,63 @@ function enriquecerLote(licitacoes, itens) {
     });
 }
 
+// ── Manifesto de arquivos ────────────────────────────────────
+// Lê o datapackage.json uma única vez e monta, para cada nome base,
+// a lista ordenada de arquivos. Ex.:
+//   licitacoes2026 -> [licitacoes2026_1.csv, ..., licitacoes2026_5.csv]
+//   item2022       -> [item2022_1.csv, ..., item2022_4.csv]
+let promessaManifesto = null;
+function carregarManifesto() {
+    if (promessaManifesto) return promessaManifesto;
+    promessaManifesto = (async () => {
+        const manifesto = {};
+        try {
+            const r = await fetch(DATAPACKAGE_URL);
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            const pkg = await r.json();
+            (pkg.resources || []).forEach(res => {
+                const nome = (res.path || '').split('/').pop();
+                const m = nome.match(/^(.+?\d{4})(?:_(\d+))?\.csv$/);
+                if (!m) return;
+                if (!manifesto[m[1]]) manifesto[m[1]] = [];
+                manifesto[m[1]].push({ nome, parte: parseInt(m[2] || '0', 10) });
+            });
+            Object.values(manifesto).forEach(lista => lista.sort((a, b) => a.parte - b.parte));
+        } catch (e) {
+            console.warn('datapackage.json indisponível; buscando partes por tentativa.', e);
+        }
+        return manifesto;
+    })();
+    return promessaManifesto;
+}
+
+// Baixa todas as partes de um arquivo (em paralelo) e devolve os textos CSV.
+// Usa a lista do datapackage.json; se ela não estiver disponível,
+// tenta base_1.csv, base_2.csv... e por fim base.csv.
+async function buscarCSVComPartes(base) {
+    const manifesto = await carregarManifesto();
+    const lista = manifesto[base];
+
+    if (lista && lista.length) {
+        const resps = await Promise.all(lista.map(a => fetch(GITHUB_BASE + a.nome).catch(() => null)));
+        const faltando = lista.filter((a, i) => !resps[i] || !resps[i].ok).map(a => a.nome);
+        if (faltando.length) console.warn(`Partes não carregadas de ${base}:`, faltando);
+        return Promise.all(resps.filter(r => r && r.ok).map(r => r.text()));
+    }
+
+    // Fallback: descobre as partes por tentativa
+    const textos = [];
+    for (let parte = 1; parte <= MAX_PARTES; parte++) {
+        const resp = await fetch(`${GITHUB_BASE}${base}_${parte}.csv`);
+        if (!resp.ok) break;
+        textos.push(await resp.text());
+    }
+    if (textos.length > 0) return textos;
+    const resp = await fetch(`${GITHUB_BASE}${base}.csv`);
+    if (resp.ok) textos.push(await resp.text());
+    return textos;
+}
+
 // Carrega um único ano; aguarda fetch terminar antes de resolver
 async function carregarAno(ano) {
     if (anosCarregados.has(ano) || anosCarregando.has(ano)) return;
@@ -1094,13 +1156,13 @@ async function carregarAno(ano) {
     const arq = ARQUIVOS_POR_ANO[ano];
     if (!arq) { anosCarregando.delete(ano); return; }
     try {
-        const [rLic, rItens] = await Promise.all([
-            fetch(GITHUB_BASE + arq.licitacoes),
-            fetch(GITHUB_BASE + arq.itens)
+        const [textosLic, textosItens] = await Promise.all([
+            buscarCSVComPartes(arq.licitacoes),
+            buscarCSVComPartes(arq.itens)
         ]);
         const lics = [], its = [];
-        if (rLic.ok)   { parseCSV(await rLic.text(),  `licitacoes_${ano}`).forEach(d => { if (d) { d.ano_referencia = ano; lics.push(d); } }); }
-        if (rItens.ok) { parseCSV(await rItens.text(), `itens_${ano}`    ).forEach(d => { if (d) { d.ano_referencia = ano; its.push(d);  } }); }
+        textosLic.forEach(t   => parseCSV(t, `licitacoes_${ano}`).forEach(d => { if (d) { d.ano_referencia = ano; lics.push(d); } }));
+        textosItens.forEach(t => parseCSV(t, `itens_${ano}`    ).forEach(d => { if (d) { d.ano_referencia = ano; its.push(d);  } }));
         enriquecerLote(lics, its);
         dadosConsolidados.licitacoes.push(...lics);
         dadosConsolidados.itens.push(...its);
@@ -1172,6 +1234,19 @@ async function carregarTodosDados() {
 }
 
 // ==================== DATA DE ATUALIZAÇÃO ====================
+// Data do último commit dos arquivos de 2026 (tenta a parte 1 e depois o arquivo único)
+async function dataUltimoCommit2026() {
+    for (const nome of ['licitacoes2026_1.csv', 'licitacoes2026.csv']) {
+        try {
+            const r = await fetch(`https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/commits?path=dataset/data/${nome}&per_page=1`);
+            if (!r.ok) continue;
+            const cs = await r.json();
+            if (cs && cs.length > 0) return new Date(cs[0].commit.committer.date).toLocaleDateString('pt-BR');
+        } catch(e) {}
+    }
+    return null;
+}
+
 async function setupAtualizacaoData() {
     const el = document.getElementById('data-atualizacao-header');
     try {
@@ -1180,7 +1255,7 @@ async function setupAtualizacaoData() {
         if (!resp.ok) throw new Error('api erro');
         const arquivos = await resp.json();
         const execFiles = arquivos
-            .filter(f => f.name && f.name.match(/^licitacoes\d{4}\.csv$/))
+            .filter(f => f.name && f.name.match(/^licitacoes\d{4}(_\d+)?\.csv$/))
             .sort((a,b) => b.name.localeCompare(a.name));
         if (execFiles.length > 0) {
             const arqRecente = execFiles[0].name;
@@ -1193,24 +1268,18 @@ async function setupAtualizacaoData() {
                 }
             }
             // Fallback: extrai ano do nome
-            const match = arqRecente.match(/licitacoes(\d{4})\.csv/);
+            const match = arqRecente.match(/licitacoes(\d{4})(_\d+)?\.csv/);
             if (match) { el.textContent = match[1]; return; }
         }
-        // Fallback: tenta pegar data do commit do licitacoes2026.csv diretamente
-        const fb = await fetch('https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/commits?path=dataset/data/licitacoes2026.csv&per_page=1');
-        if (fb.ok) {
-            const cs = await fb.json();
-            if (cs && cs.length > 0) { el.textContent = new Date(cs[0].commit.committer.date).toLocaleDateString('pt-BR'); return; }
-        }
+        // Fallback: data do último commit de 2026 (dividido ou arquivo único)
+        const dataFb = await dataUltimoCommit2026();
+        if (dataFb) { el.textContent = dataFb; return; }
         el.textContent = '2026';
     } catch(e) {
         // Último fallback: data do commit do licitacao2026.csv
         try {
-            const fb = await fetch('https://api.github.com/repos/transparencia-mg/portal_licitacoes_mg/commits?path=dataset/data/licitacoes2026.csv&per_page=1');
-            if (fb.ok) {
-                const cs = await fb.json();
-                if (cs && cs.length > 0) { document.getElementById('data-atualizacao-header').textContent = new Date(cs[0].commit.committer.date).toLocaleDateString('pt-BR'); return; }
-            }
+            const dataFb = await dataUltimoCommit2026();
+            if (dataFb) { document.getElementById('data-atualizacao-header').textContent = dataFb; return; }
         } catch(e2) {}
         document.getElementById('data-atualizacao-header').textContent = 'Não disponível';
     }
