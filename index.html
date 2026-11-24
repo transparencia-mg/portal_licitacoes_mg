@@ -432,12 +432,13 @@
             z-index: 10400 !important;
         }
         .modal-dialog {
-            margin: 1.75rem auto !important;
+            margin: 1.75rem auto;
             /* Garante que o diálogo não ultrapasse a tela */
-            max-height: calc(100vh - 3.5rem);
+            max-height: var(--modal-max-h, calc(100vh - 3.5rem));
         }
+        .modal-dialog-scrollable { height: auto !important; }
         .modal-dialog-scrollable .modal-content {
-            max-height: calc(100vh - 3.5rem) !important;
+            max-height: var(--modal-max-h, calc(100vh - 3.5rem)) !important;
             overflow: hidden;
         }
         .modal-dialog-scrollable .modal-body {
@@ -1739,7 +1740,7 @@ function gerarLinhasTabelaLicitacoes(licitacoes) {
                 if (urlPortal) {
                     linha+=`<td><a href="${urlPortal}" target="_blank" class="processo-link">${l['numero_processo_formatado']||'-'}</a></td>`;
                 } else {
-                    linha+=`<td><a href="#" class="processo-link" onclick="verDetalhesLicitacao('${(l['numero_processo_formatado']||'').replace(/'/g,"\\'")}');return false;">${l['numero_processo_formatado']||'-'}</a></td>`;
+                    linha+=`<td><a href="#" class="processo-link" onclick="verDetalhesLicitacao('${(l['numero_processo_formatado']||'').replace(/'/g,"\\'")}', this);return false;">${l['numero_processo_formatado']||'-'}</a></td>`;
                 }
             }
             else if (col==='numero_processo_original_formatado' && colunasVisiveis.numero_processo_original_formatado) { const po = l['numero_processo_original_formatado']; linha+=`<td>${po?po:'<span class="nao-aplica">Não se aplica</span>'}</td>`; }
@@ -1757,7 +1758,7 @@ function gerarLinhasTabelaLicitacoes(licitacoes) {
             else if (col==='valor_estimado' && colunasVisiveis.valor_estimado) linha+=`<td class="text-right">${formatarMoeda(l['valor_total_referencia_item_processo'])}</td>`;
             else if (col==='valor_total_homologado') linha+=`<td class="text-right">${formatarMoeda(l['valor_total_homologado'])}</td>`;
             else if (col==='edital' && colunasVisiveis.edital) linha+=`<td>${editalDisplay}</td>`;
-            else if (col==='acoes') linha+=`<td class="text-center"><button class="btn-action" onclick="verDetalhesLicitacao('${(l['numero_processo_formatado']||'').replace(/'/g,"\\'")}')"><i class="material-icons" style="font-size:15px">visibility</i></button></td>`;
+            else if (col==='acoes') linha+=`<td class="text-center"><button class="btn-action" onclick="verDetalhesLicitacao('${(l['numero_processo_formatado']||'').replace(/'/g,"\\'")}', this)"><i class="material-icons" style="font-size:15px">visibility</i></button></td>`;
         }
         return linha + '</tr>';
     }).join('');
@@ -1833,11 +1834,16 @@ window.limparFiltrosCL = function() {
 // ============================================================
 // 6. MODAL DETALHES LICITAÇÃO
 // ============================================================
-window.verDetalhesLicitacao = function(processo) {
-    const dados = dadosConsolidados.licitacoes.filter(l => l['numero_processo_formatado'] === processo);
-    if (!dados.length) return;
-    const licitacao = dados[0];
-    const itensRelacionados = dadosConsolidados.itens.filter(i => i['numero_processo_formatado'] === processo);
+window.verDetalhesLicitacao = function(processo, origemEl) {
+  try {
+    const chave = String(processo || '').trim();
+    if (!chave) { mostrarToast('Processo não informado.', 'error'); return; }
+    const mesmoProc = x => x && String(x['numero_processo_formatado'] || '').trim() === chave;
+    const dados = dadosConsolidados.licitacoes.filter(mesmoProc);
+    const itensRelacionados = dadosConsolidados.itens.filter(mesmoProc);
+    // Processo sem linha na tabela de licitações (comum na aba Itens): monta o modal com os dados do item
+    if (!dados.length && !itensRelacionados.length) { mostrarToast('Detalhes do processo não encontrados.', 'error'); return; }
+    const licitacao = dados.length ? dados[0] : { ...itensRelacionados[0] };
     const isEmergencial = verificarEmergencial(licitacao);
     const contratoInfo = getInfoContrato(licitacao);
     const dataSessaoDisplay = getDataSessao(licitacao);
@@ -1934,6 +1940,7 @@ window.verDetalhesLicitacao = function(processo) {
         </div>` : ''}`;
 
     const modalEl = document.getElementById('detailModal');
+    posicionarModalNoClique(modalEl, origemEl);
 
     // Garante que o conteúdo do modal começa do topo sempre que é aberto
     modalEl.addEventListener('shown.bs.modal', function() {
@@ -1949,7 +1956,40 @@ window.verDetalhesLicitacao = function(processo) {
 
     const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
     modal.show();
+  } catch (erro) {
+    console.error('Erro ao abrir detalhes da licitação:', erro);
+    mostrarToast('Não foi possível abrir os detalhes deste processo.', 'error');
+  }
 };
+
+// Dentro de um iframe que cresce até a altura total do conteúdo, um modal
+// "position: fixed" centralizado fica no meio do iframe — milhares de pixels
+// abaixo de onde o usuário está. Aqui o diálogo é posicionado na altura
+// do botão clicado, que está sempre visível para o usuário.
+function posicionarModalNoClique(modalEl, origemEl) {
+    const dialog = modalEl.querySelector('.modal-dialog');
+    if (!dialog) return;
+    const emIframe = window.parent && window.parent !== window;
+    const iframeAlto = window.innerHeight > (screen.height || 1000) * 1.2;
+    if (!emIframe && !iframeAlto) {
+        // Página normal: comportamento padrão do Bootstrap
+        dialog.classList.add('modal-dialog-centered');
+        dialog.style.marginTop = '';
+        dialog.style.removeProperty('--modal-max-h');
+        return;
+    }
+    dialog.classList.remove('modal-dialog-centered');
+    const alturaUtil = Math.min(window.innerHeight, (screen.height || 900)) - 40;
+    const maxH = Math.max(320, Math.min(alturaUtil, 750));
+    dialog.style.setProperty('--modal-max-h', maxH + 'px');
+    let topo = 20;
+    if (origemEl && origemEl.getBoundingClientRect) {
+        const r = origemEl.getBoundingClientRect();
+        topo = r.top - maxH / 3;
+    }
+    topo = Math.max(10, Math.min(topo, window.innerHeight - maxH - 10));
+    dialog.style.setProperty('margin-top', topo + 'px', 'important');
+}
 
 // ============================================================
 // 7. CONSULTA ITENS
@@ -2084,7 +2124,7 @@ function gerarLinhasTabelaItens(itens) {
         const sit = item['situacao_compra_item_processo']||'-';
         return `<tr>
             <td>${item['ano_criacao_processo']||'-'}</td>
-            <td>${(()=>{ const u=gerarUrlComprasMG(item['numero_processo_formatado']||''); return u?`<a href="${u}" target="_blank" class="processo-link">${item['numero_processo_formatado']||'-'}</a>`:`<a href="#" class="processo-link" onclick="verDetalhesLicitacao('${proc}');return false;">${item['numero_processo_formatado']||'-'}</a>`; })()}</td>
+            <td>${(()=>{ const u=gerarUrlComprasMG(item['numero_processo_formatado']||''); return u?`<a href="${u}" target="_blank" class="processo-link">${item['numero_processo_formatado']||'-'}</a>`:`<a href="#" class="processo-link" onclick="verDetalhesLicitacao('${proc}', this);return false;">${item['numero_processo_formatado']||'-'}</a>`; })()}</td>
             <td>${item['numero_item_processo']||'-'}</td>
             <td><span class="badge-situacao ${getBadgeClassPorSituacao(sit)}">${sit}</span></td>
             <td>${item['codigo_elemento_item_despesa']||'-'}</td>
@@ -2096,7 +2136,7 @@ function gerarLinhasTabelaItens(itens) {
             <td class="text-right">${formatarMoeda(item['valor_unitario_homologado_item_processo'])}</td>
             <td class="text-right">${formatarMoeda(item['valor_total_referencia_item_processo'])}</td>
             <td class="text-right">${formatarMoeda(item['valor_total_homologado'])}</td>
-            <td class="text-center"><button class="btn-action" onclick="verDetalhesLicitacao('${proc}')" title="Detalhes"><i class="material-icons" style="font-size:15px">visibility</i></button></td>
+            <td class="text-center"><button class="btn-action" onclick="verDetalhesLicitacao('${proc}', this)" title="Detalhes"><i class="material-icons" style="font-size:15px">visibility</i></button></td>
         </tr>`;
     }).join('');
 }
