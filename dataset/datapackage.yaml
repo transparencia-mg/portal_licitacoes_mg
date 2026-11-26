@@ -3042,4 +3042,70 @@ resources:
           type: string
     scheme: file
     title: Licitações 2026 - Parte 5
+  - dialect:
+      delimiter: ;
+    encoding: utf-8-sig
+    format: csv
+    hashing: md5
+    name: licitacoes2026_6
+    path: data/licitacoes2026_6.csv
+    profile: tabular-data-resource
+    schema:
+      fields:
+        - name: ano_criacao_pedido
+          type: integer
+        - name: procedimento_contratacao_grupo
+          type: string
+        - name: procedimento_contratacao_detalhamento_1
+          type: string
+        - name: procedimento_contratacao_especializacao
+          type: string
+        - name: codigo_orgao_entidade_compra
+          type: integer
+        - name: nome_orgao_entidade_compra
+          type: string
+        - name: numero_processo_original_formatado
+          type: any
+        - name: numero_processo_formatado
+          type: string
+        - name: data_criacao_pedido
+          type: date
+        - name: data_licitacao
+          type: any
+        - name: numero_contrato
+          type: integer
+        - name: indicador_termo_de_contrato
+          type: string
+        - name: situacao_processo
+          type: string
+        - name: item_material_servico
+          type: string
+        - name: situacao_compra_item_processo
+          type: string
+        - name: criterio_julgamento
+          type: string
+        - name: objeto_processo
+          type: string
+        - name: unnamed_16
+          type: any
+        - name: nome_empresarial_nome_fornecedor
+          type: string
+        - name: cnpj_cpf_fornecedor_formatado
+          type: string
+        - name: numero_parecer_juridico
+          type: string
+        - name: data_parecer_juridico
+          type: date
+        - name: edital_retificacao_arquivos
+          type: any
+        - name: contrato_termoaditivo_arquivos
+          type: string
+        - name: valor_total_referencia_item_processo
+          type: string
+        - name: valor_total_homologado
+          type: string
+        - name: valor_total_atualizado
+          type: string
+    scheme: file
+    title: Licitações 2026 - Parte 6
 title: Consulta de Licitações MG
